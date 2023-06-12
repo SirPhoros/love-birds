@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomePage from './src/HomePage'
 import SendEggIcon from './src/Home_Children/SendEggIcon';
 import ProfilePage from './src/ProfilePage';
+import AboutPage from './src/Nav_Children/AboutPage';
 
 
 const Tab = createBottomTabNavigator();
@@ -17,6 +18,7 @@ export default function App() {
 			<Tab.Screen name="Home" component={ HomePage }/>
 			<Tab.Screen name="Send Egg" component={ SendEggIcon } />
 			<Tab.Screen name="Profile" component={ ProfilePage } />
+			<Tab.Screen name="About" component={ AboutPage } />
 		  </Tab.Navigator>
 		</NavigationContainer>
 	)
