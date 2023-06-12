@@ -1,9 +1,14 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
 //Database Storage
-import { getFirestore } from 'firebase/firestore'
+import { getFirestore, collection, addDoc } from 'firebase/firestore'
 //Firebase Auth
-import { getAuth } from 'firebase/auth'
+import {
+	getAuth,
+	signInWithPopup,
+	createUserWithEmailAndPassword,
+	GoogleAuthProvider,
+} from 'firebase/auth'
 
 // Your web app's Firebase configuration
 const firebaseConfig: {
@@ -28,3 +33,87 @@ const app = initializeApp(firebaseConfig)
 //Initialise Services
 const db = getFirestore(app)
 const auth = getAuth(app)
+
+//Sign Users
+
+interface newInfo {
+	email: string,
+	password: string
+}
+
+interface NewUser {
+	email: string
+	username: string
+	avatarIMG: string
+	googleAuth: boolean
+	partner_username: string
+	in_relationship: boolean
+}
+
+function handleSignUp(e: any, newInfo: newInfo) {
+	e.preventDefault()
+	const { email, password } = newInfo
+	createUserWithEmailAndPassword(auth, email, password)
+		.then((cred) => {
+			// User successfully created
+			const user = cred.user
+			console.log('User created:', user)
+			const newUserRef = collection(db, 'USERS')
+			addDoc(newUserRef, {
+				email,
+				username: email.split('@')[0],
+				avatarIMG: '',
+				googleAuth: false,
+				partner_username: '',
+				in_relationship: false,
+			})
+				.then((docRef) => {
+					console.log('New user added:', docRef.id)
+				})
+				.catch((error) => {
+					console.error('Error adding new user:', error)
+				})
+		})
+		.catch((error) => {
+			// Handle error during user creation
+			console.error('Error creating user:', error)
+		})
+}
+const provider = new GoogleAuthProvider()
+
+function handleGoogle() {
+	signInWithPopup(auth, provider)
+		.then((result) => {
+			// This gives you a Google Access Token. You can use it to access the Google API.
+			const credential = GoogleAuthProvider.credentialFromResult(result)
+			// The signed-in user info.
+			const { displayName, email } = result.user
+			console.log('new User:', displayName, email)
+			// IdP data available using getAdditionalUserInfo(result)
+			const newUserRef = collection(db, 'USERS')
+			addDoc(newUserRef, {
+				email,
+				username: email.split('@')[0],
+				avatarIMG: '',
+				googleAuth: true,
+				partner_username: '',
+				in_relationship: false,
+			})
+				.then((docRef) => {
+					console.log('New user added:', docRef.id)
+				})
+				.catch((error) => {
+					console.error('Error adding new user:', error)
+				})
+		})
+		.catch((error) => {
+			// Handle Errors here.
+			const errorCode = error.code
+			const errorMessage = error.message
+			// The email of the user's account used.
+			const email = error.customData.email
+			// The AuthCredential type that was used.
+			const credential = GoogleAuthProvider.credentialFromError(error)
+			// ...
+		})
+}
