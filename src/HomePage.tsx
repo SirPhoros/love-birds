@@ -1,6 +1,8 @@
 import React from "react";
 import { Text, View } from "react-native";
-import NestIcon from "./Home - Children/NestIcon";
+import SendEggIcon from "./Home_Children/SendEggIcon";
+import NestIcon from "./Home_Children/NestIcon";
+
 
 export default function HomePage() {
     
@@ -8,7 +10,6 @@ export default function HomePage() {
     <>
         <View>
             <Text>HomePage goes here</Text>
-            <NestIcon />
         </View>
     </>
     )
