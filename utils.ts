@@ -35,12 +35,11 @@ const db = getFirestore(app)
 const auth = getAuth(app)
 
 //Sign Users
-
 interface newInfo {
 	email: string,
 	password: string
 }
-
+//Template for NewUser
 interface NewUser {
 	email: string
 	username: string
@@ -84,24 +83,17 @@ const provider = new GoogleAuthProvider()
 function handleGoogle() {
 	signInWithPopup(auth, provider)
 		.then((result) => {
-			// This gives you a Google Access Token. You can use it to access the Google API.
-			const credential = GoogleAuthProvider.credentialFromResult(result)
 			// The signed-in user info.
 			const { displayName, email } = result.user
-			console.log('new User:', displayName, email)
-			// IdP data available using getAdditionalUserInfo(result)
 			const newUserRef = collection(db, 'USERS')
 			addDoc(newUserRef, {
 				email,
-				username: email.split('@')[0],
+				username: email?.split('@')[0],
 				avatarIMG: '',
 				googleAuth: true,
 				partner_username: '',
 				in_relationship: false,
 			})
-				.then((docRef) => {
-					console.log('New user added:', docRef.id)
-				})
 				.catch((error) => {
 					console.error('Error adding new user:', error)
 				})
