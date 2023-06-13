@@ -36,7 +36,7 @@ const auth = getAuth(app)
 
 //Sign Users
 interface newInfo {
-	email: string,
+	email: string
 	password: string
 }
 //Template for NewUser
@@ -65,13 +65,9 @@ function handleSignUp(e: any, newInfo: newInfo) {
 				googleAuth: false,
 				partner_username: '',
 				in_relationship: false,
+			}).catch((error) => {
+				console.error('Error adding new user:', error)
 			})
-				.then((docRef) => {
-					console.log('New user added:', docRef.id)
-				})
-				.catch((error) => {
-					console.error('Error adding new user:', error)
-				})
 		})
 		.catch((error) => {
 			// Handle error during user creation
@@ -93,10 +89,9 @@ function handleGoogle() {
 				googleAuth: true,
 				partner_username: '',
 				in_relationship: false,
+			}).catch((error) => {
+				console.error('Error adding new user:', error)
 			})
-				.catch((error) => {
-					console.error('Error adding new user:', error)
-				})
 		})
 		.catch((error) => {
 			// Handle Errors here.
