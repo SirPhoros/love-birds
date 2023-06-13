@@ -18,9 +18,7 @@ const profileId:{
     username: "byebye"
     }
 
-
-
-export default function ProfilePage() {
+export default function Profile() {
 
     const nav = useNavigation()
     const [partner, setPartner] = useState('')
