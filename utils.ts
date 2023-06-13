@@ -37,7 +37,7 @@ const auth = getAuth(app)
 //Sign Users
 
 interface newInfo {
-	email: string,
+	email: string
 	password: string
 }
 
@@ -84,16 +84,12 @@ const provider = new GoogleAuthProvider()
 function handleGoogle() {
 	signInWithPopup(auth, provider)
 		.then((result) => {
-			// This gives you a Google Access Token. You can use it to access the Google API.
-			const credential = GoogleAuthProvider.credentialFromResult(result)
 			// The signed-in user info.
 			const { displayName, email } = result.user
-			console.log('new User:', displayName, email)
-			// IdP data available using getAdditionalUserInfo(result)
 			const newUserRef = collection(db, 'USERS')
 			addDoc(newUserRef, {
 				email,
-				username: email.split('@')[0],
+				username: email?.split('@')[0],
 				avatarIMG: '',
 				googleAuth: true,
 				partner_username: '',
