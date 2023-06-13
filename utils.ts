@@ -40,7 +40,7 @@ interface newInfo {
 	email: string
 	password: string
 }
-
+//Template for the NewUser
 interface NewUser {
 	email: string
 	username: string
