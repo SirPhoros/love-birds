@@ -1,7 +1,13 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
 //Database Storage
-import { getFirestore, collection, setDoc, doc } from 'firebase/firestore'
+import {
+	getFirestore,
+	collection,
+	setDoc,
+	getDoc,
+	doc,
+} from 'firebase/firestore'
 //Firebase Auth
 import {
 	getAuth,
@@ -134,7 +140,6 @@ export function checkUser() {
 	console.log(auth.currentUser)
 }
 
-
-export function checkUser () {
+export function checkUser() {
 	console.log(auth.currentUser)
 }
