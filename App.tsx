@@ -15,6 +15,8 @@ import Welcome from './src/SignIn_Children/Welcome';
 import Register from './src/SignIn_Children/RegisterPage';
 import LogIn from './src/SignIn_Children/LogIn';
 
+import { UserContextProvider } from './Context/UserContext';
+
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
@@ -27,6 +29,7 @@ function HomeStack () {
         headerTitleStyle: {
           fontWeight: 'bold',
         }}}>
+          
           <Stack.Screen name="Home" component={Home} options={{title: 'Home'}}/>
 		      <Stack.Screen name="Send Egg" component={SendEgg} />
 		      <Stack.Screen name="Nest" component={Nest} />
@@ -36,6 +39,7 @@ function HomeStack () {
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="LogIn" component={LogIn} />
+          
       </Stack.Navigator>
 	)
 }
@@ -60,6 +64,7 @@ function ProfileStack () {
 function App() {
   return (
     // Navbar below //
+    <UserContextProvider>
     <NavigationContainer>
 	<Tab.Navigator screenOptions={{ headerStyle: {
           backgroundColor: 'red',
@@ -74,6 +79,7 @@ function App() {
     <Tab.Screen name="About" component={About} />
 	</Tab.Navigator>
     </NavigationContainer>
+    </UserContextProvider>
   );
 }
 

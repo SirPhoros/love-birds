@@ -1,31 +1,32 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { Text, View, Image, Button, Alert, TextInput } from "react-native"
 import { useNavigation } from "@react-navigation/native"
+import { UserContext } from "../../Context/UserContext"
 
-const profileId:{ 
-    avatarIMG: string,
-    email:string,
-    googleAuth: boolean,
-    in_relationship: boolean,
-    partner_username: string,
-    username: string
-} = { 
-    avatarIMG: "https://img.rawpixel.com/private/static/images/website/2022-05/ns8230-image.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=b3961e17298745c0868eeef46211c3d0",
-    email:"byebye@gmail.com",
-    googleAuth: false,
-    in_relationship: false,
-    partner_username: "Tom",
-    username: "byebye"
-    }
+// const profileId:{ 
+//     avatarIMG: string,
+//     email:string,
+//     googleAuth: boolean,
+//     in_relationship: boolean,
+//     partner_username: string,
+//     username: string
+// } = { 
+//     avatarIMG: "https://img.rawpixel.com/private/static/images/website/2022-05/ns8230-image.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=b3961e17298745c0868eeef46211c3d0",
+//     email:"byebye@gmail.com",
+//     googleAuth: false,
+//     in_relationship: false,
+//     partner_username: "Tom",
+//     username: "byebye"
+//     }
 
 export default function Profile() {
 
     const nav = useNavigation()
     const [partner, setPartner] = useState('')
+    const { profileId, setProfileId } = useContext(UserContext)
 
     let newPartner:string = '';
 
-    console.log(newPartner)
 
     function RelationshipTextInput () {
         return (
@@ -34,16 +35,13 @@ export default function Profile() {
                     placeholder="add partner's name here"
                     onChangeText={newText => {
                         newPartner=newText
-                        console.log("state:", newPartner)
                     }}
                 ></TextInput> 
                 <Button 
                     title="Add Relationship" 
                     onPress={() => {
-                    setPartner(newPartner)
+                    setProfileId({...profileId, partner_username: newPartner, in_relationship: true })
                     Alert.alert("Relationship updated with " + newPartner)
-                    profileId.in_relationship = true,
-                    profileId.partner_username = newPartner
                     }}
                     />
             </>
@@ -58,18 +56,13 @@ export default function Profile() {
                     onPress={() => {
                     setPartner("")
                     Alert.alert("Left Relationship")
-                    profileId.in_relationship = false,
-
-                    profileId.partner_username = ""
+                    setProfileId({...profileId, partner_username: newPartner, in_relationship: false })
                     
                     }}
                     />
             </>
         )
     }
-
-    console.log(partner)
-    console.log(profileId)
 
     return (
         <>
