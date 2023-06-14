@@ -11,6 +11,9 @@ import Game from './src/screens/Game';
 import MyEgg from './src/screens/MyEgg';
 import Relationship from './src/Profile_Children/Relationship';
 import 'react-native-gesture-handler';
+import Welcome from './src/SignIn_Children/Welcome';
+import Register from './src/SignIn_Children/RegisterPage';
+import LogIn from './src/SignIn_Children/LogIn';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -29,7 +32,10 @@ function HomeStack () {
 		      <Stack.Screen name="Nest" component={Nest} />
 		      <Stack.Screen name="Game" component={Game} />
 		      <Stack.Screen name="My Egg" component={MyEgg} />
-          
+
+          <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="LogIn" component={LogIn} />
       </Stack.Navigator>
 	)
 }
@@ -53,6 +59,7 @@ function ProfileStack () {
 
 function App() {
   return (
+    // Navbar below //
     <NavigationContainer>
 	<Tab.Navigator screenOptions={{ headerStyle: {
           backgroundColor: 'red',
@@ -61,10 +68,10 @@ function App() {
         headerTitleStyle: {
           fontWeight: 'bold',
         }}}>
-		<Tab.Screen name="About" component={About} />
 		<Tab.Screen name="Home" component={HomeStack} options={{headerShown: false}}/>
 		<Tab.Screen name="Send Egg" component={SendEgg} />
 		<Tab.Screen name="Profile" component={ProfileStack} options={{headerShown: false}}/>
+    <Tab.Screen name="About" component={About} />
 	</Tab.Navigator>
     </NavigationContainer>
   );
