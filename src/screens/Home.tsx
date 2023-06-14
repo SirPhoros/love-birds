@@ -3,9 +3,13 @@ import { Button, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 
+import { checkUser } from "../../utils";
 
 function Home() {
     const nav = useNavigation()
+
+ 
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
        <Button

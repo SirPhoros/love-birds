@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, Button, TextInput, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { handleGoogle, handleSignUpWithEmail } from "../../utils";
+
 
 export default function Register() {
   const nav = useNavigation()
@@ -39,6 +41,7 @@ export default function Register() {
                     onPress={() => {
                     setEmail(newEmail)
                     setPassword(newPassword)
+                    handleSignUpWithEmail(newEmail, newPassword)
                     Alert.alert('Registered Successfuly!')
                     }}
                     />
@@ -46,27 +49,30 @@ export default function Register() {
         )
     }
 
-    function GoogleRegister () {
-        return (
-            <>
-                <Text>Or</Text>
-                <Button 
-                    title="Register with Google" 
-                    onPress={() => {
-                    Alert.alert('Registered Successfuly!')
-                    nav.navigate('Home' as never)
-                    }}
-                    />
-            </>
-        )
-    }
+    // Google auth does not yet work!! Yet!!!!
+
+    // function GoogleRegister () {
+    //     return (
+    //         <>
+    //             <Text>Or</Text>
+    //             <Button 
+    //                 title="Register with Google" 
+    //                 onPress={() => {
+    //                     handleGoogle()
+    //                 // Alert.alert('Registered Successfuly!')
+    //                 // nav.navigate('Home' as never)
+    //                 }}
+    //                 />
+    //         </>
+    //     )
+    // }
 
     function Register () {
         return (
             <>
                 <Text className="text-2xl py-12">Register Here</Text>
                 <EmailRegister />
-                <GoogleRegister />
+                {/* <GoogleRegister /> */}
             </>
         )
     }
