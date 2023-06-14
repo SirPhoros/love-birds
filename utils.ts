@@ -55,12 +55,11 @@ onAuthStateChanged(auth, (user) => {
 	console.log('user status changed: ', user)
 })
 
-function handleSignUpWithEmail(email: string, password: string) {
+export function handleSignUpWithEmail(email: string, password: string) {
 	createUserWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
 			// User sign-in successful
 			const user = userCredential.user
-			console.log(user)
 			// Proceed with attaching data to the user
 			attachUserDataToUser(user)
 		})
@@ -90,7 +89,7 @@ function attachUserDataToUser(user: any) {
 			console.error('Error attaching user data:', error)
 		})
 }
-function handleGoogle() {
+export function handleGoogle() {
 	const provider = new GoogleAuthProvider()
 	signInWithPopup(auth, provider)
 		.then((userCredential) => {
@@ -109,4 +108,8 @@ function handleGoogle() {
 			const credential = GoogleAuthProvider.credentialFromError(error)
 			// ...
 		})
+}
+
+export function checkUser () {
+	console.log(auth.currentUser)
 }
