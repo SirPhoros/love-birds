@@ -8,6 +8,9 @@ import {
 	signInWithPopup,
 	createUserWithEmailAndPassword,
 	GoogleAuthProvider,
+	signInWithEmailAndPassword,
+	signOut, 
+	onAuthStateChanged
 } from 'firebase/auth'
 
 // Your web app's Firebase configuration
@@ -104,3 +107,26 @@ function handleGoogle() {
 			// ...
 		})
 }
+
+
+function logIn() {
+	signInWithEmailAndPassword(auth, email, password)
+	.then((cred) => {
+		console.log('User logged in', cred.user)
+	})
+	.catch((error) => {
+		console.log('Error logging in:', error)
+	})
+}
+
+function logOut() {
+	signOut(auth) 
+		.then(() => {
+			console.log('user signed out')
+		}).catch((error) => {
+			console.error('Error logging out:', error)
+		})
+}
+
+
+
