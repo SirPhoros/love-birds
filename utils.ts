@@ -110,6 +110,31 @@ export function handleGoogle() {
 		})
 }
 
+//Get Main User's Data
+function getUserData() {
+	const userId: string = auth.currentUser.uid
+	const documentRef = doc(db, `users/${userId}`)
+
+	getDoc(documentRef)
+		.then((docSnapshot: any) => {
+			if (docSnapshot.exists()) {
+				// Document exists
+				const documentData = docSnapshot.data()
+				console.log('Document data:', documentData)
+			} else {
+				throw Error('There is no username')
+			}
+		})
+		.catch((error) => {
+			console.error('Error getting document:', error)
+		})
+}
+
+export function checkUser() {
+	console.log(auth.currentUser)
+}
+
+
 export function checkUser () {
 	console.log(auth.currentUser)
 }
