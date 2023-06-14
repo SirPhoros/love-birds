@@ -83,7 +83,7 @@ export default function Profile() {
                 <View>{profileId.in_relationship === false? <RelationshipTextInput /> : <EditRelationship />}</View>
                 <Text className="pt-12 pb-2">Username: {profileId.username}</Text>
                 <Text className="py-2">Email: {profileId.email}</Text>
-                <View>{profileId.in_relationship === true? <Button title="Relationship Wrapped" onPress={() => nav.navigate('Relationship')}></Button> : null}</View>
+                <View>{profileId.in_relationship === true? <Button title="Relationship Wrapped" onPress={() => nav.navigate('Relationship' as never)}></Button> : null}</View>
                 
                 
                 
