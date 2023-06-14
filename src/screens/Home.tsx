@@ -10,7 +10,7 @@ function Home() {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
        <Button
         title="🪹"
-        onPress={() => nav.navigate('Game' as never)}
+        onPress={() => nav.navigate('Nest' as never)}
       />
       <Button
         title="🥚"
