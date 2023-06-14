@@ -9,8 +9,8 @@ export default function Game() {
         <>
           <Text>Game of Day</Text>
           <Button 
-          title="Unlock Nest"
-          onPress={() => nav.navigate('Nest' as never)}
+          title="Unlock Egg"
+          onPress={() => nav.navigate('My Egg' as never)}
           ></Button>
         </>
     )
