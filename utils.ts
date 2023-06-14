@@ -140,6 +140,3 @@ export function checkUser() {
 	console.log(auth.currentUser)
 }
 
-export function checkUser() {
-	console.log(auth.currentUser)
-}
