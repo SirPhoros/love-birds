@@ -5,6 +5,7 @@ import { getFirestore, collection, addDoc } from 'firebase/firestore'
 //Firebase Auth
 import {
 	getAuth,
+	onAuthStateChanged,
 	signInWithPopup,
 	createUserWithEmailAndPassword,
 	GoogleAuthProvider,
@@ -48,6 +49,11 @@ interface NewUser {
 	partner_username: string
 	in_relationship: boolean
 }
+
+//Subscribe to changes
+onAuthStateChanged(auth, (user) => {
+console.log('user status changed: ', user)
+})
 
 function handleSignUp(e: any, newInfo: newInfo) {
 	e.preventDefault()
