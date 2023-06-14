@@ -9,6 +9,7 @@ import SendEgg from './src/screens/SendEgg';
 import Nest from './src/screens/Nest';
 import Game from './src/screens/Game';
 import MyEgg from './src/screens/MyEgg';
+import Relationship from './src/Profile_Children/Relationship';
 import 'react-native-gesture-handler';
 
 const Stack = createNativeStackNavigator()
@@ -23,13 +24,31 @@ function HomeStack () {
         headerTitleStyle: {
           fontWeight: 'bold',
         }}}>
-        <Stack.Screen name="Home" component={Home} options={{title: 'Home'}}/>
-		<Stack.Screen name="Send Egg" component={SendEgg} />
-		<Stack.Screen name="Nest" component={Nest} />
-		<Stack.Screen name="Game" component={Game} />
-		<Stack.Screen name="My Egg" component={MyEgg} />
+          <Stack.Screen name="Home" component={Home} options={{title: 'Home'}}/>
+		      <Stack.Screen name="Send Egg" component={SendEgg} />
+		      <Stack.Screen name="Nest" component={Nest} />
+		      <Stack.Screen name="Game" component={Game} />
+		      <Stack.Screen name="My Egg" component={MyEgg} />
+          
       </Stack.Navigator>
 	)
+}
+
+function ProfileStack () {
+  return (
+    <Stack.Navigator screenOptions={{ headerStyle: {
+        backgroundColor: 'red',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      }}}>
+        
+        <Stack.Screen name="Profile" component={Profile} options={{title: 'Profile'}}/>
+       <Stack.Screen name="Relationship" component={Relationship} />
+
+    </Stack.Navigator>
+)
 }
 
 function App() {
@@ -45,7 +64,7 @@ function App() {
 		<Tab.Screen name="About" component={About} />
 		<Tab.Screen name="Home" component={HomeStack} options={{headerShown: false}}/>
 		<Tab.Screen name="Send Egg" component={SendEgg} />
-		<Tab.Screen name="Profile" component={Profile} />
+		<Tab.Screen name="Profile" component={ProfileStack} options={{headerShown: false}}/>
 	</Tab.Navigator>
     </NavigationContainer>
   );
