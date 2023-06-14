@@ -16,6 +16,12 @@ function Home() {
         title="🥚"
         onPress={() => nav.navigate('Send Egg' as never)}
       />
+      {/* Button here for now, will default with context */}
+      <Button
+        title="Go to Welcome Page"
+        onPress={() => nav.navigate('Welcome' as never)}
+      />
+
     </View>
   );
 }
