@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
 //Database Storage
-import { getFirestore, collection, addDoc } from 'firebase/firestore'
+import { getFirestore, collection, setDoc, doc } from 'firebase/firestore'
 //Firebase Auth
 import {
 	getAuth,
@@ -52,52 +52,52 @@ interface NewUser {
 
 //Subscribe to changes
 onAuthStateChanged(auth, (user) => {
-console.log('user status changed: ', user)
+	console.log('user status changed: ', user)
 })
 
-function handleSignUp(e: any, newInfo: newInfo) {
-	e.preventDefault()
-	const { email, password } = newInfo
+function handleSignUpWithEmail(email: string, password: string) {
 	createUserWithEmailAndPassword(auth, email, password)
-		.then((cred) => {
-			// User successfully created
-			const user = cred.user
-			console.log('User created:', user)
-			const newUserRef = collection(db, 'USERS')
-			addDoc(newUserRef, {
-				email,
-				username: email.split('@')[0],
-				avatarIMG: '',
-				googleAuth: false,
-				partner_username: '',
-				in_relationship: false,
-			}).catch((error) => {
-				console.error('Error adding new user:', error)
-			})
+		.then((userCredential) => {
+			// User sign-in successful
+			const user = userCredential.user
+			console.log(user)
+			// Proceed with attaching data to the user
+			attachUserDataToUser(user)
 		})
 		.catch((error) => {
-			// Handle error during user creation
 			console.error('Error creating user:', error)
 		})
 }
-const provider = new GoogleAuthProvider()
+//Attach data to the user in Firestore
+function attachUserDataToUser(user: any) {
+	const uid = user.uid // Assuming you have access to the signed-in user's UID
+	const userData = {
+		email: user.email,
+		username: user.email.split('@')[0],
+		avatarIMG: '',
+		googleAuth: user.emailVerified,
+		partner_username: '',
+		in_relationship: false,
+		// Add other relevant data fields
+	}
+	const usersCollection = doc(db, 'users', uid)
 
+	setDoc(usersCollection, userData)
+		.then(() => {
+			console.log('User data attached successfully!')
+		})
+		.catch((error: any) => {
+			console.error('Error attaching user data:', error)
+		})
+}
 function handleGoogle() {
+	const provider = new GoogleAuthProvider()
 	signInWithPopup(auth, provider)
-		.then((result) => {
-			// The signed-in user info.
-			const { displayName, email } = result.user
-			const newUserRef = collection(db, 'USERS')
-			addDoc(newUserRef, {
-				email,
-				username: email?.split('@')[0],
-				avatarIMG: '',
-				googleAuth: true,
-				partner_username: '',
-				in_relationship: false,
-			}).catch((error) => {
-				console.error('Error adding new user:', error)
-			})
+		.then((userCredential) => {
+			// User sign-in successful
+			const user = userCredential.user
+			// Proceed with attaching data to the user
+			attachUserDataToUser(user)
 		})
 		.catch((error) => {
 			// Handle Errors here.
