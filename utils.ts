@@ -127,7 +127,7 @@ export function handleGoogle() {
 }
 
 //Get Main User's Data
-export function getUserData() : any {
+export function getUserData(): any {
 	const userId: string = auth.currentUser.uid
 	const documentRef = doc(db, `users/${userId}`)
 
@@ -180,14 +180,23 @@ const testUsername = {
 }
 // console.log(testUsername.partner_username)
 
-const isPartnerQuery = query(
-	usersRef,
-	where('username', '==', testUsername.partner_username)
-)
+export function updatePartner(newPartner: string): any {
+	return updateDoc(doc(db, 'users', auth.currentUser.uid), {
+		partner_username: newPartner,
+	})
+}
 
-export function checkRelationship() {
+export function removePartner() {
+	return updateDoc(doc(db, 'users', auth.currentUser.uid), {
+		partner_username: '',
+		in_relationship: false,
+	})
+}
+
+export function checkRelationship(partner: string): any {
+	const isPartnerQuery = query(usersRef, where('username', '==', partner))
 	let oneSide = false
-	getDocs(isPartnerQuery)
+	return getDocs(isPartnerQuery)
 		.then((querySnapshot) => {
 			querySnapshot.forEach((document) => {
 				oneSide = true
@@ -217,7 +226,7 @@ export function checkRelationship() {
 		.then(() => {
 			if (!oneSide) {
 				// Handle the case when no partner is found
-				console.log('Not partner found')
+				throw Error('Not partner found')
 			}
 		})
 		.catch((error: any) => {

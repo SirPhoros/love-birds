@@ -10,9 +10,6 @@ export default function Register() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    console.log('email state:', email)
-    console.log('password state:', password)
-
     let newEmail:string = '';
     let newPassword:string = '';
 
@@ -24,7 +21,6 @@ export default function Register() {
                     placeholder="add your email address here"
                     onChangeText={newText => {
                         newEmail=newText
-                        console.log('typed email:', newEmail)
                     }}
                 ></TextInput> 
                 <Text>Password:</Text>
@@ -33,7 +29,6 @@ export default function Register() {
                     secureTextEntry={true}
                     onChangeText={newText => {
                         newPassword=newText
-                        console.log('typed password:', newPassword)
                     }}
                 ></TextInput> 
                 <Button 
