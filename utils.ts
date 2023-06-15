@@ -127,16 +127,16 @@ export function handleGoogle() {
 }
 
 //Get Main User's Data
-function getUserData() {
+export function getUserData() : any {
 	const userId: string = auth.currentUser.uid
 	const documentRef = doc(db, `users/${userId}`)
 
-	getDoc(documentRef)
+	return getDoc(documentRef)
 		.then((docSnapshot: any) => {
 			if (docSnapshot.exists()) {
 				// Document exists
 				const documentData = docSnapshot.data()
-				console.log('Document data:', documentData)
+				return documentData
 			} else {
 				throw Error('There is no username')
 			}
@@ -148,7 +148,7 @@ function getUserData() {
 
 //Log-in/Log-out functions
 
-function logIn() {
+export function logIn() {
 	signInWithEmailAndPassword(auth, email, password)
 		.then((cred) => {
 			console.log('User logged in', cred.user)
@@ -158,7 +158,7 @@ function logIn() {
 		})
 }
 
-function logOut() {
+export function logOut() {
 	signOut(auth)
 		.then(() => {
 			console.log('user signed out')
@@ -185,7 +185,7 @@ const isPartnerQuery = query(
 	where('username', '==', testUsername.partner_username)
 )
 
-function checkRelationship() {
+export function checkRelationship() {
 	let oneSide = false
 	getDocs(isPartnerQuery)
 		.then((querySnapshot) => {
