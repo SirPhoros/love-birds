@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, Button, TextInput, StyleSheet } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { logIn } from '../../utils'
 
-let email: string = ''
-let password: string = ''
+let emailLogin: string = ''
+let passwordLogin: string = ''
 
 export default function LogIn() {
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
 	const nav = useNavigation()
 
 	/* --- Email Input --- */
@@ -18,7 +20,7 @@ export default function LogIn() {
 					<TextInput
 						placeholder="Enter email..."
 						onChangeText={(newText) => {
-							email = newText
+							emailLogin = newText
 						}}
 						style={styles.textContainer}
 					/>
@@ -29,12 +31,55 @@ export default function LogIn() {
 						placeholder="Password..."
 						secureTextEntry={true}
 						onChangeText={(newText) => {
-							password = newText
+							passwordLogin = newText
 						}}
 						style={styles.textContainer}
 					/>
 				</View>
 			</>
+		)
+	}
+
+	function LoginMessage() {
+		return (
+			<>
+				<View>
+					<Text>Welcome back! </Text>
+					<Text>We've missed you</Text>
+					<Button
+						title="Head to the App"
+						onPress={() => {
+							nav.navigate('Home' as never)
+						}}
+					/>
+				</View>
+			</>
+		)
+	}
+
+	function LoginPage() {
+		return (
+			<View>
+				<Text>Log in Page Goes Here.</Text>
+				<Button
+					title="Goes to home once registered"
+					onPress={() => nav.navigate('Home' as never)}
+				/>
+				<EmailInput />
+				<View style={styles.buttonContainer}>
+					<Button
+						title="Login"
+						color="#000000"
+						onPress={() => {
+							setEmail(emailLogin)
+							setPassword(passwordLogin)
+							console.log('email: ', email, 'password: ', password)
+							logIn(emailLogin, passwordLogin)
+						}}
+					/>
+					<Text style={styles.forgotPasswordLink}>Forgot your password?</Text>
+				</View>
+			</View>
 		)
 	}
 
@@ -50,23 +95,13 @@ export default function LogIn() {
 				alignItems: 'center',
 			}}
 		>
-			<Text>Log in Page Goes Here.</Text>
-			<Button
-				title="Goes to home once registered"
-				onPress={() => nav.navigate('Home' as never)}
-			/>
-			<EmailInput />
-			<View style={styles.buttonContainer}>
-				<Button
-					title="Login"
-					color="#000000"
-					onPress={() => {
-						logIn(email, password)
-            nav.navigate('Home' as never)
-					}}
-				/>
+			<View>
+				{email.length > 1 && password.length >= 6 ? (
+					<LoginMessage />
+				) : (
+					<LoginPage />
+				)}
 			</View>
-			<Text style={styles.forgotPasswordLink}>Forgot your password?</Text>
 		</View>
 	)
 }

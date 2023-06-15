@@ -5,6 +5,7 @@ import { UserContext } from '../../Context/UserContext'
 import {
 	checkRelationship,
 	getUserData,
+	logOut,
 	removePartner,
 	updatePartner,
 } from '../../utils'
@@ -98,6 +99,21 @@ export default function Profile() {
 		)
 	}
 
+	function SignOutButton() {
+		return (
+			<>
+				<Button
+					title="Sign Out"
+					onPress={() => {
+						Alert.alert('Signing out...')
+						logOut()
+						nav.navigate('Welcome' as never)
+					}}
+				/>
+			</>
+		)
+	}
+
 	return (
 		<>
 			<View
@@ -160,6 +176,9 @@ export default function Profile() {
 						></Button>
 					) : null}
 				</View>
+                <View>
+                    <SignOutButton/>
+                </View>
 			</View>
 		</>
 	)
