@@ -1,5 +1,7 @@
 import React, { useContext, useState } from "react"
-import { Text, View, Image, Button, Alert, TextInput } from "react-native"
+import { View, Alert, TextInput, StyleSheet } from "react-native"
+import { Text, Button, Image } from "react-native-elements";
+
 import { useNavigation } from "@react-navigation/native"
 import { UserContext } from "../../Context/UserContext"
 
@@ -32,18 +34,23 @@ export default function Profile() {
         return (
             <>
                 <TextInput
-                    placeholder="add partner's name here"
+                    placeholder="Partner's name here..."
                     onChangeText={newText => {
                         newPartner=newText
                     }}
-                ></TextInput> 
-                <Button 
-                    title="Add Relationship" 
-                    onPress={() => {
-                    setProfileId({...profileId, partner_username: newPartner, in_relationship: true })
-                    Alert.alert("Relationship updated with " + newPartner)
-                    }}
+                    style={styles.textContainer}
+                />
+                <View style={styles.buttonContainer}>
+                    <Button 
+                        title="Add Relationship" 
+                        onPress={() => {
+                        setProfileId({...profileId, partner_username: newPartner, in_relationship: true })
+                        Alert.alert("Relationship updated with " + newPartner)
+                        }}
+                        buttonStyle={{ backgroundColor: '#f2daa4' }}
+                        titleStyle={{ color: 'brown' }}
                     />
+                </View>
             </>
         )
     }
@@ -77,10 +84,26 @@ export default function Profile() {
                 <Text className="pt-12 pb-2">Username: {profileId.username}</Text>
                 <Text className="py-2">Email: {profileId.email}</Text>
                 <View>{profileId.in_relationship === true? <Button title="Relationship Wrapped" onPress={() => nav.navigate('Relationship' as never)}></Button> : null}</View>
-                
-                
-                
             </View>
         </>
     )
 }
+
+const styles = StyleSheet.create({
+    buttonContainer: {
+        width: '70%',
+        backgroundColor: '#f2daa4',
+        borderRadius: 5,
+        marginBottom: 10,
+        borderWidth: 2,
+        borderColor: 'brown',
+      },
+      textContainer: {
+        width: 200,
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 5,
+        marginBottom: 10,
+        height: 35,
+      },
+})

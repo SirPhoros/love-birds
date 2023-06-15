@@ -1,8 +1,26 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, TextInput, StyleSheet, Alert, ActivityIndicator } from 'react-native';
+import { Button } from "react-native-elements";
+
 
 const SendEgg: React.FC = () => {
   const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  /* --- Loading State --- */
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500); 
+  }, []);
+
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#a2f6e7" />
+      </View>
+    );
+  }
 
 
 // Work in progress once we can manage the messages
@@ -20,7 +38,8 @@ const SendEgg: React.FC = () => {
         <Button
           title="Play a Game"
           onPress={() => Alert.alert('Game section coming soon! 🎮')}
-          color="#ffffff"
+          buttonStyle={{ backgroundColor: '#a2f6e7' }}
+          titleStyle={{ color: 'brown' }}
         />
       </View>
       <View style={styles.textContainer}>
@@ -36,7 +55,8 @@ const SendEgg: React.FC = () => {
           title="Send"
           onPress={() => Alert.alert('Message sent but lost now 🤷‍♂️')}
         //   onPress={handleSendMessage} //to fix once we can pass the stuff from database
-          color="#000000"
+          buttonStyle={{ backgroundColor: '#f2daa4' }}
+          titleStyle={{ color: 'brown' }}
         />
       </View>
     </View>
@@ -62,18 +82,22 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: '25%',
-    backgroundColor: '#f2daa4',
     borderRadius: 5,
     marginBottom: 10,
-    borderWidth: 1,
-    borderColor: '#000000',
+    borderWidth: 2,
+    borderColor: 'brown',
   },
   gameContainer: {
     width: '80%',
-    backgroundColor: 'green',
     borderRadius: 5,
     marginBottom: 10,
-    borderColor: '#000000',
+    borderWidth: 2,
+    borderColor: 'brown',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

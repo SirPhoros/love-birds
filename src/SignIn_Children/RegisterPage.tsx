@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { View, Text, Button, TextInput, Alert } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, TextInput, Alert, ActivityIndicator, StyleSheet } from "react-native";
+import { Text, Button } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { handleGoogle, handleSignUpWithEmail } from "../../utils";
 
@@ -7,44 +8,70 @@ import { handleGoogle, handleSignUpWithEmail } from "../../utils";
 export default function Register() {
   const nav = useNavigation()
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-    console.log('email state:', email)
-    console.log('password state:', password)
+  /* --- Loading State also needed to be added --- */
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500); 
+  }, []);
 
-    let newEmail:string = '';
-    let newPassword:string = '';
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#a2f6e7" />
+      </View>
+    );
+  }
+  
+  console.log('email state:', email)
+  console.log('password state:', password)
+
+  let newEmail:string = '';
+  let newPassword:string = '';
 
     function EmailRegister () {
         return (
             <>
-                <Text>Email:</Text>
-                <TextInput
-                    placeholder="add your email address here"
-                    onChangeText={newText => {
-                        newEmail=newText
-                        console.log('typed email:', newEmail)
-                    }}
-                ></TextInput> 
-                <Text>Password:</Text>
-                <TextInput
-                    placeholder="add your password here"
-                    secureTextEntry={true}
-                    onChangeText={newText => {
-                        newPassword=newText
-                        console.log('typed password:', newPassword)
-                    }}
-                ></TextInput> 
-                <Button 
-                    title="Register With Email" 
-                    onPress={() => {
-                    setEmail(newEmail)
-                    setPassword(newPassword)
-                    handleSignUpWithEmail(newEmail, newPassword)
-                    Alert.alert('Registered Successfuly!')
-                    }}
+                <View style={{ alignItems: 'center', marginBottom: 20 }}>
+                    <Text>Email:</Text>
+                    <TextInput
+                        placeholder="Enter email..."
+                        onChangeText={newText => {
+                            newEmail=newText
+                            console.log('typed email:', newEmail)
+                        }}
+                        style={styles.textContainer}
                     />
+                </View>
+                <View style={{ alignItems: 'center', marginBottom: 20 }}>
+                    <Text>New Password:</Text>
+                    <TextInput
+                        placeholder="Enter new password..."
+                        secureTextEntry={true}
+                        onChangeText={newText => {
+                            newPassword=newText
+                            console.log('typed password:', newPassword)
+                        }}
+                        style={styles.textContainer}
+                    />
+                </View>
+                <View style={styles.buttonContainer}>
+                    <Button 
+                        title="Register With Email" 
+                        onPress={() => {
+                        setEmail(newEmail)
+                        setPassword(newPassword)
+                        handleSignUpWithEmail(newEmail, newPassword)
+                        Alert.alert('Registered Successfuly!')
+                        }}
+                        buttonStyle={{ backgroundColor: '#f2daa4' }}
+                        titleStyle={{ color: 'brown' }}
+                        />
+                </View>
             </>
         )
     }
@@ -80,7 +107,7 @@ export default function Register() {
     function WelcomeMessage () {
         return (
             <> 
-            <View >
+              <View>
                 <Text>Thanks for signing up!</Text>
                 <Text>You can change any of your details within the profile page</Text>
                 <Button 
@@ -89,8 +116,7 @@ export default function Register() {
                     nav.navigate('Home' as never)
                     }}
                 />
-                
-                </View>
+              </View>
             </>
         )
     }
@@ -102,3 +128,28 @@ export default function Register() {
       </View>
     )
 }
+
+/* --- Non-Tailwind Styling --- */
+const styles = StyleSheet.create({
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      textContainer: {
+        width: 200,
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 5,
+        marginBottom: 10,
+        height: 35,
+      },
+      buttonContainer: {
+        width: 200,
+        backgroundColor: '#f2daa4',
+        borderRadius: 5,
+        marginBottom: 10,
+        borderWidth: 2.5,
+        borderColor: 'brown',
+      },
+})

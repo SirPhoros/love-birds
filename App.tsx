@@ -2,6 +2,8 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Icon } from 'react-native-elements';
+
 import Home from './src/screens/Home';
 import Profile from './src/screens/Profile';
 import About from './src/screens/About';
@@ -23,14 +25,14 @@ const Tab = createBottomTabNavigator()
 function HomeStack () {
 	return (
 			<Stack.Navigator screenOptions={{ headerStyle: {
-          backgroundColor: 'red',
+          backgroundColor: '#eb8cda',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
           fontWeight: 'bold',
         }}}>
-          
           <Stack.Screen name="Home" component={Home} options={{title: 'Home'}}/>
+
 		      <Stack.Screen name="Send Egg" component={SendEgg} />
 		      <Stack.Screen name="Nest" component={Nest} />
 		      <Stack.Screen name="Game" component={Game} />
@@ -47,7 +49,7 @@ function HomeStack () {
 function ProfileStack () {
   return (
     <Stack.Navigator screenOptions={{ headerStyle: {
-        backgroundColor: 'red',
+        backgroundColor: '#eb8cda',
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
@@ -62,17 +64,45 @@ function ProfileStack () {
 }
 
 function App() {
+  
   return (
     // Navbar below //
     <UserContextProvider>
     <NavigationContainer>
-	<Tab.Navigator screenOptions={{ headerStyle: {
-          backgroundColor: 'red',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        }}}>
+    <Tab.Navigator
+          screenOptions={({ route }) => ({
+            headerStyle: {
+              backgroundColor: '#eb8cda',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            tabBarStyle: {
+              backgroundColor: '#eb8cda', //nav bar bg colour
+            },
+            tabBarActiveTintColor: '#8ceb9d', //nav bar active icon colour
+            tabBarInactiveTintColor: '#fff', //nav bar inactive icons colour
+            tabBarLabelStyle: {
+              fontSize: 12,
+            },
+            tabBarIcon: ({ color, size }) => {
+              let iconName;
+
+              if (route.name === 'Home') {
+                iconName = 'home';
+              } else if (route.name === 'Send Egg') {
+                iconName = 'send';
+              } else if (route.name === 'Profile') {
+                iconName = 'user';
+              } else if (route.name === 'About') {
+                iconName = 'info';
+              }
+
+              return <Icon name={iconName} type="font-awesome" color={color} size={size} />;
+            },
+          })}
+        >
 		<Tab.Screen name="Home" component={HomeStack} options={{headerShown: false}}/>
 		<Tab.Screen name="Send Egg" component={SendEgg} />
 		<Tab.Screen name="Profile" component={ProfileStack} options={{headerShown: false}}/>

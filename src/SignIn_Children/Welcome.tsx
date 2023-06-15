@@ -1,54 +1,72 @@
 import React from "react";
-import { View, Text, Button, Image, StyleSheet } from "react-native";
+import { Text, Button, Image } from "react-native-elements";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import LoveBirdsLogo from '../../assets/Lovebirds-Logo.gif';
-// import Lovebirds from '../../assets/Lovebirds-welcomepage.jpg'
 
 export default function Welcome() {
-  const nav = useNavigation()
+  const nav = useNavigation();
+  
 
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        {/* <Text>Welcome Page Goes Here</Text> */}
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+       
       <View style={styles.imageContainer}>
         <Image
           source={LoveBirdsLogo}
           style={{ resizeMode: 'contain', height: 175, width: 300, borderRadius: 40 }}
+          containerStyle={{
+            shadowColor: '#000000',
+            shadowOffset: { width: 0, height: 4 },
+            shadowOpacity: 0.8,
+            shadowRadius: 6,
+            elevation: 6,
+          }}
         />
       </View>
+
       <View style={styles.buttonContainer}>
         <Button
           title="Log In"
           onPress={() => nav.navigate('LogIn' as never)}
-          />
+          buttonStyle={{ backgroundColor: '#f2daa4' }}
+          titleStyle={{ color: 'brown' }}
+        />
       </View>
+
       <View style={styles.buttonContainer}>
         <Button
           title="Register"
           onPress={() => nav.navigate('Register' as never)}
-          />
+          buttonStyle={{ backgroundColor: '#f2daa4' }}
+          titleStyle={{ color: 'brown' }}
+        />
       </View>
+
       <View style={styles.welcomePageTxt}>
         <Text>
-          Presented by The Dev Wears Java
+          Presented by The_Dev_Wears_Java
         </Text>
       </View>
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>©The Dev Wears Java</Text>
-      </View>
-</View>
 
-)
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>
+          ©The_Dev_Wears_Java
+        </Text>
+      </View>
+    </View>
+  );
 }
 
+/* --- Styling --- */
 const styles = StyleSheet.create({
   buttonContainer: {
-    width: '25%',
+    width: '40%',
     backgroundColor: '#f2daa4',
     borderRadius: 5,
     marginBottom: 10,
-    borderWidth: 1,
-    borderColor: '#000000',
+    borderWidth: 2.5,
+    borderColor: 'brown',
   },
   imageContainer: {
     marginBottom: 20,
@@ -72,13 +90,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 60,
   },
-})
-
-
-
-{/* <View style={styles.imageContainer}>
-  <Image
-    source={Lovebirds}
-    style={{ resizeMode: 'contain', height: 175, width: 300, borderRadius: 40 }}
-  />
-</View> */}
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
