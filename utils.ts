@@ -148,7 +148,7 @@ export function getUserData(): any {
 
 //Log-in/Log-out functions
 
-export function logIn() {
+export function logIn(email:string, password:string) {
 	signInWithEmailAndPassword(auth, email, password)
 		.then((cred) => {
 			console.log('User logged in', cred.user)
