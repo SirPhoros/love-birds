@@ -6,7 +6,11 @@ import {
 	collection,
 	setDoc,
 	getDoc,
+	updateDoc,
+	getDocs,
 	doc,
+	query,
+	where,
 } from 'firebase/firestore'
 //Firebase Auth
 import {
@@ -55,6 +59,10 @@ interface NewUser {
 	partner_username: string
 	in_relationship: boolean
 }
+
+//Collections/Tables
+
+const usersRef = collection(db, 'users')
 
 //Subscribe to changes
 onAuthStateChanged(auth, (user) => {
@@ -136,7 +144,63 @@ function getUserData() {
 		})
 }
 
+//Verify that there's a relationship and it is mutual
+// This should be the username in context
+const testUsername = {
+	avatarIMG: '',
+	email: 'example@example.com',
+	googleAuth: false,
+	in_relationship: false,
+	partner_username: 'user',
+	username: 'example',
+}
+// console.log(testUsername.partner_username)
+
+const isPartnerQuery = query(
+	usersRef,
+	where('username', '==', testUsername.partner_username)
+)
+
+function checkRelationship() {
+	let oneSide = false
+	getDocs(isPartnerQuery)
+		.then((querySnapshot) => {
+			querySnapshot.forEach((document) => {
+				oneSide = true
+				const { username } = document.data()
+				const isMutualQuery = query(
+					usersRef,
+					where('partner_username', '==', username)
+				)
+
+				updateDoc(doc(db, 'users', document.id), {
+					in_relationship: true,
+				})
+
+				getDocs(isMutualQuery)
+					.then((querySnapshot) => {
+						querySnapshot.forEach((document) => {
+							updateDoc(doc(db, 'users', document.id), {
+								in_relationship: true,
+							}).then(() => console.log(testUsername))
+						})
+					})
+					.catch((error) => {
+						console.error('Error getting documents:', error)
+					})
+			})
+		})
+		.then(() => {
+			if (!oneSide) {
+				// Handle the case when no partner is found
+				console.log('Not partner found')
+			}
+		})
+		.catch((error: any) => {
+			console.error('Error getting documents:', error)
+		})
+}
+
 export function checkUser() {
 	console.log(auth.currentUser)
 }
-
