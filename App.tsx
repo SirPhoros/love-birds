@@ -9,11 +9,11 @@ import SendEgg from './src/screens/SendEgg';
 import Nest from './src/screens/Nest';
 import Game from './src/screens/Game';
 import MyEgg from './src/screens/MyEgg';
-import Relationship from './src/Profile_Children/Relationship';
+import Relationship from './src/screens/Relationship';
 import 'react-native-gesture-handler';
-import Welcome from './src/SignIn_Children/Welcome';
-import Register from './src/SignIn_Children/RegisterPage';
-import LogIn from './src/SignIn_Children/LogIn';
+import Welcome from './src/SignIn/Welcome';
+import Register from './src/SignIn/RegisterPage';
+import LogIn from './src/SignIn/LogIn';
 
 import { UserContextProvider } from './Context/UserContext';
 
