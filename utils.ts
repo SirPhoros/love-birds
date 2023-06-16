@@ -69,6 +69,7 @@ interface NewUser {
 //Collections/Tables
 
 const usersRef = collection(db, 'users')
+const eggsRef = collection(db, 'eggs')
 
 //Subscribe to changes
 onAuthStateChanged(auth, (user) => {
@@ -255,7 +256,7 @@ export function uploadMedia(file: any, metadata: any) {
 			.then(() => {
 				getDownloadURL(fileRef)
 					.then((fileUrl) => {
-						addDoc(collection(db, 'media'), {
+						addDoc(collection(db, 'eggs'), {
 							fileURL: fileUrl,
 							file_name: file.name,
 							//recipient: testUsername.partner_username,
@@ -281,4 +282,16 @@ export function uploadMedia(file: any, metadata: any) {
 		// setFile(null)
 		// setMessage('')
 	}
+}
+
+//fetch Eggs for "Eggs Page"
+function getEggs(username: string) {
+	const recipientQuery = query(eggsRef, where('recipient', '==', username))
+	return getDocs(recipientQuery).then((querySnapshot) => {
+		let eggArray: any[] = []
+		querySnapshot.forEach((document) => {
+			eggArray.push(document.data())
+		})
+		return eggArray
+	})
 }
