@@ -4,7 +4,8 @@ import { Button } from 'react-native-elements'
 import SelectDropdown from 'react-native-select-dropdown'
 import { UserContext } from '../../Context/UserContext'
 import { useContext } from 'react'
-import { uploadText } from '../../utils'
+import { uploadMedia, uploadText } from '../../utils'
+import * as ImagePicker from 'expo-image-picker'
 
 const SendEgg: React.FC = () => {
 	const [message, setMessage] = useState('')
@@ -20,20 +21,45 @@ const SendEgg: React.FC = () => {
 	const messages: string[] = ['Message', 'Image']
 	const [selectedGame, setSelectedGame] = useState('')
 	const [messageForm, setMessageForm] = useState('')
+	const [file, setFile] = useState(null)
 	const { profileId } = useContext(UserContext)
 	const { username, partner_username } = profileId
 	console.log('selectedGame:', selectedGame)
 	console.log('selectedMessageForm:', messageForm)
 	let messageText: string
 
-	// Work in progress once we can manage the messages
+	const handleFileSelection = () => {
+		ImagePicker.requestMediaLibraryPermissionsAsync()
+			.then(({ status }) => {
+				if (status !== 'granted') {
+					console.log('Permission not granted')
+					return
+				}
 
-	//   const handleSendMessage = () => {
-	//     // Logic to send the message
-	//     console.log('Sending message:', message);
-	//     // Reset the input field
-	//     setMessage('');
-	//   };
+				const options = {
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+				}
+
+				ImagePicker.launchImageLibraryAsync(options)
+					.then((result) => {
+						console.log("result in SendEgg: ", result)
+
+						if (!result.cancelled) {
+              console.log(result.assets[0].uri, "in SendEgg" )
+							setFile(result.assets[0].uri)
+						}
+					})
+					.catch((error) => {
+						console.log('ImagePicker Error: ', error)
+					})
+			})
+			.catch((error) => {
+				console.log('Permission request failed: ', error)
+			})
+	}
 
 	function MessageInput() {
 		return (
@@ -70,8 +96,8 @@ const SendEgg: React.FC = () => {
 		return (
 			<>
 				<Button
-					title="Upload Image Here"
-					// onPress={() => )}
+					title="Select Image"
+					onPress={handleFileSelection}
 				/>
 				<View style={styles.textContainer}>
 					<TextInput
@@ -87,9 +113,10 @@ const SendEgg: React.FC = () => {
 					<Button
 						title="Send"
 						onPress={() => {
-							Alert.alert('Message Sent!')
-
+							Alert.alert('Image Sent!')
 							setMessage(messageText)
+							console.log('File in SendEgg', file)
+							uploadMedia(file, { partner_username, username })
 							console.log('message state:', message)
 							console.log('messageText:', messageText)
 						}}

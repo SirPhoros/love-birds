@@ -247,28 +247,52 @@ export function checkUser() {
 
 //we need to send the file along with the metadata to this file,
 //probably handled by a "handleSubmit" kind of function
-export function uploadMedia(file: any, metadata: any) {
-	const { contentType, recipient, sender } = metadata
-	if (file) {
-		console.log(file)
-		const fileRef = ref(storage, file.name)
-		uploadBytes(fileRef, file)
+export async function uploadMedia(uri: any, metadata: any) {
+	const { partner_username, username } = metadata
+
+	const getBlobFroUri = async (uri) => {
+		const blob = await new Promise((resolve, reject) => {
+			const xhr = new XMLHttpRequest()
+			xhr.onload = function () {
+				resolve(xhr.response)
+			}
+			xhr.onerror = function (e) {
+				reject(new TypeError('Network request failed'))
+			}
+			xhr.responseType = 'blob'
+			xhr.open('GET', uri, true)
+			xhr.send(null)
+		})
+
+		return blob
+	}
+
+	const imageBlob = await getBlobFroUri(uri)
+
+	if (imageBlob) {
+		console.log(imageBlob, 'in utils file')
+		const fileRef = ref(storage, 'images/' + Date.now())
+		const contentType = 'image/jpeg' // Set the desired content type here
+		console.log('file Ref in utils: ', fileRef)
+
+		uploadBytes(fileRef, imageBlob)
 			.then(() => {
 				getDownloadURL(fileRef)
 					.then((fileUrl) => {
 						addDoc(collection(db, 'eggs'), {
 							fileURL: fileUrl,
-							file_name: file.name,
-							//recipient: testUsername.partner_username,
-							recipient: recipient,
-							//sender: testUsername.username,
-							sender: sender,
+							recipient: partner_username,
+							sender: username,
 							timestamp: serverTimestamp(),
 							isLocked: true,
-							contentType: contentType,
-						}).then((data: any) => {
-							console.log(data)
+							typeEgg: 'image',
 						})
+							.then((data: any) => {
+								console.log('data in utils: ', data)
+							})
+							.catch((error) => {
+								console.log(error.message)
+							})
 					})
 					.catch((error) => {
 						console.log(error.message)
@@ -277,10 +301,6 @@ export function uploadMedia(file: any, metadata: any) {
 			.catch((error) => {
 				console.log(error.message)
 			})
-
-		//This would need to be handled by React-Native
-		// setFile(null)
-		// setMessage('')
 	}
 }
 
