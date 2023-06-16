@@ -3,13 +3,6 @@ import { Button, Text, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { UserContext } from '../../Context/UserContext'
 import { checkUser, getUserData } from '../../utils'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import SendEgg from './SendEgg'
-import Profile from './Profile'
-import About from './About'
-
-
-const Tab = createBottomTabNavigator()
 
 function Home() {
 	const nav = useNavigation()
