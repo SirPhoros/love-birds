@@ -44,50 +44,42 @@ function HomeTabs() {
 
 function ProfileTabs() {
   return (
-    	<Tab.Navigator screenOptions={{ headerStyle: {
-          backgroundColor: 'red',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        }}}>
-		<Tab.Screen name="Home" component={Home} options={{headerShown: false}}/>
-		<Tab.Screen name="Send Egg" component={SendEgg} />
-		<Tab.Screen name="Profile" component={Profile} options={{headerShown: false}}/>
-    <Tab.Screen name="About" component={About} />
-	</Tab.Navigator>
-  )
-}
+   <Tab.Navigator
+          screenOptions={({ route }) => ({
+            headerStyle: {
+              backgroundColor: '#eb8cda',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            tabBarStyle: {
+              backgroundColor: '#eb8cda', //nav bar bg colour
+            },
+            tabBarActiveTintColor: '#8ceb9d', //nav bar active icon colour
+            tabBarInactiveTintColor: '#fff', //nav bar inactive icons colour
+            tabBarLabelStyle: {
+              fontSize: 12,
+            },
+            tabBarIcon: ({ color, size }) => {
+              let iconName;
 
-function SendEggTabs () {
-  return (
-    	<Tab.Navigator screenOptions={{ headerStyle: {
-          backgroundColor: 'red',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        }}}>
-		<Tab.Screen name="Home" component={Home} options={{headerShown: false}}/>
-		<Tab.Screen name="Send Egg" component={SendEgg} />
-		<Tab.Screen name="Profile" component={Profile} options={{headerShown: false}}/>
-    <Tab.Screen name="About" component={About} />
-	</Tab.Navigator>
-  )
-}
+              if (route.name === 'Home') {
+                iconName = 'home';
+              } else if (route.name === 'Send Egg') {
+                iconName = 'send';
+              } else if (route.name === 'Profile') {
+                iconName = 'user';
+              } else if (route.name === 'About') {
+                iconName = 'info';
+              }
 
-function RelationshipTabs () {
-  return (
-    	<Tab.Navigator screenOptions={{ headerStyle: {
-          backgroundColor: 'red',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        }}}>
-		<Tab.Screen name="Home" component={Home} options={{headerShown: false}}/>
-		<Tab.Screen name="Send Egg" component={SendEgg} />
-		<Tab.Screen name="Profile" component={Profile} options={{headerShown: false}}/>
+              return <Icon name={iconName} type="font-awesome" color={color} size={size} />;
+            },
+          })}
+        >
+		<Tab.Screen name="Home" component={Home} />
+		<Tab.Screen name="Profile" component={Profile}/>
     <Tab.Screen name="About" component={About} />
 	</Tab.Navigator>
   )
