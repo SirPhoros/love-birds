@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import { View, TextInput, StyleSheet } from 'react-native'
-import { Text, Button, Image } from "react-native-elements";
+import { Text, Button, Image } from 'react-native-elements'
 
 import { useNavigation } from '@react-navigation/native'
 import { logIn } from '../../utils'
 
 let emailLogin: string = ''
 let passwordLogin: string = ''
+
+const emailHolder = 'user@example.com'
+const passwordHolder = '123456'
 
 export default function LogIn() {
 	const [email, setEmail] = useState('')
@@ -44,25 +47,24 @@ export default function LogIn() {
 
 	function LoginMessage() {
 		return (
-		  <>
-			<View style={{ alignItems: 'center', marginBottom: 50 }}>
-				<Text>Welcome back! </Text>
-			</View>
-			<View style={{ alignItems: 'center', marginBottom: 50 }}>
-
-				<Text>We've missed you 😍</Text>
-			</View>
-			<View style={styles.buttonContainer}>
-				<Button
-				title="Head to the App"
-				onPress={() => {
-					nav.navigate('Home' as never);
-				}}
-				buttonStyle={{ backgroundColor: '#FAE8E0' }}
-				titleStyle={{ color: '#EF7C8E' }}
-				/>
-			</View>
-		  </>
+			<>
+				<View style={{ alignItems: 'center', marginBottom: 50 }}>
+					<Text>Welcome back! </Text>
+				</View>
+				<View style={{ alignItems: 'center', marginBottom: 50 }}>
+					<Text>We've missed you 😍</Text>
+				</View>
+				<View style={styles.buttonContainer}>
+					<Button
+						title="Head to the App"
+						onPress={() => {
+							nav.navigate('Home' as never)
+						}}
+						buttonStyle={{ backgroundColor: '#FAE8E0' }}
+						titleStyle={{ color: '#EF7C8E' }}
+					/>
+				</View>
+			</>
 		)
 	}
 
@@ -79,16 +81,21 @@ export default function LogIn() {
 					<Button
 						title="Login"
 						onPress={() => {
-							setEmail(emailLogin)
-							setPassword(passwordLogin)
+							// setEmail(emailLogin)
+							// setPassword(passwordLogin)
+							// logIn(emailLogin, passwordLogin)
+							
+							//Set Dummy Login for the sake of testing in an easier way. Uncomment above and delete once finished. 
+							setEmail(emailHolder)
+							setPassword(passwordHolder)
 							console.log('email: ', email, 'password: ', password)
-							logIn(emailLogin, passwordLogin)
+							logIn(emailHolder, passwordHolder)
 						}}
 						buttonStyle={{ backgroundColor: '#FAE8E0' }}
-          				titleStyle={{ color: '#EF7C8E' }}
+						titleStyle={{ color: '#EF7C8E' }}
 					/>
 				</View>
-				<Text style={styles.forgotPasswordLink }>Forgot your password?</Text>
+				<Text style={styles.forgotPasswordLink}>Forgot your password?</Text>
 			</View>
 		)
 	}
@@ -127,14 +134,14 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 	},
 	buttonContainer: {
-		alignSelf: 'center', 
+		alignSelf: 'center',
 		width: '70%',
 		backgroundColor: '#f2daa4',
 		borderRadius: 50,
 		marginBottom: 10,
 		borderWidth: 2,
 		borderColor: 'brown',
-		overflow: 'hidden', 
+		overflow: 'hidden',
 	},
 	forgotPasswordLink: {
 		marginTop: 30,
