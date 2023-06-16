@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Alert } from 'react-native';
+import { View, TextInput, StyleSheet, Alert, Text } from 'react-native';
 import { Button } from 'react-native-elements';
+import SelectDropdown from 'react-native-select-dropdown'
 
 const SendEgg: React.FC = () => {
   const [message, setMessage] = useState('');
-
+  const games: string[] = ["Snake", "Quiz", "Guess the Song", "Eat Pizza", "Go to Paris", "Football", "Kill a Man"]
+  const messages: string[] = ["Message", "Image"]
+  const [selectedGame, setSelectedGame] = useState('')
+  const [messageForm, setMessageForm] = useState('')
+  console.log("selectedGame:", selectedGame)
+  console.log("selectedMessageForm:", messageForm)
+  let messageText:string 
+  
 
 // Work in progress once we can manage the messages
 
@@ -15,34 +23,123 @@ const SendEgg: React.FC = () => {
 //     setMessage('');
 //   };
 
-return (
-  <View style={styles.container}>
-    <View style={styles.buttonContainer}>
-      <Button
-        title="Play a Game"
-        onPress={() => Alert.alert('Game section coming soon! 🎮')}
-        buttonStyle={{ backgroundColor: '#D8A7B1' }}
-        titleStyle={{ color: 'brown' }}
-      />
-    </View>
-    <View style={styles.textContainer}>
+  function MessageInput () {
+    return (
+      <> 
+      <View style={styles.textContainer}>
+      
       <TextInput
         style={styles.textInput}
         placeholder="Enter your message"
-        value={message}
-        onChangeText={setMessage}
+        onChangeText={(newText) => {
+          console.log(newText)
+					messageText = newText
+					}}
       />
-    </View>
-    <View style={styles.buttonContainer}>
+      </View>
+      <View style={styles.buttonContainer}>
       <Button
         title="Send"
-        onPress={() => Alert.alert('Message sent but lost now 🤷‍♂️')}
+        onPress={() => {Alert.alert('Message Sent!')
+  
+        setMessage(messageText)
+        console.log("message state:", message)
+        console.log("messageText:", messageText)
+      }}
       //   onPress={handleSendMessage} //to fix once we can pass the stuff from database
         buttonStyle={{ backgroundColor: '#FAE8E0' }}
         titleStyle={{ color: '#EF7C8E' }}
       />
     </View>
+      </>
+    )
+  }
+
+  function UploadImage () {
+    return (
+      <>
+        <Button
+				title="Upload Image Here"
+				// onPress={() => )}
+			/>
+      <View style={styles.textContainer}>
+      
+      <TextInput
+        style={styles.textInput}
+        placeholder="Add a caption? (Optional)"
+        onChangeText={(newText) => {
+          console.log(newText)
+					messageText = newText
+					}}
+      />
+      </View>
+      <View style={styles.buttonContainer}>
+      <Button
+        title="Send"
+        onPress={() => {Alert.alert('Message Sent!')
+        
+        setMessage(messageText)
+        console.log("message state:", message)
+        console.log("messageText:", messageText)
+      }}
+      //   onPress={handleSendMessage} //to fix once we can pass the stuff from database
+        buttonStyle={{ backgroundColor: '#FAE8E0' }}
+        titleStyle={{ color: '#EF7C8E' }}
+      />
+    </View>
+      
+      </>
+    )
+  }
+
+  function Upload () {
+    return (
+      <>
+      {messageForm === "Message" ? <MessageInput /> : <UploadImage />}
+      </>
+    )
+  }
+
+return (
+  <View style={styles.container}>
+    <Text>Select Message Type:</Text>
+    <View style={styles.buttonContainer}>
+    <SelectDropdown
+        buttonStyle={{ backgroundColor: '#D8A7B1' }}
+      	data={messages}
+	      onSelect={(selectedItem, index) => {
+        setMessageForm(selectedItem)
+	    }}
+	      buttonTextAfterSelection={(selectedItem, index) => {
+		    return selectedItem
+	    }}
+	      rowTextForSelection={(item, index) => {
+		    return item
+	    }}
+    />
+    </View>
+    <Text>Select Game for Partner:</Text>
+    <View style={styles.buttonContainer}>
+    <SelectDropdown
+        buttonStyle={{ backgroundColor: '#D8A7B1' }}
+      	data={games}
+	      onSelect={(selectedItem, index) => {
+        setSelectedGame(selectedItem)
+	    }}
+	      buttonTextAfterSelection={(selectedItem, index) => {
+		    return selectedItem
+	    }}
+	      rowTextForSelection={(item, index) => {
+		    return item
+	    }}
+    />
+    </View>
+    <View>
+    {messageForm.length > 0 ? <Upload /> : null}
+    </View>
+    
   </View>
+  
 );
 };
 
