@@ -255,7 +255,7 @@ export function uploadMedia(file: any, metadata: any) {
 			.then(() => {
 				getDownloadURL(fileRef)
 					.then((fileUrl) => {
-						addDoc(collection(db, 'MEDIA'), {
+						addDoc(collection(db, 'media'), {
 							fileURL: fileUrl,
 							file_name: file.name,
 							//recipient: testUsername.partner_username,
