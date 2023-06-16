@@ -285,7 +285,7 @@ export function uploadMedia(file: any, metadata: any) {
 }
 
 //fetch Eggs for "Eggs Page"
-function getEggs(username: string) {
+export function getEggs(username: string) {
 	const recipientQuery = query(eggsRef, where('recipient', '==', username))
 	return getDocs(recipientQuery).then((querySnapshot) => {
 		let eggArray: any[] = []

@@ -1,8 +1,12 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { SafeAreaView, FlatList, StyleSheet, Text, View, Image  } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Egg from '../../assets/Egg.png'
 import { TouchableOpacity } from "react-native";
+import { getEggs } from "../../utils";
+import { UserContext } from "../../Context/UserContext";
+import { useContext } from "react";
 
 
 const eggArray = [
@@ -41,21 +45,35 @@ const eggArray = [
   };
 
 export default function Nest () {
+  const [eggs, setEggs] = useState([])
   const nav = useNavigation();
+  const {profileId} = useContext(UserContext)
+
+
+useEffect(() => {
+  getEggs(profileId.username)
+  .then((res) =>res.json())
+  .then((eggData: any) => {
+    console.log(eggData)
+    setEggs(eggData)
+    console.log(eggs, 'in state')
+  })
+}, [profileId.username])
+
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList 
-       keyExtractor={(item) => item.date}
-        data={eggArray}
-        renderItem={({ item }) => 
-        <TouchableOpacity onPress ={() => {item.isLocked ? nav.navigate('Game') : nav.navigate('My Egg')}}>
+       keyExtractor={(item) => item.timestamp.toString()}
+        data={eggs}
+        renderItem={( item ) => 
+        <TouchableOpacity onPress ={() => {item["isLocked"] ? nav.navigate('Game') : nav.navigate('My Egg')}}>
         <View style={styles.itemContainer}>
          <Image source={item.image} style={styles.image}/>
-          <Text style={styles.item}>{item.date}</Text>
+          <Text style={styles.item}>{item.timestamp}</Text>
           <Text style={styles.item}>{item.isLocked ? '🔒' : '🔓'}</Text>
         </View>
         </TouchableOpacity>
-
        }
         ItemSeparatorComponent={myItemSeparator}
         ListEmptyComponent={myListEmpty}
