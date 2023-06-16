@@ -23,7 +23,7 @@ const Tab = createBottomTabNavigator()
 
 function HomeNav() {
   return (
-    <Tab.Navigator
+   <Tab.Navigator
           screenOptions={({ route }) => ({
             headerStyle: {
               backgroundColor: '#eb8cda',
@@ -57,8 +57,7 @@ function HomeNav() {
             },
           })}
         >
-    <Stack.Screen name="Home" component={Home} options={{title: 'Home'}}/>
-		{/* <Tab.Screen name="Send Egg" component={SendEgg} /> */}
+		<Tab.Screen name="Home" component={Home} />
 		<Tab.Screen name="Profile" component={Profile}/>
     <Tab.Screen name="About" component={About} />
 	</Tab.Navigator>
@@ -70,7 +69,7 @@ function App() {
     // Navbar below //  modded line 102 - bg colour
     <UserContextProvider>    
     <NavigationContainer>
-       <Stack.Navigator initialRouteName='Home' 
+       <Stack.Navigator
       screenOptions={{ headerStyle: {
         backgroundColor: '#BA2953'
       },
