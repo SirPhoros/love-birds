@@ -11,7 +11,6 @@ import {
 	removePartner,
 	updatePartner,
 } from '../../utils'
-import TabNav from '../components/TabNav';
 
 // const profileId:{
 //     avatarIMG: string,

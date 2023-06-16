@@ -1,65 +1,93 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import 'react-native-gesture-handler';
-import { UserContextProvider } from './Context/UserContext';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { View } from 'react-native';
 import Home from './src/screens/Home';
-import SendEgg from './src/screens/SendEgg';
 import Profile from './src/screens/Profile';
 import About from './src/screens/About';
-import Welcome from './src/SignIn/Welcome';
-import Register from './src/SignIn/RegisterPage';
-import LogIn from './src/SignIn/LogIn';
+import SendEgg from './src/screens/SendEgg';
 import Nest from './src/screens/Nest';
 import Game from './src/screens/Game';
 import MyEgg from './src/screens/MyEgg';
 import Relationship from './src/screens/Relationship';
+import 'react-native-gesture-handler';
+import Welcome from './src/SignIn/Welcome';
+import Register from './src/SignIn/RegisterPage';
+import LogIn from './src/SignIn/LogIn';
+
 import { Icon } from 'react-native-elements';
 
-const Stack = createNativeStackNavigator()
 
+import { UserContextProvider } from './Context/UserContext';
+
+const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
-function HomeNav() {
+function HomeTabs() {
   return (
-    <Tab.Navigator
-          screenOptions={({ route }) => ({
-            headerStyle: {
-              backgroundColor: '#eb8cda',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            tabBarStyle: {
-              backgroundColor: '#eb8cda', //nav bar bg colour
-            },
-            tabBarActiveTintColor: '#8ceb9d', //nav bar active icon colour
-            tabBarInactiveTintColor: '#fff', //nav bar inactive icons colour
-            tabBarLabelStyle: {
-              fontSize: 12,
-            },
-            tabBarIcon: ({ color, size }) => {
-              let iconName;
+    	<Tab.Navigator screenOptions={{ 
+        headerStyle: {
+          backgroundColor: 'red',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        }}}>
+		<Tab.Screen name="Home" component={Home} options={{headerShown: false}}/>
+		<Tab.Screen name="Send Egg" component={SendEgg} />
+		<Tab.Screen name="Profile" component={Profile} options={{headerShown: false}}/>
+    <Tab.Screen name="About" component={About} />
+	</Tab.Navigator>
+  )
+}
 
-              if (route.name === 'Home') {
-                iconName = 'home';
-              } else if (route.name === 'Send Egg') {
-                iconName = 'send';
-              } else if (route.name === 'Profile') {
-                iconName = 'user';
-              } else if (route.name === 'About') {
-                iconName = 'info';
-              }
+function ProfileTabs() {
+  return (
+    	<Tab.Navigator screenOptions={{ headerStyle: {
+          backgroundColor: 'red',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        }}}>
+		<Tab.Screen name="Home" component={Home} options={{headerShown: false}}/>
+		<Tab.Screen name="Send Egg" component={SendEgg} />
+		<Tab.Screen name="Profile" component={Profile} options={{headerShown: false}}/>
+    <Tab.Screen name="About" component={About} />
+	</Tab.Navigator>
+  )
+}
 
-              return <Icon name={iconName} type="font-awesome" color={color} size={size} />;
-            },
-          })}
-        >
-    <Stack.Screen name="Home" component={Home} options={{title: 'Home'}}/>
-		{/* <Tab.Screen name="Send Egg" component={SendEgg} /> */}
-		<Tab.Screen name="Profile" component={Profile}/>
+function SendEggTabs () {
+  return (
+    	<Tab.Navigator screenOptions={{ headerStyle: {
+          backgroundColor: 'red',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        }}}>
+		<Tab.Screen name="Home" component={Home} options={{headerShown: false}}/>
+		<Tab.Screen name="Send Egg" component={SendEgg} />
+		<Tab.Screen name="Profile" component={Profile} options={{headerShown: false}}/>
+    <Tab.Screen name="About" component={About} />
+	</Tab.Navigator>
+  )
+}
+
+function RelationshipTabs () {
+  return (
+    	<Tab.Navigator screenOptions={{ headerStyle: {
+          backgroundColor: 'red',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        }}}>
+		<Tab.Screen name="Home" component={Home} options={{headerShown: false}}/>
+		<Tab.Screen name="Send Egg" component={SendEgg} />
+		<Tab.Screen name="Profile" component={Profile} options={{headerShown: false}}/>
     <Tab.Screen name="About" component={About} />
 	</Tab.Navigator>
   )
@@ -70,7 +98,7 @@ function App() {
     // Navbar below //  modded line 102 - bg colour
     <UserContextProvider>    
     <NavigationContainer>
-       <Stack.Navigator initialRouteName='Home' 
+   <Stack.Navigator 
       screenOptions={{ headerStyle: {
         backgroundColor: '#BA2953'
       },
@@ -78,18 +106,22 @@ function App() {
       headerTitleStyle: {
         fontWeight: 'bold',
       }
+      
       }}>
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="LogIn" component={LogIn} />
-        <Stack.Screen name="Home" component={HomeNav} options={{headerShown: false}}/>
-        <Stack.Screen name="Send Egg" component={SendEgg}/>
+        <Stack.Screen name="Home" component={HomeTabs} options={{title: 'Home'}}/>
+		      <Stack.Screen name="Send Egg" component={SendEggTabs} />
 		      <Stack.Screen name="Nest" component={Nest} />
 		      <Stack.Screen name="Game" component={Game} />
 		      <Stack.Screen name="My Egg" component={MyEgg} />
-       <Stack.Screen name="Relationship" component={Relationship} />
+        <Stack.Screen name="Profile" component={ProfileTabs} options={{title: 'Profile'}}/>
+       <Stack.Screen name="Relationship" component={RelationshipTabs} />
+
     </Stack.Navigator>
     </NavigationContainer>
+    
     </UserContextProvider>
   );
 }
