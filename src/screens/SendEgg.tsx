@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
+import TabNav from '../components/TabNav';
 
 const SendEgg: React.FC = () => {
   const [message, setMessage] = useState('');
