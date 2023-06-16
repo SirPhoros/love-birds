@@ -270,12 +270,9 @@ export async function uploadMedia(uri: any, metadata: any) {
 	const imageBlob = await getBlobFroUri(uri)
 
 	if (imageBlob) {
-		console.log(imageBlob, 'in utils file')
 		const fileRef = ref(storage, 'images/' + Date.now())
 		const contentType = 'image/jpeg' // Set the desired content type here
-		console.log('file Ref in utils: ', fileRef)
-
-		uploadBytes(fileRef, imageBlob)
+		uploadBytes(fileRef, imageBlob,)
 			.then(() => {
 				getDownloadURL(fileRef)
 					.then((fileUrl) => {
