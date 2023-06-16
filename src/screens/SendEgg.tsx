@@ -3,12 +3,18 @@ import { View, TextInput, StyleSheet, Alert, Text } from 'react-native';
 import { Button } from 'react-native-elements';
 import SelectDropdown from 'react-native-select-dropdown'
 
+import CameraFeature from '../Camera/CameraFeature';
+
 const SendEgg: React.FC = () => {
   const [message, setMessage] = useState('');
   const games: string[] = ["Snake", "Quiz", "Guess the Song", "Eat Pizza", "Go to Paris", "Football", "Kill a Man"]
-  const messages: string[] = ["Message", "Image"]
+  const messages: string[] = ["Message", "Image", "Send a Snap"]
   const [selectedGame, setSelectedGame] = useState('')
   const [messageForm, setMessageForm] = useState('')
+
+  const [showCamera, setShowCamera] = useState(false); //added x camera feat
+
+
   console.log("selectedGame:", selectedGame)
   console.log("selectedMessageForm:", messageForm)
   let messageText:string 
@@ -58,10 +64,12 @@ const SendEgg: React.FC = () => {
   function UploadImage () {
     return (
       <>
-        <Button
-				title="Upload Image Here"
-				// onPress={() => )}
-			/>
+        <View style={styles.buttonContainerUploadImg}>
+          <Button
+          title="Upload Image Here"
+          // onPress={() => )}
+          />
+        </View>
       <View style={styles.textContainer}>
       
       <TextInput
@@ -92,15 +100,23 @@ const SendEgg: React.FC = () => {
     )
   }
 
-  function Upload () {
+  function Upload() {
     return (
       <>
-      {messageForm === "Message" ? <MessageInput /> : <UploadImage />}
+        {messageForm === 'Message' ? (
+          <MessageInput />
+        ) : messageForm === 'Image' ? (
+          <UploadImage />
+        ) : (
+          showCamera && <CameraFeature onClose={() => setShowCamera(false)} />
+        )}
       </>
-    )
+    );
   }
+  
 
 return (
+  
   <View style={styles.container}>
     <Text>Select Message Type:</Text>
     <View style={styles.buttonContainer}>
@@ -108,7 +124,8 @@ return (
         buttonStyle={{ backgroundColor: '#D8A7B1' }}
       	data={messages}
 	      onSelect={(selectedItem, index) => {
-        setMessageForm(selectedItem)
+        setMessageForm(selectedItem);
+        setShowCamera(selectedItem === 'Send a Snap');  
 	    }}
 	      buttonTextAfterSelection={(selectedItem, index) => {
 		    return selectedItem
@@ -178,6 +195,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  buttonContainerUploadImg: {
+    width: '70%',
+		alignSelf: 'center', 
+    marginBottom: 10,
+    borderColor: 'brown',
+		backgroundColor: '#f2daa4',
+    borderRadius: 50,
+  }
 });
 
 export default SendEgg;
