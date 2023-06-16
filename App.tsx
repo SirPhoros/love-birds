@@ -2,6 +2,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { View } from 'react-native';
 import Home from './src/screens/Home';
 import Profile from './src/screens/Profile';
 import About from './src/screens/About';
@@ -15,6 +16,9 @@ import Welcome from './src/SignIn/Welcome';
 import Register from './src/SignIn/RegisterPage';
 import LogIn from './src/SignIn/LogIn';
 
+import { Icon } from 'react-native-elements';
+
+
 import { UserContextProvider } from './Context/UserContext';
 
 const Stack = createNativeStackNavigator()
@@ -22,7 +26,8 @@ const Tab = createBottomTabNavigator()
 
 function HomeTabs() {
   return (
-    	<Tab.Navigator screenOptions={{ headerStyle: {
+    	<Tab.Navigator screenOptions={{ 
+        headerStyle: {
           backgroundColor: 'red',
         },
         headerTintColor: '#fff',
@@ -90,16 +95,19 @@ function RelationshipTabs () {
 
 function App() {
   return (
-    // Navbar below //
-    <UserContextProvider>
+    // Navbar below //  modded line 102 - bg colour
+    <UserContextProvider>    
     <NavigationContainer>
-   <Stack.Navigator screenOptions={{ headerStyle: {
-        backgroundColor: 'red',
+   <Stack.Navigator 
+      screenOptions={{ headerStyle: {
+        backgroundColor: '#BA2953'
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
         fontWeight: 'bold',
-      }}}>
+      }
+      
+      }}>
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="LogIn" component={LogIn} />
@@ -113,6 +121,7 @@ function App() {
 
     </Stack.Navigator>
     </NavigationContainer>
+    
     </UserContextProvider>
   );
 }

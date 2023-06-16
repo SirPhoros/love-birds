@@ -1,8 +1,10 @@
 import React from "react";
-import { View, Text, Button, Image, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { Text, Button, Image } from "react-native-elements";
+
 import { useNavigation } from "@react-navigation/native";
 import LoveBirdsLogo from '../../assets/Lovebirds-Logo.gif';
-// import Lovebirds from '../../assets/Lovebirds-welcomepage.jpg'
+
 
 export default function Welcome() {
   const nav = useNavigation()
@@ -20,12 +22,16 @@ export default function Welcome() {
         <Button
           title="Log In"
           onPress={() => nav.navigate('LogIn' as never)}
+          buttonStyle={{ backgroundColor: '#FAE8E0' }}
+          titleStyle={{ color: '#EF7C8E' }}
           />
       </View>
       <View style={styles.buttonContainer}>
         <Button
           title="Register"
           onPress={() => nav.navigate('Register' as never)}
+          buttonStyle={{ backgroundColor: '#FAE8E0' }}
+          titleStyle={{ color: '#EF7C8E' }}
           />
       </View>
       <View style={styles.welcomePageTxt}>
@@ -43,16 +49,18 @@ export default function Welcome() {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    width: '25%',
-    backgroundColor: '#f2daa4',
-    borderRadius: 5,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: '#000000',
-  },
+		alignSelf: 'center', 
+		width: '70%',
+		backgroundColor: '#f2daa4',
+		borderRadius: 50,
+		marginBottom: 10,
+		borderWidth: 2,
+		borderColor: 'brown',
+		overflow: 'hidden', 
+	},
   imageContainer: {
-    marginBottom: 20,
-    marginTop: 20,
+    marginBottom: 80,
+    marginTop: 10,
   },
   footer: {
     position: 'absolute',
@@ -60,7 +68,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: '#f2f2f2',
-    paddingVertical: 10,
+    paddingVertical: 35,
     paddingHorizontal: 20,
   },
   footerText: {
