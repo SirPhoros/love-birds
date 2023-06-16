@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Text, View, Image, Button, Alert, TextInput } from 'react-native'
+import { View, Alert, TextInput, StyleSheet } from 'react-native'
+import { Text, Button, Image } from "react-native-elements";
 import { useNavigation } from '@react-navigation/native'
 import { UserContext } from '../../Context/UserContext'
+
 import {
 	checkRelationship,
 	getUserData,
@@ -45,19 +47,22 @@ export default function Profile() {
 				<TextInput
 					placeholder="add partner's name here"
 					onChangeText={(newText) => {
-						newPartner = newText
+					newPartner = newText
 					}}
+					style={styles.textContainer}
 				></TextInput>
-				<Button
-					title="Add Relationship"
-					onPress={() => {
-						setProfileId({ ...profileId, partner_username: newPartner })
-
-						updatePartner(newPartner).then(() => {})
-
-						Alert.alert('Relationship updated with ' + newPartner)
-					}}
-				/>
+				<View style={styles.buttonContainer}>
+					<Button
+						title="Add Relationship"
+						onPress={() => {
+							setProfileId({ ...profileId, partner_username: newPartner })
+							updatePartner(newPartner).then(() => {})
+							Alert.alert('Relationship updated with ' + newPartner)
+						}}
+						buttonStyle={{ backgroundColor: '#FAE8E0' }}
+                        titleStyle={{ color: '#EF7C8E' }}
+					/>
+				</View>
 			</>
 		)
 	}
@@ -101,7 +106,8 @@ export default function Profile() {
 
 	function SignOutButton() {
 		return (
-			<>
+		  <>
+			<View style={styles.buttonContainer}>
 				<Button
 					title="Sign Out"
 					onPress={() => {
@@ -109,8 +115,11 @@ export default function Profile() {
 						logOut()
 						nav.navigate('Welcome' as never)
 					}}
+					buttonStyle={{ backgroundColor: '#FAE8E0' }}
+                    titleStyle={{ color: '#EF7C8E' }}
 				/>
-			</>
+			</View>
+		  </>
 		)
 	}
 
@@ -133,7 +142,7 @@ export default function Profile() {
 						resizeMode: 'contain',
 						height: 100,
 						width: 100,
-						borderRadius: 40,
+						borderRadius: 50,
 					}}
 					source={{
 						uri:
@@ -183,3 +192,26 @@ export default function Profile() {
 		</>
 	)
 }
+
+const styles = StyleSheet.create({
+    buttonContainer: {
+		alignSelf: 'center', 
+		width: '70%',
+		backgroundColor: '#f2daa4',
+		borderRadius: 50,
+		marginBottom: 10,
+		marginTop: 10,
+		borderWidth: 2,
+		borderColor: 'brown',
+		overflow: 'hidden', 
+	  },
+      textContainer: {
+		width: 220,
+		borderWidth: 1,
+		borderColor: 'gray',
+		borderRadius:15,
+		marginBottom: 10,
+		height: 30,
+		textAlign: 'center',
+	},
+})

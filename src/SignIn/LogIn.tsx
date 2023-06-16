@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { View, Text, Button, TextInput, StyleSheet } from 'react-native'
+import { View, TextInput, StyleSheet } from 'react-native'
+import { Text, Button, Image } from "react-native-elements";
+
 import { useNavigation } from '@react-navigation/native'
 import { logIn } from '../../utils'
 
@@ -26,7 +28,7 @@ export default function LogIn() {
 					/>
 				</View>
 				<View style={{ alignItems: 'center', marginBottom: 20 }}>
-					<Text>Password:</Text>
+					<Text>Secret Password:</Text>
 					<TextInput
 						placeholder="Password..."
 						secureTextEntry={true}
@@ -42,18 +44,25 @@ export default function LogIn() {
 
 	function LoginMessage() {
 		return (
-			<>
-				<View>
-					<Text>Welcome back! </Text>
-					<Text>We've missed you</Text>
-					<Button
-						title="Head to the App"
-						onPress={() => {
-							nav.navigate('Home' as never)
-						}}
-					/>
-				</View>
-			</>
+		  <>
+			<View style={{ alignItems: 'center', marginBottom: 50 }}>
+				<Text>Welcome back! </Text>
+			</View>
+			<View style={{ alignItems: 'center', marginBottom: 50 }}>
+
+				<Text>We've missed you 😍</Text>
+			</View>
+			<View style={styles.buttonContainer}>
+				<Button
+				title="Head to the App"
+				onPress={() => {
+					nav.navigate('Home' as never);
+				}}
+				buttonStyle={{ backgroundColor: '#FAE8E0' }}
+				titleStyle={{ color: '#EF7C8E' }}
+				/>
+			</View>
+		  </>
 		)
 	}
 
@@ -69,16 +78,17 @@ export default function LogIn() {
 				<View style={styles.buttonContainer}>
 					<Button
 						title="Login"
-						color="#000000"
 						onPress={() => {
 							setEmail(emailLogin)
 							setPassword(passwordLogin)
 							console.log('email: ', email, 'password: ', password)
 							logIn(emailLogin, passwordLogin)
 						}}
+						buttonStyle={{ backgroundColor: '#FAE8E0' }}
+          				titleStyle={{ color: '#EF7C8E' }}
 					/>
-					<Text style={styles.forgotPasswordLink}>Forgot your password?</Text>
 				</View>
+				<Text style={styles.forgotPasswordLink }>Forgot your password?</Text>
 			</View>
 		)
 	}
@@ -111,21 +121,25 @@ const styles = StyleSheet.create({
 		width: 200,
 		borderWidth: 1,
 		borderColor: 'gray',
-		borderRadius: 5,
+		borderRadius: 50,
 		marginBottom: 10,
 		height: 35,
+		textAlign: 'center',
 	},
 	buttonContainer: {
-		width: '25%',
+		alignSelf: 'center', 
+		width: '70%',
 		backgroundColor: '#f2daa4',
-		borderRadius: 5,
+		borderRadius: 50,
 		marginBottom: 10,
-		borderWidth: 1,
-		borderColor: '#000000',
+		borderWidth: 2,
+		borderColor: 'brown',
+		overflow: 'hidden', 
 	},
 	forgotPasswordLink: {
-		marginTop: 10,
-		color: 'blue',
+		marginTop: 30,
+		color: '#BA2953',
 		textDecorationLine: 'underline',
+		textAlign: 'center',
 	},
 })

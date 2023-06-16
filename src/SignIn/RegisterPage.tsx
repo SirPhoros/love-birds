@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { View, Text, Button, TextInput, Alert } from 'react-native'
+import { View, TextInput, Alert, StyleSheet } from 'react-native'
+import { Text, Button, Image } from "react-native-elements";
+
 import { useNavigation } from '@react-navigation/native'
 import { handleGoogle, handleSignUpWithEmail } from '../../utils'
 
@@ -15,21 +17,28 @@ export default function Register() {
 	function EmailRegister() {
 		return (
 			<>
+			  <View style={{ alignItems: 'center'}}>
 				<Text>Email:</Text>
+			  </View>
 				<TextInput
 					placeholder="add your email address here"
 					onChangeText={(newText) => {
 						newEmail = newText
 					}}
+					style={styles.textContainer}
 				></TextInput>
-				<Text>Password:</Text>
+			  <View style={{ alignItems: 'center'}}>
+				<Text>Secret Password:</Text>
+			  </View>
 				<TextInput
 					placeholder="add your password here"
 					secureTextEntry={true}
 					onChangeText={(newText) => {
 						newPassword = newText
 					}}
+					style={styles.textContainer}
 				></TextInput>
+			  <View style={styles.buttonContainer}>
 				<Button
 					title="Register With Email"
 					onPress={() => {
@@ -38,7 +47,10 @@ export default function Register() {
 						handleSignUpWithEmail(newEmail, newPassword)
 						Alert.alert('Registered Successfuly!')
 					}}
+					buttonStyle={{ backgroundColor: '#FAE8E0' }}
+          			titleStyle={{ color: '#EF7C8E' }}
 				/>
+			  </View>
 			</>
 		)
 	}
@@ -64,7 +76,7 @@ export default function Register() {
 	function Register() {
 		return (
 			<>
-				<Text className="text-2xl py-12">Register Here</Text>
+				<Text className="text-2xl py-12 text-center">Register Here</Text>
 				<EmailRegister />
 				{/* <GoogleRegister /> */}
 			</>
@@ -112,3 +124,27 @@ export default function Register() {
 		</View>
 	)
 }
+
+
+const styles = StyleSheet.create({
+	textContainer: {
+		width: 200,
+		borderWidth: 1,
+		borderColor: 'gray',
+		borderRadius: 50,
+		marginBottom: 20,
+		height: 35,
+		textAlign: 'center',
+	},
+	buttonContainer: {
+		alignSelf: 'center', 
+		width: '70%',
+		backgroundColor: '#f2daa4',
+		borderRadius: 50,
+		marginBottom: 10,
+		marginTop: 20,
+		borderWidth: 2,
+		borderColor: 'brown',
+		overflow: 'hidden', 
+	},
+})
