@@ -4,6 +4,7 @@ import { initializeApp } from 'firebase/app'
 import {
 	getFirestore,
 	collection,
+	addDoc,
 	setDoc,
 	getDoc,
 	updateDoc,
@@ -11,6 +12,7 @@ import {
 	doc,
 	query,
 	where,
+	serverTimestamp,
 } from 'firebase/firestore'
 //Firebase Auth
 import {
@@ -22,6 +24,7 @@ import {
 	signInWithEmailAndPassword,
 	signOut,
 } from 'firebase/auth'
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 // Your web app's Firebase configuration
 const firebaseConfig: {
@@ -44,6 +47,7 @@ const firebaseConfig: {
 const app = initializeApp(firebaseConfig)
 
 //Initialise Services
+const storage = getStorage(app)
 const db = getFirestore(app)
 const auth = getAuth(app)
 
@@ -148,7 +152,7 @@ export function getUserData(): any {
 
 //Log-in/Log-out functions
 
-export function logIn(email:string, password:string) {
+export function logIn(email: string, password: string) {
 	signInWithEmailAndPassword(auth, email, password)
 		.then((cred) => {
 			console.log('User logged in', cred.user)
@@ -236,4 +240,45 @@ export function checkRelationship(partner: string): any {
 
 export function checkUser() {
 	console.log(auth.currentUser)
+}
+
+//We need to see the shape of the file
+
+//we need to send the file along with the metadata to this file,
+//probably handled by a "handleSubmit" kind of function
+export function uploadMedia(file: any, metadata: any) {
+	const { contentType, recipient, sender } = metadata
+	if (file) {
+		console.log(file)
+		const fileRef = ref(storage, file.name)
+		uploadBytes(fileRef, file)
+			.then(() => {
+				getDownloadURL(fileRef)
+					.then((fileUrl) => {
+						addDoc(collection(db, 'media'), {
+							fileURL: fileUrl,
+							file_name: file.name,
+							//recipient: testUsername.partner_username,
+							recipient: recipient,
+							//sender: testUsername.username,
+							sender: sender,
+							timestamp: serverTimestamp(),
+							isLocked: true,
+							contentType: contentType,
+						}).then((data: any) => {
+							console.log(data)
+						})
+					})
+					.catch((error) => {
+						console.log(error.message)
+					})
+			})
+			.catch((error) => {
+				console.log(error.message)
+			})
+
+		//This would need to be handled by React-Native
+		// setFile(null)
+		// setMessage('')
+	}
 }

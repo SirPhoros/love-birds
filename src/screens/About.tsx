@@ -14,6 +14,7 @@ export default function About() {
             <Text className="text-sm py-1">Link</Text>
             <Text className="text-sm py-1">Link</Text>
             <Text className="text-sm py-1">Link</Text>
+            
             <Text className="text-xl py-4">We're some kickass duuuuuudes</Text>
         </View>
     </>
