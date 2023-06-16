@@ -2,7 +2,7 @@ import React from "react";
 import { SafeAreaView, FlatList, StyleSheet, Text, View, Image  } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Egg from '../../assets/Egg.png'
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 
 
 const eggArray = [
