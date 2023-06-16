@@ -284,6 +284,22 @@ export function uploadMedia(file: any, metadata: any) {
 	}
 }
 
+//Send messages as an Egg:
+export function uploadText(text: string, metadata: any) {
+	const { partner_username, username } = metadata
+	addDoc(collection(db, 'eggs'), {
+		contentType: 'message',
+		contentMsg: text,
+		recipient: partner_username,
+		sender: username,
+		timestamp: serverTimestamp(),
+		isLocked: true,
+		// game: metadataGame
+	}).catch((error) => {
+		console.log(error.message)
+	})
+}
+
 //fetch Eggs for "Eggs Page"
 function getEggs(username: string) {
 	const recipientQuery = query(eggsRef, where('recipient', '==', username))
