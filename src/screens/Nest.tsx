@@ -52,11 +52,10 @@ export default function Nest () {
 
 useEffect(() => {
   getEggs(profileId.username)
-  .then((res) =>res.json())
   .then((eggData: any) => {
     console.log(eggData)
     setEggs(eggData)
-    console.log(eggs, 'in state')
+    console.log(eggs[0]["isLocked"])
   })
 }, [profileId.username])
 
@@ -64,16 +63,17 @@ useEffect(() => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList 
-       keyExtractor={(item) => item.timestamp.toString()}
+       keyExtractor={(item) => item["timestamp"]}
         data={eggs}
         renderItem={( item ) => 
         <TouchableOpacity onPress ={() => {item["isLocked"] ? nav.navigate('Game') : nav.navigate('My Egg')}}>
         <View style={styles.itemContainer}>
-         <Image source={item.image} style={styles.image}/>
+         <Image source={item[image]} style={styles.image}/>
           <Text style={styles.item}>{item.timestamp}</Text>
           <Text style={styles.item}>{item.isLocked ? '🔒' : '🔓'}</Text>
         </View>
         </TouchableOpacity>
+        // fetching data inappropriate format
        }
         ItemSeparatorComponent={myItemSeparator}
         ListEmptyComponent={myListEmpty}
