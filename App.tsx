@@ -15,7 +15,9 @@ import Nest from './src/screens/Nest';
 import Game from './src/screens/Game';
 import MyEgg from './src/screens/MyEgg';
 import Relationship from './src/screens/Relationship';
+import Snake from './src/games/Snake/components/Snake';
 import { Icon } from 'react-native-elements';
+import SnakeGame from './src/games/Snake/SnakeGame';
 
 const Stack = createNativeStackNavigator()
 
@@ -85,6 +87,7 @@ function App() {
         <Stack.Screen name="Send Egg" component={SendEgg}/>
 		      <Stack.Screen name="Nest" component={Nest} />
 		      <Stack.Screen name="Game" component={Game} />
+           <Stack.Screen name="Snake Game" component={SnakeGame} />
 		      <Stack.Screen name="My Egg" component={MyEgg} />
        <Stack.Screen name="Relationship" component={Relationship} />
     </Stack.Navigator>
