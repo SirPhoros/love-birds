@@ -316,9 +316,14 @@ export function getEggs(username: string, partner_username: string) {
 	const recipientQuery = query(
 		eggsRef,
 		where('recipient', '==', username),
-		where('sender', '==', partner_username),
-		orderBy('timestamp', 'desc')
+		
 	)
+	// 	const recipientQuery = query(
+	// 	eggsRef,
+	// 	where('recipient', '==', username),
+	// 	where('sender', '==', partner_username),
+	// 	orderBy('timestamp', 'desc')
+	// )
 	return getDocs(recipientQuery).then((querySnapshot) => {
 		let eggArray: any[] = []
 		querySnapshot.forEach((document) => {
