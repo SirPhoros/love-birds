@@ -34,18 +34,31 @@ export default function Game(): JSX.Element {
 	const item = route.params?.item
 
 	useEffect(() => {
-		if (isGameOver) {
+    //For testing purposes, then move it to 100
+		if (isGameOver && score >=20) {
 			Alert.alert('Congratulations!', `Your Score is ${score}`, [
 				{
 					text: 'Hatch your egg',
-					onPress: () => nav.navigate('My Egg' as never, { item }, updateLock(item)),
-				},
-				{
-					text: 'Cancel',
-					onPress: () => console.log('Cancel Pressed'),
-					style: 'cancel',
+					onPress: () => {
+						nav.navigate('My Egg' as never, { item })
+						updateLock(item)
+					},
 				},
 			])
+		}
+		if (isGameOver && score < 20) {
+			Alert.alert(
+				'Try again',
+				`Your Score is ${score}. You need to get 100 points to hatch the egg!`,
+				[
+					{
+						text: 'replay',
+						onPress: () => {
+							reloadGame
+						},
+					},
+				]
+			)
 		}
 		if (!isGameOver) {
 			const intervalId = setInterval(() => {
