@@ -1,16 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Image, StyleSheet, Text, View, Dimensions } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Camera, CameraType } from 'expo-camera'
 import { shareAsync } from 'expo-sharing'
 import * as MediaLibrary from 'expo-media-library'
 import { uploadMediaFromGallery } from '../../utils'
+import { UserContext } from '../../Context/UserContext'
 
 const CameraFeature = ({ onClose }) => {
 	let cameraRef = useRef()
 	const [hasCameraPermission, setHasCameraPermission] = useState()
 	const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState()
 	const [photo, setPhoto] = useState()
+	const { profileId } = useContext(UserContext)
+	const { partner_username, username } = profileId
 
 	useEffect(() => {
 		;(async () => {
@@ -59,9 +62,6 @@ const CameraFeature = ({ onClose }) => {
 		}
 
 		let uploadPhoto = () => {
-      //It will work once the partner_username && username are passed as props. 
-      // let partner_username = '';
-      // let username = 'user';
 			const caption = 'This is an egg-tastic snapshop!'
 			uploadMediaFromGallery(photo.uri, { partner_username, username }, caption)
 			setPhoto(undefined)
