@@ -3,11 +3,17 @@ import { SafeAreaView, FlatList, StyleSheet, Text, View, Image, ActivityIndicato
 import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Egg from '../../assets/Egg.png'
+import Padlock from '../../assets/Padlock.png'
+import Heart2 from '../../assets/Heart2.png'
 import { TouchableOpacity } from "react-native";
 import { getEggs } from "../../utils";
 import { UserContext } from "../../Context/UserContext";
 import { useContext } from "react";
+
+import moment from 'moment'
+
 import { useRoute } from "@react-navigation/native";
+
 
 
 // const eggArray = [
@@ -79,8 +85,9 @@ export default function Nest () {
         renderItem={({ item }) => 
         <TouchableOpacity onPress ={() => {item.isLocked ? nav.navigate('Snake Game') : nav.navigate('My Egg', { item })}}>
         <View style={styles.itemContainer}>
-         <Image source={item.image} style={styles.image}/>
-          <Text style={styles.item}>{item.timestamp.seconds}</Text>
+         <Image source={Egg} style={styles.image}/>
+          <Text style={styles.item}>{moment(item.timestamp.seconds * 1000).format('Do MMMM YYYY, h:mm a')}</Text>
+          <Image style={styles.image} source={item.isLocked ? Padlock : Heart2}/>
           <Text style={styles.item}>{item.isLocked ? '🔒' : '🔓'}</Text>
         </View>
         </TouchableOpacity>
@@ -98,7 +105,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     flex: 1,
-    backgroundColor: '#F0CCB0'
+    backgroundColor: '#e0218a'
   },
     itemContainer: {
     flexDirection: "row",
@@ -106,7 +113,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 10,
     marginVertical: 5,
-    backgroundColor: "white",
+    backgroundColor: "#ffc0cb",
     borderRadius: 50,
   },
   item: {

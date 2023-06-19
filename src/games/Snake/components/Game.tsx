@@ -1,8 +1,9 @@
 import React from 'react'
 import { useEffect, useState } from "react";
-import { SafeAreaView, StyleSheet, View } from 'react-native'
+import { SafeAreaView, StyleSheet, View, Alert } from 'react-native'
 import { PanGestureHandler } from 'react-native-gesture-handler'
 import { Coordinate, Direction, GestureEventType } from '../types/types';
+import { useNavigation } from '@react-navigation/native';
 import Food from './Food';
 import Snake from './Snake';
 import Header from "./Header";
@@ -26,8 +27,23 @@ export default function Game():JSX.Element {
     const [isGameOver, setIsGameOver] = useState<boolean>(false)
     const [isPaused, setIsPaused] = useState<boolean>(false)
     const [score, setScore] = useState<number>(0)
+const nav = useNavigation()
 
     useEffect(() => {
+        if (isGameOver) {
+       Alert.alert('Congratulations!', `Your Score is ${score}`, [
+      {
+        text: 'Hatch your egg',
+        onPress: () => nav.navigate('My Egg' as never),
+      },
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+    ]);
+
+        }
         if (!isGameOver) {
             const intervalId = setInterval(() => {
                !isPaused && moveSnake();
