@@ -1,32 +1,36 @@
 import React from "react";
 import { SafeAreaView, FlatList, StyleSheet, Text, View, Image  } from "react-native";
+import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Egg from '../../assets/Egg.png'
 import { TouchableOpacity } from "react-native";
+import { getEggs } from "../../utils";
+import { UserContext } from "../../Context/UserContext";
+import { useContext } from "react";
 
 
-const eggArray = [
-  {
-    image: Egg,
-    date: '04-06-2023',
-    isLocked: false
-  },
-   {
-    image: Egg,
-    date: '05-06-2023',
-    isLocked: false
-  },
-   {
-    image: Egg,
-    date: '06-06-2023',
-    isLocked: true
-  },
-  {
-    image: Egg,
-    date: '07-06-2023',
-    isLocked: true
-  }
-]
+// const eggArray = [
+//   {
+//     image: Egg,
+//     date: '04-06-2023',
+//     isLocked: false
+//   },
+//    {
+//     image: Egg,
+//     date: '05-06-2023',
+//     isLocked: false
+//   },
+//    {
+//     image: Egg,
+//     date: '06-06-2023',
+//     isLocked: true
+//   },
+//   {
+//     image: Egg,
+//     date: '07-06-2023',
+//     isLocked: true
+//   }
+// ]
 
   const myItemSeparator = () => {
     return <View style={{ height: 1, backgroundColor: "grey", marginHorizontal:5}} />;
@@ -41,17 +45,30 @@ const eggArray = [
   };
 
 export default function Nest () {
+
+  const [eggs, setEggs] = useState([])
   const nav = useNavigation();
+  const {profileId} = useContext(UserContext)
+
+  useEffect(() => {
+  getEggs(profileId.username, profileId.partner_username)
+  .then((eggData: any) => {
+    console.log(eggData, 'RECEIVED DATA')
+    setEggs(eggData)
+console.log(eggs, 'state')
+  })
+}, [profileId.username])
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList 
-       keyExtractor={(item) => item.date}
-        data={eggArray}
+       keyExtractor={(item) => item.timestamp.seconds}
+        data={eggs}
         renderItem={({ item }) => 
         <TouchableOpacity onPress ={() => {item.isLocked ? nav.navigate('Snake Game') : nav.navigate('My Egg')}}>
         <View style={styles.itemContainer}>
          <Image source={item.image} style={styles.image}/>
-          <Text style={styles.item}>{item.date}</Text>
+          <Text style={styles.item}>{item.timestamp.seconds}</Text>
           <Text style={styles.item}>{item.isLocked ? '🔒' : '🔓'}</Text>
         </View>
         </TouchableOpacity>
