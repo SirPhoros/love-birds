@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, Alert, TextInput, StyleSheet, ScrollView } from 'react-native'
+import { View, Alert, TextInput, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'
 import { Text, Button, Image } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 import { UserContext } from '../../Context/UserContext'
@@ -34,13 +34,24 @@ export default function Profile() {
 	const nav = useNavigation()
 	const { profileId, setProfileId } = useContext(UserContext)
 	const [file, setFile] = useState('')
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		checkRelationship(profileId.partner_username)
 		getUserData().then((userData: any) => {
 			setProfileId(userData)
+			setLoading(false);
 		})
 	}, [])
+
+	/* Loading State */
+	if (loading) {
+		return (
+		  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+			<ActivityIndicator size="large" color="#D8A7B1" />
+		  </View>
+		);
+	  }
 
 	let newPartner: string = ''
 
