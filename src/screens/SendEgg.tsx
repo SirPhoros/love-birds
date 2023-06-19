@@ -199,6 +199,7 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		height: 100,
 		textAlign: 'center',
+    backgroundColor: '#FEE8F7'
 	},
 	textInput: {
 		height: 40,
