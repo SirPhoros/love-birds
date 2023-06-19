@@ -19,7 +19,8 @@ function Home() {
 	}, [])
   
 	return (
-		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+
+		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor:'#F0CCB0' }}>
 			<TouchableOpacity onPress ={() => nav.navigate('Nest' as never)}>
 				<Image source={Nest} style={styles.image}/>
 			</TouchableOpacity>
@@ -27,6 +28,7 @@ function Home() {
 				<Image source={Egg} style={styles.image}/>
 			</TouchableOpacity>
 			{/* <Button
+
 				title="🪹"
 				onPress={() => nav.navigate('Nest' as never)}
 			/>

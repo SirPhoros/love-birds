@@ -28,14 +28,14 @@ function HomeNav() {
    <Tab.Navigator
           screenOptions={({ route }) => ({
             headerStyle: {
-              backgroundColor: '#eb8cda',
+              backgroundColor: '#BA2953', //header bar colour
             },
-            headerTintColor: '#fff',
+            headerTintColor: '#FAE8E0', //header bar text colour
             headerTitleStyle: {
               fontWeight: 'bold',
             },
             tabBarStyle: {
-              backgroundColor: '#eb8cda', //nav bar bg colour
+              backgroundColor: '#BA2953', //nav bar bg colour
             },
             tabBarActiveTintColor: '#8ceb9d', //nav bar active icon colour
             tabBarInactiveTintColor: '#fff', //nav bar inactive icons colour
@@ -68,7 +68,6 @@ function HomeNav() {
 
 function App() {
   return (
-    // Navbar below //  modded line 102 - bg colour
     <UserContextProvider>    
     <NavigationContainer>
        <Stack.Navigator
