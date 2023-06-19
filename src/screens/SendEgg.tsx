@@ -206,7 +206,6 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		height: 100,
 		textAlign: 'center',
-    backgroundColor:'#fff',
 	},
 	textInput: {
 		height: 40,

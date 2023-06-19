@@ -13,6 +13,7 @@ import {
 	query,
 	where,
 	serverTimestamp,
+	orderBy,
 } from 'firebase/firestore'
 //Firebase Auth
 import {
@@ -311,8 +312,18 @@ export function uploadText(text: string, metadata: any) {
 }
 
 //fetch Eggs for "Eggs Page"
-function getEggs(username: string) {
-	const recipientQuery = query(eggsRef, where('recipient', '==', username))
+export function getEggs(username: string, partner_username: string) {
+	const recipientQuery = query(
+		eggsRef,
+		where('recipient', '==', username),
+		
+	)
+	// 	const recipientQuery = query(
+	// 	eggsRef,
+	// 	where('recipient', '==', username),
+	// 	where('sender', '==', partner_username),
+	// 	orderBy('timestamp', 'desc')
+	// )
 	return getDocs(recipientQuery).then((querySnapshot) => {
 		let eggArray: any[] = []
 		querySnapshot.forEach((document) => {
@@ -320,4 +331,49 @@ function getEggs(username: string) {
 		})
 		return eggArray
 	})
+}
+
+//upload Image for your profile picture
+export async function updateProfilePicture(uri: string) {
+	//BlobFroUri transforms the URL we retrieve from the phone to Binary Data
+	//Ready to be uploaded into Firebase db.
+	const getBlobFroUri = async (uri: string): Promise<Blob> => {
+		const blob = await new Promise<Blob>((resolve, reject) => {
+			const xhr = new XMLHttpRequest()
+			xhr.onload = function () {
+				resolve(xhr.response as Blob)
+			}
+			xhr.onerror = function (e) {
+				reject(new TypeError('Network request failed'))
+			}
+			xhr.responseType = 'blob'
+			xhr.open('GET', uri, true)
+			xhr.send(null)
+		})
+
+		return blob
+	}
+
+	const imageBlob: Blob = await getBlobFroUri(uri)
+	if (imageBlob) {
+		const fileRef = ref(storage, 'images/' + Date.now())
+		uploadBytes(fileRef, imageBlob)
+			.then(() => {
+				getDownloadURL(fileRef)
+					.then((fileUrl) => {
+						updateDoc(doc(db, 'users', auth.currentUser.uid), {
+							avatarIMG: fileUrl,
+						})
+					})
+					.catch((error) => {
+						console.log(error.message)
+					})
+			})
+			.catch((error) => {
+				console.log(error.message)
+			})
+			.catch((error) => {
+				console.log(error.message)
+			})
+	}
 }
