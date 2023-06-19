@@ -37,7 +37,7 @@ function HomeNav() {
             tabBarStyle: {
               backgroundColor: '#BA2953', //nav bar bg colour
             },
-            tabBarActiveTintColor: '#8ceb9d', //nav bar active icon colour
+            tabBarActiveTintColor: '#12ED9B', //nav bar active icon colour
             tabBarInactiveTintColor: '#fff', //nav bar inactive icons colour
             tabBarLabelStyle: {
               fontSize: 12,
