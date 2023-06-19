@@ -3,10 +3,16 @@ import { View, Text, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { UserContext } from "../../Context/UserContext";
+import { useRoute } from "@react-navigation/native";
 
 export default function MyEgg() {
   const nav = useNavigation()
   const { profileId, setProfileId } = useContext(UserContext)
+
+  const route = useRoute()
+  const prop = route.params?.item
+  console.log("prop:", prop)
+
 
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:'#F0CCB0' }}>
