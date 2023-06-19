@@ -175,7 +175,7 @@ export default function Profile() {
 
 	return (
 		<>
-		  <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+		  <ScrollView contentContainerStyle={styles.contentContainer}>
 			<View
 				style={{
 					position: 'absolute',
@@ -304,5 +304,8 @@ const styles = StyleSheet.create({
 		borderWidth: 2,
 		borderColor: 'brown',
 		overflow: 'hidden',
-	}
+	},
+	contentContainer: {
+		paddingVertical: 330
+	  }
 })

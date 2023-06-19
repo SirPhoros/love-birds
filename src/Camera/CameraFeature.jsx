@@ -68,6 +68,7 @@ const CameraFeature = ({ onClose }) => {
 		}
 
 		return (
+
 			<View style={styles.container}>
 				{photo ? (
 					<View style={styles.previewContainer}>
@@ -88,6 +89,7 @@ const CameraFeature = ({ onClose }) => {
 				<View>
 					{photo ? (
 						<>
+						  <View style={styles.buttonGroupContainer}>
 							<View style={styles.buttonContainer2}>
 								<Button
 									title="Share"
@@ -120,6 +122,7 @@ const CameraFeature = ({ onClose }) => {
 									titleStyle={{ color: '#EF7C8E' }}
 								/>
 							</View>
+						  </View>
 						</>
 					) : (
 						<>
@@ -193,17 +196,15 @@ const styles = StyleSheet.create({
 	previewContainer: {
 		alignItems: 'center',
 		justifyContent: 'center',
-		width: '100%',
+		width: cameraSize,
+		height: cameraSize,
 		marginBottom: 20,
-		marginTop: -120,
+		marginTop: 0,
 	},
 	preview: {
-		width: '320%',
-		height: '60%',
+		width: '100%',
+		height: '100%',
 		borderRadius: 10,
-		marginBottom: 2,
-		marginTop: 60,
-		padding: 0,
 	},
 	buttonContainer: {
 		alignSelf: 'center',
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
 	},
 	buttonContainer2: {
 		alignSelf: 'center',
-		width: '100%',
+		width: 85,
 		backgroundColor: '#f2daa4',
 		borderRadius: 50,
 		marginBottom: 0,
@@ -226,6 +227,11 @@ const styles = StyleSheet.create({
 		borderWidth: 2,
 		borderColor: 'brown',
 		overflow: 'hidden',
+		margin: 2,
+	},
+	buttonGroupContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
 	},
 })
 
