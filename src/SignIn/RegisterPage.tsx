@@ -112,6 +112,7 @@ export default function Register() {
 				bottom: 0,
 				justifyContent: 'center',
 				alignItems: 'center',
+				backgroundColor:'#F0CCB0',
 			}}
 		>
 			<View>
@@ -135,6 +136,7 @@ const styles = StyleSheet.create({
 		marginBottom: 20,
 		height: 35,
 		textAlign: 'center',
+		backgroundColor: '#fff'
 	},
 	buttonContainer: {
 		alignSelf: 'center', 
