@@ -42,10 +42,6 @@ function Home() {
 				<Image source={Egg} style={styles.image}/>
 			</TouchableOpacity>
 			<Text>Send Egg</Text>
-			<Button
-				title="Go to Welcome Page"
-				onPress={() => nav.navigate('Welcome' as never)}
-			/>
 		</View>
 	)
 }
