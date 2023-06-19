@@ -13,6 +13,7 @@ import {
 	query,
 	where,
 	serverTimestamp,
+	orderBy,
 } from 'firebase/firestore'
 //Firebase Auth
 import {
@@ -311,8 +312,13 @@ export function uploadText(text: string, metadata: any) {
 }
 
 //fetch Eggs for "Eggs Page"
-function getEggs(username: string) {
-	const recipientQuery = query(eggsRef, where('recipient', '==', username))
+export function getEggs(username: string, partner_username: string) {
+	const recipientQuery = query(
+		eggsRef,
+		where('recipient', '==', username),
+		where('sender', '==', partner_username),
+		orderBy('timestamp', 'desc')
+	)
 	return getDocs(recipientQuery).then((querySnapshot) => {
 		let eggArray: any[] = []
 		querySnapshot.forEach((document) => {
