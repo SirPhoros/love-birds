@@ -118,7 +118,7 @@ export default function Profile() {
 			<>
 				<View style={styles.syncButtonContainer}>
 					<Button
-						title="Sync"
+						title="Pair"
 						onPress={() => {
 							Alert.alert('Syncing...')
 							checkRelationship(profileId.partner_username).then(() => {
@@ -159,9 +159,9 @@ export default function Profile() {
 			<>
 				<View style={styles.buttonContainer}>
 					<Button
-						title="Sign Out"
+						title="Log Out"
 						onPress={() => {
-							Alert.alert('Signing out...')
+							Alert.alert('Bye Bye!')
 							logOut()
 							nav.navigate('Welcome' as never)
 						}}
@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
 	},
 	syncButtonContainer: {
 		alignSelf: 'center',
-		width: '100%',
+		width: 100,
 		backgroundColor: '#f2daa4',
 		borderRadius: 50,
 		marginBottom: 1,
