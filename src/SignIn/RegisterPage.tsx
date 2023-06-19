@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, TextInput, Alert, StyleSheet } from 'react-native'
-import { Text, Button, Image } from "react-native-elements";
+import { Text, Button, Image } from 'react-native-elements'
 
 import { useNavigation } from '@react-navigation/native'
 import { handleGoogle, handleSignUpWithEmail } from '../../utils'
@@ -17,19 +17,19 @@ export default function Register() {
 	function EmailRegister() {
 		return (
 			<>
-			  <View style={{ alignItems: 'center'}}>
-				<Text>Email:</Text>
-			  </View>
+				<View style={{ alignItems: 'center' }}>
+					<Text>Email:</Text>
+				</View>
 				<TextInput
 					placeholder="add your email address here"
 					onChangeText={(newText) => {
-						newEmail = newText
+						newEmail = newText.toLocaleLowerCase().replace(/\s+/g, '')
 					}}
 					style={styles.textContainer}
 				></TextInput>
-			  <View style={{ alignItems: 'center'}}>
-				<Text>Secret Password:</Text>
-			  </View>
+				<View style={{ alignItems: 'center' }}>
+					<Text>Secret Password:</Text>
+				</View>
 				<TextInput
 					placeholder="add your password here"
 					secureTextEntry={true}
@@ -38,19 +38,19 @@ export default function Register() {
 					}}
 					style={styles.textContainer}
 				></TextInput>
-			  <View style={styles.buttonContainer}>
-				<Button
-					title="Register With Email"
-					onPress={() => {
-						setEmail(newEmail)
-						setPassword(newPassword)
-						handleSignUpWithEmail(newEmail, newPassword)
-						Alert.alert('Registered Successfuly!')
-					}}
-					buttonStyle={{ backgroundColor: '#FAE8E0' }}
-          			titleStyle={{ color: '#EF7C8E' }}
-				/>
-			  </View>
+				<View style={styles.buttonContainer}>
+					<Button
+						title="Register With Email"
+						onPress={() => {
+							setEmail(newEmail)
+							setPassword(newPassword)
+							handleSignUpWithEmail(newEmail, newPassword)
+							Alert.alert('Registered Successfuly!')
+						}}
+						buttonStyle={{ backgroundColor: '#FAE8E0' }}
+						titleStyle={{ color: '#EF7C8E' }}
+					/>
+				</View>
 			</>
 		)
 	}
@@ -112,7 +112,7 @@ export default function Register() {
 				bottom: 0,
 				justifyContent: 'center',
 				alignItems: 'center',
-				backgroundColor:'#F0CCB0',
+				backgroundColor: '#F0CCB0',
 			}}
 		>
 			<View>
@@ -126,7 +126,6 @@ export default function Register() {
 	)
 }
 
-
 const styles = StyleSheet.create({
 	textContainer: {
 		width: 200,
@@ -136,10 +135,10 @@ const styles = StyleSheet.create({
 		marginBottom: 20,
 		height: 35,
 		textAlign: 'center',
-		backgroundColor: '#fff'
+		backgroundColor: '#fff',
 	},
 	buttonContainer: {
-		alignSelf: 'center', 
+		alignSelf: 'center',
 		width: '70%',
 		backgroundColor: '#f2daa4',
 		borderRadius: 50,
@@ -147,6 +146,6 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		borderWidth: 2,
 		borderColor: 'brown',
-		overflow: 'hidden', 
+		overflow: 'hidden',
 	},
 })
