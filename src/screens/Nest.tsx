@@ -29,7 +29,7 @@ const eggArray = [
 ]
 
   const myItemSeparator = () => {
-    return <View style={{ height: 1, backgroundColor: "grey",marginHorizontal:5}} />;
+    return <View style={{ height: 1, backgroundColor: "grey", marginHorizontal:5}} />;
     };
   
   const myListEmpty = () => {
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     flex: 1,
+    backgroundColor: '#F0CCB0'
   },
     itemContainer: {
     flexDirection: "row",
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 5,
     backgroundColor: "white",
-    borderRadius: 5,
+    borderRadius: 50,
   },
   item: {
     padding: 5,

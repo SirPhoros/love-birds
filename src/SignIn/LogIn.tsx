@@ -70,7 +70,7 @@ export default function LogIn() {
 
 	function LoginPage() {
 		return (
-			<View>
+			<View> 
 				<Text>Log in Page Goes Here.</Text>
 				<Button
 					title="Goes to home once registered"
@@ -110,6 +110,7 @@ export default function LogIn() {
 				bottom: 0,
 				justifyContent: 'center',
 				alignItems: 'center',
+				backgroundColor:'#F0CCB0',
 			}}
 		>
 			<View>
@@ -132,6 +133,7 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		height: 35,
 		textAlign: 'center',
+		backgroundColor: '#fff'
 	},
 	buttonContainer: {
 		alignSelf: 'center',
