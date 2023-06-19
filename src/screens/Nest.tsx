@@ -48,7 +48,7 @@ export default function Nest () {
        keyExtractor={(item) => item.date}
         data={eggArray}
         renderItem={({ item }) => 
-        <TouchableOpacity onPress ={() => {item.isLocked ? nav.navigate('Game') : nav.navigate('My Egg')}}>
+        <TouchableOpacity onPress ={() => {item.isLocked ? nav.navigate('Snake Game') : nav.navigate('My Egg')}}>
         <View style={styles.itemContainer}>
          <Image source={item.image} style={styles.image}/>
           <Text style={styles.item}>{item.date}</Text>
