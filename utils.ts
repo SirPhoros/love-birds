@@ -245,7 +245,11 @@ export function checkUser() {
 }
 
 //we need to send the file along with the metadata to this file
-export async function uploadMediaFromGallery(uri: string, metadata: any) {
+export async function uploadMediaFromGallery(
+	uri: string,
+	metadata: any,
+	caption: string | undefined
+) {
 	const { partner_username, username } = metadata
 	//BlobFroUri transforms the URL we retrieve from the phone to Binary Data
 	//Ready to be uploaded into Firebase db.
@@ -276,6 +280,7 @@ export async function uploadMediaFromGallery(uri: string, metadata: any) {
 						addDoc(collection(db, 'eggs'), {
 							fileURL: fileUrl,
 							recipient: partner_username,
+							caption: caption || '',
 							sender: username,
 							timestamp: serverTimestamp(),
 							isLocked: true,
@@ -331,4 +336,49 @@ export function getEggs(username: string, partner_username: string) {
 		})
 		return eggArray
 	})
+}
+
+//upload Image for your profile picture
+export async function updateProfilePicture(uri: string) {
+	//BlobFroUri transforms the URL we retrieve from the phone to Binary Data
+	//Ready to be uploaded into Firebase db.
+	const getBlobFroUri = async (uri: string): Promise<Blob> => {
+		const blob = await new Promise<Blob>((resolve, reject) => {
+			const xhr = new XMLHttpRequest()
+			xhr.onload = function () {
+				resolve(xhr.response as Blob)
+			}
+			xhr.onerror = function () {
+				reject(new TypeError('Network request failed'))
+			}
+			xhr.responseType = 'blob'
+			xhr.open('GET', uri, true)
+			xhr.send(null)
+		})
+
+		return blob
+	}
+
+	const imageBlob: Blob = await getBlobFroUri(uri)
+	if (imageBlob) {
+		const fileRef = ref(storage, 'profilePictures/' + Date.now())
+		uploadBytes(fileRef, imageBlob)
+			.then(() => {
+				getDownloadURL(fileRef)
+					.then((fileUrl) => {
+						updateDoc(doc(db, 'users', auth.currentUser.uid), {
+							avatarIMG: fileUrl,
+						})
+					})
+					.catch((error) => {
+						console.log(error.message)
+					})
+			})
+			.catch((error) => {
+				console.log(error.message)
+			})
+			.catch((error) => {
+				console.log(error.message)
+			})
+	}
 }

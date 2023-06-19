@@ -3,15 +3,23 @@ import { View, Text, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { UserContext } from "../../Context/UserContext";
+import { useRoute } from "@react-navigation/native";
 
 export default function MyEgg() {
   const nav = useNavigation()
   const { profileId, setProfileId } = useContext(UserContext)
 
+  const route = useRoute()
+  const prop = route.params?.item
+  console.log("prop:", prop)
+
+
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:'#F0CCB0' }}>
         <Text>MyEgg</Text>
-        <Text>Content Goes in here</Text>
+        <Text>Congratulations!!</Text>
+        <Text>Your partner sent you a {prop.contentType}:</Text>
+        <Text>{prop.contentMsg}</Text>
         <View style={styles.buttonContainer}>
           <Button
             title="Back to Nest"

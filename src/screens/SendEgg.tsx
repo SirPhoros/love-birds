@@ -7,6 +7,7 @@ import { useContext } from 'react'
 import { uploadMediaFromGallery, uploadText } from '../../utils'
 import CameraFeature from '../Camera/CameraFeature'
 import * as ImagePicker from 'expo-image-picker'
+import { useRoute } from '@react-navigation/native'
 
 const SendEgg: React.FC = () => {
 	const [message, setMessage] = useState('')
@@ -29,6 +30,7 @@ const SendEgg: React.FC = () => {
 	console.log('selectedGame:', selectedGame)
 	console.log('selectedMessageForm:', messageForm)
 	let messageText: string
+  
 
 	const handleFileSelection = () => {
 		ImagePicker.requestMediaLibraryPermissionsAsync()
@@ -47,10 +49,7 @@ const SendEgg: React.FC = () => {
 
 				ImagePicker.launchImageLibraryAsync(options)
 					.then((result) => {
-						console.log('result in SendEgg: ', result)
-
 						if (!result.canceled) {
-							console.log(result.assets[0].uri, 'in SendEgg')
 							setFile(result.assets[0].uri)
 						}
 					})
@@ -62,6 +61,8 @@ const SendEgg: React.FC = () => {
 				console.log('Permission request failed: ', error)
 			})
 	}
+
+  
 	function MessageInput() {
 		return (
 			<>
@@ -70,7 +71,6 @@ const SendEgg: React.FC = () => {
 						style={styles.textInput}
 						placeholder="Enter your message"
 						onChangeText={(newText) => {
-							console.log(newText)
 							messageText = newText
 						}}
 					/>
@@ -80,10 +80,7 @@ const SendEgg: React.FC = () => {
 						title="Send"
 						onPress={() => {
 							Alert.alert('Message Sent!')
-
 							setMessage(messageText)
-							console.log('message state:', message)
-							console.log('messageText:', messageText)
 							uploadText(messageText, { partner_username, username }) //to fix once we can pass the stuff from database
 						}}
 						buttonStyle={{ backgroundColor: '#FAE8E0' }}
@@ -99,7 +96,9 @@ const SendEgg: React.FC = () => {
 			<>
 				<View style={styles.buttonContainerUploadImg}>
 					<Button
-						title="Select Image"
+						title=" ⇧ Upload Image ⇧"
+            buttonStyle={{ backgroundColor: '#FAE8E0' }}
+            titleStyle={{ color: 'blue' }}
 						onPress={handleFileSelection}
 					/>
 				</View>
@@ -119,12 +118,8 @@ const SendEgg: React.FC = () => {
 						onPress={() => {
 							Alert.alert('Image Sent!')
 							setMessage(messageText)
-							console.log('File in SendEgg', file)
-							uploadMediaFromGallery(file, { partner_username, username })
-							console.log('message state:', message)
-							console.log('messageText:', messageText)
+							uploadMediaFromGallery(file, { partner_username, username }, messageText)
 						}}
-						//   onPress={handleSendMessage} //to fix once we can pass the stuff from database
 						buttonStyle={{ backgroundColor: '#FAE8E0' }}
 						titleStyle={{ color: '#EF7C8E' }}
 					/>
@@ -149,10 +144,9 @@ const SendEgg: React.FC = () => {
 
 	return (
 		<View style={styles.container}>
-			<Text>Select Message Type:</Text>
 			<View style={styles.buttonContainer}>
 				<SelectDropdown
-					buttonStyle={{ backgroundColor: '#D8A7B1' }}
+					buttonStyle={{ backgroundColor: '#D8A7B1'}}
 					data={messages}
 					onSelect={(selectedItem, index) => {
 						setMessageForm(selectedItem)
@@ -164,9 +158,10 @@ const SendEgg: React.FC = () => {
 					rowTextForSelection={(item, index) => {
 						return item
 					}}
+          dropdownStyle={{ borderRadius: 20, backgroundColor: '#FAE8E0' }}
 				/>
 			</View>
-			<Text>Select Game for Partner:</Text>
+        <Text>Choose a game</Text>
 			<View style={styles.buttonContainer}>
 				<SelectDropdown
 					buttonStyle={{ backgroundColor: '#D8A7B1' }}
@@ -180,6 +175,7 @@ const SendEgg: React.FC = () => {
 					rowTextForSelection={(item, index) => {
 						return item
 					}}
+          dropdownStyle={{ borderRadius: 20, backgroundColor: '#FAE8E0' }}
 				/>
 			</View>
 			<View>{messageForm.length > 0 ? <Upload /> : null}</View>
@@ -192,6 +188,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
+    backgroundColor:'#F0CCB0',
+    marginTop: 0,
 	},
 	textContainer: {
 		width: 300,
@@ -215,21 +213,28 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		borderWidth: 2,
 		borderColor: 'brown',
-		overflow: 'hidden',
-	},
-	loadingContainer: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	buttonContainerUploadImg: {
-		width: '70%',
-		alignSelf: 'center',
-		marginBottom: 10,
-		borderColor: 'brown',
-		backgroundColor: '#f2daa4',
+		overflow: 'hidden', 
+    alignItems: 'center',
+    
+	  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonContainerUploadImg: {
+    alignSelf: 'center', 
+    textAlign: 'center',
+		width: '50%',
 		borderRadius: 50,
-	},
-})
+		marginBottom: 20,
+		marginTop: 10,
+		borderWidth: 2,
+		borderColor: 'brown',
+		overflow: 'hidden', 
+    alignItems: 'center',
+  }
+});
+
 
 export default SendEgg
