@@ -31,3 +31,8 @@ export const randomFoodPosition = (maxX: number, maxY: number): Coordinate => {
         y: Math.floor(Math.random() * maxY)
     }
 }
+
+export const checkSuccess = (score: number): boolean => {
+    console.log(score)
+  return score >= 20;
+};
