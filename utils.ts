@@ -338,7 +338,7 @@ export async function updateProfilePicture(uri: string) {
 			xhr.onload = function () {
 				resolve(xhr.response as Blob)
 			}
-			xhr.onerror = function (e) {
+			xhr.onerror = function () {
 				reject(new TypeError('Network request failed'))
 			}
 			xhr.responseType = 'blob'
@@ -351,7 +351,7 @@ export async function updateProfilePicture(uri: string) {
 
 	const imageBlob: Blob = await getBlobFroUri(uri)
 	if (imageBlob) {
-		const fileRef = ref(storage, 'images/' + Date.now())
+		const fileRef = ref(storage, 'profilePictures/' + Date.now())
 		uploadBytes(fileRef, imageBlob)
 			.then(() => {
 				getDownloadURL(fileRef)
