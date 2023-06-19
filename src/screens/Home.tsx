@@ -16,7 +16,7 @@ function Home() {
 	}, [])
   
 	return (
-		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor:'#F0CCB0'}}>
 			<Button
 				title="🪹"
 				onPress={() => nav.navigate('Nest' as never)}
