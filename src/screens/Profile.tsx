@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { View, Alert, TextInput, StyleSheet } from 'react-native'
-import { Text, Button, Image } from "react-native-elements";
+import { Text, Button, Image } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 import { UserContext } from '../../Context/UserContext'
+import * as ImagePicker from 'expo-image-picker'
 
 import {
 	checkRelationship,
@@ -10,6 +11,7 @@ import {
 	logOut,
 	removePartner,
 	updatePartner,
+	updateProfilePicture,
 } from '../../utils'
 
 // const profileId:{
@@ -31,6 +33,7 @@ import {
 export default function Profile() {
 	const nav = useNavigation()
 	const { profileId, setProfileId } = useContext(UserContext)
+	const [file, setFile] = useState('')
 
 	useEffect(() => {
 		checkRelationship(profileId.partner_username)
@@ -41,13 +44,43 @@ export default function Profile() {
 
 	let newPartner: string = ''
 
+	const handleImageUpdate = () => {
+		ImagePicker.requestMediaLibraryPermissionsAsync()
+			.then(({ status }) => {
+				if (status !== 'granted') {
+					console.log('Permission not granted')
+					return
+				}
+
+				const options = {
+					mediaTypes: ImagePicker.MediaTypeOptions.Images,
+					allowsEditing: true,
+					aspect: [4, 3],
+					quality: 1,
+				}
+
+				ImagePicker.launchImageLibraryAsync(options)
+					.then((result) => {
+						if (!result.canceled) {
+							setFile(result.assets[0].uri)
+						}
+					})
+					.catch((error) => {
+						console.log('ImagePicker Error: ', error)
+					})
+			})
+			.catch((error) => {
+				console.log('Permission request failed: ', error)
+			})
+	}
+
 	function RelationshipTextInput() {
 		return (
 			<>
 				<TextInput
 					placeholder="add partner's name here"
 					onChangeText={(newText) => {
-					newPartner = newText
+						newPartner = newText
 					}}
 					style={styles.textContainer}
 				></TextInput>
@@ -60,7 +93,7 @@ export default function Profile() {
 							Alert.alert('Relationship updated with ' + newPartner)
 						}}
 						buttonStyle={{ backgroundColor: '#FAE8E0' }}
-                        titleStyle={{ color: '#EF7C8E' }}
+						titleStyle={{ color: '#EF7C8E' }}
 					/>
 				</View>
 			</>
@@ -70,21 +103,21 @@ export default function Profile() {
 	function SyncRelationship() {
 		return (
 			<>
-			  <View style={styles.syncButtonContainer}>
-				<Button
-					title="Sync"
-					onPress={() => {
-						Alert.alert('Syncing...')
-						checkRelationship(profileId.partner_username).then(() => {
-							getUserData().then((userData: any) => {
-								setProfileId(userData)
+				<View style={styles.syncButtonContainer}>
+					<Button
+						title="Sync"
+						onPress={() => {
+							Alert.alert('Syncing...')
+							checkRelationship(profileId.partner_username).then(() => {
+								getUserData().then((userData: any) => {
+									setProfileId(userData)
+								})
 							})
-						})
-					}}
-					buttonStyle={{ backgroundColor: '#FAE8E0' }}
-          			titleStyle={{ color: 'blue' }}
-				/>
-			  </View>
+						}}
+						buttonStyle={{ backgroundColor: '#FAE8E0' }}
+						titleStyle={{ color: 'blue' }}
+					/>
+				</View>
 			</>
 		)
 	}
@@ -110,20 +143,20 @@ export default function Profile() {
 
 	function SignOutButton() {
 		return (
-		  <>
-			<View style={styles.buttonContainer}>
-				<Button
-					title="Sign Out"
-					onPress={() => {
-						Alert.alert('Signing out...')
-						logOut()
-						nav.navigate('Welcome' as never)
-					}}
-					buttonStyle={{ backgroundColor: '#FAE8E0' }}
-                    titleStyle={{ color: '#EF7C8E' }}
-				/>
-			</View>
-		  </>
+			<>
+				<View style={styles.buttonContainer}>
+					<Button
+						title="Sign Out"
+						onPress={() => {
+							Alert.alert('Signing out...')
+							logOut()
+							nav.navigate('Welcome' as never)
+						}}
+						buttonStyle={{ backgroundColor: '#FAE8E0' }}
+						titleStyle={{ color: '#EF7C8E' }}
+					/>
+				</View>
+			</>
 		)
 	}
 
@@ -154,6 +187,16 @@ export default function Profile() {
 							profileId.avatarIMG ||
 							'https://img.rawpixel.com/private/static/images/website/2022-05/ns8230-image.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=b3961e17298745c0868eeef46211c3d0',
 					}}
+				/>
+				<Button
+					title="UploadImage"
+					onPress={() => {
+						Alert.alert('Profile updated')
+						handleImageUpdate()
+						updateProfilePicture(file)
+					}}
+					buttonStyle={{ backgroundColor: '#FAE8E0' }}
+					titleStyle={{ color: '#EF7C8E' }}
 				/>
 
 				<View className="py-2">
@@ -190,17 +233,17 @@ export default function Profile() {
 						></Button>
 					) : null}
 				</View>
-                <View>
-                    <SignOutButton/>
-                </View>
+				<View>
+					<SignOutButton />
+				</View>
 			</View>
 		</>
 	)
 }
 
 const styles = StyleSheet.create({
-    buttonContainer: {
-		alignSelf: 'center', 
+	buttonContainer: {
+		alignSelf: 'center',
 		width: '70%',
 		backgroundColor: '#f2daa4',
 		borderRadius: 50,
@@ -208,20 +251,20 @@ const styles = StyleSheet.create({
 		marginTop: 1,
 		borderWidth: 2,
 		borderColor: 'brown',
-		overflow: 'hidden', 
-	  },
-      textContainer: {
+		overflow: 'hidden',
+	},
+	textContainer: {
 		width: 220,
 		borderWidth: 1,
 		borderColor: 'gray',
 		backgroundColor: '#fff',
-		borderRadius:15,
+		borderRadius: 15,
 		marginBottom: 10,
 		height: 30,
 		textAlign: 'center',
 	},
 	syncButtonContainer: {
-		alignSelf: 'center', 
+		alignSelf: 'center',
 		width: '100%',
 		backgroundColor: '#f2daa4',
 		borderRadius: 50,
@@ -229,6 +272,6 @@ const styles = StyleSheet.create({
 		marginTop: 1,
 		borderWidth: 2,
 		borderColor: 'brown',
-		overflow: 'hidden', 
-	}
+		overflow: 'hidden',
+	},
 })
