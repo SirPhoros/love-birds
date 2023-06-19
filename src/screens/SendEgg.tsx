@@ -61,6 +61,8 @@ const SendEgg: React.FC = () => {
 				console.log('Permission request failed: ', error)
 			})
 	}
+
+  
 	function MessageInput() {
 		return (
 			<>
