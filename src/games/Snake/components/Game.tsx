@@ -12,6 +12,7 @@ import { Colours } from '../styles/colours';
 import { checkGameOver } from '../utils';
 import { checkEatsFood } from '../utils';
 import { randomFoodPosition } from '../utils';
+import { useRoute } from '@react-navigation/native';
 
 
 const SNAKE_INITIAL_POSITION = [{x: 5, y: 5}];
@@ -29,12 +30,16 @@ export default function Game():JSX.Element {
     const [score, setScore] = useState<number>(0)
 const nav = useNavigation()
 
+    const route = useRoute()
+    const item = route.params?.item
+    
+
     useEffect(() => {
         if (isGameOver) {
        Alert.alert('Congratulations!', `Your Score is ${score}`, [
       {
         text: 'Hatch your egg',
-        onPress: () => nav.navigate('My Egg' as never),
+        onPress: () => nav.navigate('My Egg' as never, {item}),
       },
       {
         text: 'Cancel',
