@@ -201,9 +201,7 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		height: 100,
 		textAlign: 'center',
-    backgroundColor:'#fff',
 	},
-
 	textInput: {
 		height: 40,
 		paddingHorizontal: 10,
@@ -217,27 +215,6 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		borderWidth: 2,
 		borderColor: 'brown',
-		overflow: 'hidden', 
-    alignItems: 'center',
-	  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buttonContainerUploadImg: {
-    alignSelf: 'center', 
-    textAlign: 'center',
-		width: '50%',
-		borderRadius: 50,
-		marginBottom: 20,
-		marginTop: 10,
-		borderWidth: 2,
-		borderColor: 'brown',
-		overflow: 'hidden', 
-    alignItems: 'center',
-  }
-});
 		overflow: 'hidden',
 	},
 	loadingContainer: {
@@ -254,6 +231,5 @@ const styles = StyleSheet.create({
 		borderRadius: 50,
 	},
 })
-
 
 export default SendEgg
