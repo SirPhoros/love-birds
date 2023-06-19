@@ -243,31 +243,42 @@ export function checkUser() {
 	console.log(auth.currentUser)
 }
 
-//We need to see the shape of the file
+//we need to send the file along with the metadata to this file
+export async function uploadMediaFromGallery(uri: string, metadata: any) {
+	const { partner_username, username } = metadata
+	//BlobFroUri transforms the URL we retrieve from the phone to Binary Data
+	//Ready to be uploaded into Firebase db.
+	const getBlobFroUri = async (uri: string): Promise<Blob> => {
+		const blob = await new Promise<Blob>((resolve, reject) => {
+			const xhr = new XMLHttpRequest()
+			xhr.onload = function () {
+				resolve(xhr.response as Blob)
+			}
+			xhr.onerror = function (e) {
+				reject(new TypeError('Network request failed'))
+			}
+			xhr.responseType = 'blob'
+			xhr.open('GET', uri, true)
+			xhr.send(null)
+		})
 
-//we need to send the file along with the metadata to this file,
-//probably handled by a "handleSubmit" kind of function
-export function uploadMedia(file: any, metadata: any) {
-	const { contentType, recipient, sender } = metadata
-	if (file) {
-		console.log(file)
-		const fileRef = ref(storage, file.name)
-		uploadBytes(fileRef, file)
+		return blob
+	}
+
+	const imageBlob: Blob = await getBlobFroUri(uri)
+	if (imageBlob) {
+		const fileRef = ref(storage, 'images/' + Date.now())
+		uploadBytes(fileRef, imageBlob)
 			.then(() => {
 				getDownloadURL(fileRef)
 					.then((fileUrl) => {
 						addDoc(collection(db, 'eggs'), {
 							fileURL: fileUrl,
-							file_name: file.name,
-							//recipient: testUsername.partner_username,
-							recipient: recipient,
-							//sender: testUsername.username,
-							sender: sender,
+							recipient: partner_username,
+							sender: username,
 							timestamp: serverTimestamp(),
 							isLocked: true,
-							contentType: contentType,
-						}).then((data: any) => {
-							console.log(data)
+							typeEgg: 'image',
 						})
 					})
 					.catch((error) => {
@@ -277,11 +288,26 @@ export function uploadMedia(file: any, metadata: any) {
 			.catch((error) => {
 				console.log(error.message)
 			})
-
-		//This would need to be handled by React-Native
-		// setFile(null)
-		// setMessage('')
+			.catch((error) => {
+				console.log(error.message)
+			})
 	}
+}
+
+//Send messages as an Egg:
+export function uploadText(text: string, metadata: any) {
+	const { partner_username, username } = metadata
+	addDoc(collection(db, 'eggs'), {
+		contentType: 'message',
+		contentMsg: text,
+		recipient: partner_username,
+		sender: username,
+		timestamp: serverTimestamp(),
+		isLocked: true,
+		// game: metadataGame
+	}).catch((error) => {
+		console.log(error.message)
+	})
 }
 
 //fetch Eggs for "Eggs Page"
