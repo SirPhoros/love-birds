@@ -14,6 +14,7 @@ import {
 	where,
 	serverTimestamp,
 	orderBy,
+	QuerySnapshot,
 } from 'firebase/firestore'
 //Firebase Auth
 import {
@@ -377,4 +378,16 @@ export async function updateProfilePicture(uri: string) {
 				console.log(error.message)
 			})
 	}
+}
+
+//Update isLocked to false when passed the game:
+export function updateLock({ timestamp }: any): any {
+	const LockQuery = query(eggsRef, where('timestamp', '==', timestamp))
+	return getDocs(LockQuery).then((querySnapshot) => {
+		querySnapshot.forEach((document) => {
+			updateDoc(doc(db, 'eggs', document.id), {
+				isLocked: false,
+			})
+		})
+	})
 }
