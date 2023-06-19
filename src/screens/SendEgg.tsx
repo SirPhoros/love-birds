@@ -21,7 +21,7 @@ const SendEgg: React.FC = () => {
 	const messages: string[] = ['Message', 'Image']
 	const [selectedGame, setSelectedGame] = useState('')
 	const [messageForm, setMessageForm] = useState('')
-	const [file, setFile] = useState(null)
+	const [file, setFile] = useState('')
 	const { profileId } = useContext(UserContext)
 	const { username, partner_username } = profileId
 	console.log('selectedGame:', selectedGame)
@@ -47,7 +47,7 @@ const SendEgg: React.FC = () => {
 					.then((result) => {
 						console.log("result in SendEgg: ", result)
 
-						if (!result.cancelled) {
+						if (!result.canceled) {
               console.log(result.assets[0].uri, "in SendEgg" )
 							setFile(result.assets[0].uri)
 						}

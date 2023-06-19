@@ -243,14 +243,15 @@ export function checkUser() {
 	console.log(auth.currentUser)
 }
 
-//We need to see the shape of the file
 
-//we need to send the file along with the metadata to this file,
-//probably handled by a "handleSubmit" kind of function
-export async function uploadMedia(uri: any, metadata: any) {
+//we need to send the file along with the metadata to this file
+export async function uploadMediaFromGallery(uri: string, metadata: any) {
 	const { partner_username, username } = metadata
 
-	const getBlobFroUri = async (uri) => {
+
+	//BlobFroUri transforms the URL we retrieve from the phone to Binary Data
+	//Ready to be uploaded into Firebase db. 
+	const getBlobFroUri = async (uri : string ) => {
 		const blob = await new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest()
 			xhr.onload = function () {
@@ -271,8 +272,7 @@ export async function uploadMedia(uri: any, metadata: any) {
 
 	if (imageBlob) {
 		const fileRef = ref(storage, 'images/' + Date.now())
-		const contentType = 'image/jpeg' // Set the desired content type here
-		uploadBytes(fileRef, imageBlob,)
+		uploadBytes(fileRef, imageBlob)
 			.then(() => {
 				getDownloadURL(fileRef)
 					.then((fileUrl) => {
@@ -284,8 +284,6 @@ export async function uploadMedia(uri: any, metadata: any) {
 							isLocked: true,
 							typeEgg: 'image',
 						})
-							.then((data: any) => {
-								console.log('data in utils: ', data)
 							})
 							.catch((error) => {
 								console.log(error.message)
