@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import { Button } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { UserContext } from "../../Context/UserContext";
 
@@ -8,14 +9,31 @@ export default function MyEgg() {
   const { profileId, setProfileId } = useContext(UserContext)
 
     return (
-      <View>
-          <Text>MyEgg</Text>
-          <Text>Content Goes in here</Text>
-
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:'#F0CCB0' }}>
+        <Text>MyEgg</Text>
+        <Text>Content Goes in here</Text>
+        <View style={styles.buttonContainer}>
           <Button
-        title="Back to 🪹"
-        onPress={() => nav.navigate('Nest' as never)}
-      />
+            title="Back to Nest"
+            onPress={() => nav.navigate('Nest' as never)}
+            buttonStyle={{ backgroundColor: '#FAE8E0' }}
+            titleStyle={{ color: '#EF7C8E' }}
+          />
+        </View>
       </View>
     )
 }
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+		alignSelf: 'center', 
+		width: '50%',
+		backgroundColor: '#f2daa4',
+		borderRadius: 50,
+		marginBottom: 1,
+		marginTop: 1,
+		borderWidth: 2,
+		borderColor: 'brown',
+		overflow: 'hidden', 
+	  },
+})

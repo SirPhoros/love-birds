@@ -66,7 +66,9 @@ const SendEgg: React.FC = () => {
       <>
         <View style={styles.buttonContainerUploadImg}>
           <Button
-          title="Upload Image Here"
+          title=" ⇧ Upload Image ⇧"
+          buttonStyle={{ backgroundColor: '#FAE8E0' }}
+          titleStyle={{ color: 'blue' }}
           // onPress={() => )}
           />
         </View>
@@ -121,7 +123,7 @@ return (
     <Text>Select Message Type:</Text>
     <View style={styles.buttonContainer}>
     <SelectDropdown
-        buttonStyle={{ backgroundColor: '#D8A7B1' }}
+        buttonStyle={{ backgroundColor: '#FAE8E0' }}
       	data={messages}
 	      onSelect={(selectedItem, index) => {
         setMessageForm(selectedItem);
@@ -138,7 +140,7 @@ return (
     <Text>Select Game for Partner:</Text>
     <View style={styles.buttonContainer}>
     <SelectDropdown
-        buttonStyle={{ backgroundColor: '#D8A7B1' }}
+        buttonStyle={{ backgroundColor: '#FAE8E0' }}
       	data={games}
 	      onSelect={(selectedItem, index) => {
         setSelectedGame(selectedItem)
@@ -165,6 +167,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor:'#F0CCB0',
   },
   textContainer: {
 		width: 300,
@@ -174,6 +177,7 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		height: 100,
 		textAlign: 'center',
+    backgroundColor:'#fff',
 	},
   textInput: {
     height: 40,
@@ -181,6 +185,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
 		alignSelf: 'center', 
+    textAlign: 'center',
 		width: '45%',
 		backgroundColor: '#f2daa4',
 		borderRadius: 50,
@@ -189,6 +194,7 @@ const styles = StyleSheet.create({
 		borderWidth: 2,
 		borderColor: 'brown',
 		overflow: 'hidden', 
+    alignItems: 'center',
 	  },
   loadingContainer: {
     flex: 1,
@@ -196,12 +202,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonContainerUploadImg: {
-    width: '70%',
-		alignSelf: 'center', 
-    marginBottom: 10,
-    borderColor: 'brown',
-		backgroundColor: '#f2daa4',
-    borderRadius: 50,
+    alignSelf: 'center', 
+    textAlign: 'center',
+		width: '50%',
+		borderRadius: 50,
+		marginBottom: 20,
+		marginTop: 10,
+		borderWidth: 2,
+		borderColor: 'brown',
+		overflow: 'hidden', 
+    alignItems: 'center',
   }
 });
 

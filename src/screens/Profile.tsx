@@ -70,6 +70,7 @@ export default function Profile() {
 	function SyncRelationship() {
 		return (
 			<>
+			  <View style={styles.syncButtonContainer}>
 				<Button
 					title="Sync"
 					onPress={() => {
@@ -80,7 +81,10 @@ export default function Profile() {
 							})
 						})
 					}}
+					buttonStyle={{ backgroundColor: '#FAE8E0' }}
+          			titleStyle={{ color: 'blue' }}
 				/>
+			  </View>
 			</>
 		)
 	}
@@ -134,6 +138,7 @@ export default function Profile() {
 					bottom: 0,
 					justifyContent: 'center',
 					alignItems: 'center',
+					backgroundColor: '#F0CCB0',
 				}}
 			>
 				<Text className="text-2xl py-12">Your Profile</Text>
@@ -199,8 +204,8 @@ const styles = StyleSheet.create({
 		width: '70%',
 		backgroundColor: '#f2daa4',
 		borderRadius: 50,
-		marginBottom: 10,
-		marginTop: 10,
+		marginBottom: 1,
+		marginTop: 1,
 		borderWidth: 2,
 		borderColor: 'brown',
 		overflow: 'hidden', 
@@ -209,9 +214,21 @@ const styles = StyleSheet.create({
 		width: 220,
 		borderWidth: 1,
 		borderColor: 'gray',
+		backgroundColor: '#fff',
 		borderRadius:15,
 		marginBottom: 10,
 		height: 30,
 		textAlign: 'center',
 	},
+	syncButtonContainer: {
+		alignSelf: 'center', 
+		width: '100%',
+		backgroundColor: '#f2daa4',
+		borderRadius: 50,
+		marginBottom: 1,
+		marginTop: 1,
+		borderWidth: 2,
+		borderColor: 'brown',
+		overflow: 'hidden', 
+	}
 })

@@ -27,16 +27,6 @@ function Home() {
 			<TouchableOpacity onPress ={() => nav.navigate('Send Egg' as never)}>
 				<Image source={Egg} style={styles.image}/>
 			</TouchableOpacity>
-			{/* <Button
-
-				title="🪹"
-				onPress={() => nav.navigate('Nest' as never)}
-			/>
-			<Button
-				title="🥚"
-				onPress={() => nav.navigate('Send Egg' as never)}
-			/> */}
-			{/* Button here for now, will default with context */}
 			<Button
 				title="Go to Welcome Page"
 				onPress={() => nav.navigate('Welcome' as never)}
