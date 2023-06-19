@@ -66,7 +66,7 @@ const CameraFeature = ({ onClose }) => {
           <View>
             {photo ? (
               <>
-              <View style={styles.buttonContainer}>
+              <View style={styles.buttonContainer2}>
                   <Button
                     title="Share"
                     onPress={sharePic}
@@ -74,7 +74,7 @@ const CameraFeature = ({ onClose }) => {
                     titleStyle={{ color: '#EF7C8E' }}
                   />
               </View>
-              <View style={styles.buttonContainer}>
+              <View style={styles.buttonContainer2}>
                   <Button
                     title="Discard"
                     onPress={() => setPhoto(undefined)}
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
 		alignSelf: 'center', 
-		width: '150%',
+		width: '50%',
 		backgroundColor: '#f2daa4',
 		borderRadius: 50,
 		marginBottom: 0,
@@ -176,6 +176,17 @@ const styles = StyleSheet.create({
 		borderColor: 'brown',
 		overflow: 'hidden', 
 	},
+  buttonContainer2: {
+    alignSelf: 'center', 
+		width: '100%',
+		backgroundColor: '#f2daa4',
+		borderRadius: 50,
+		marginBottom: 0,
+    marginTop: 1,
+		borderWidth: 2,
+		borderColor: 'brown',
+		overflow: 'hidden',
+  }
 });
 
 export default CameraFeature;

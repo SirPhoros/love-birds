@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, FlatList, StyleSheet, Text, View, Image  } from "react-native";
+import { SafeAreaView, FlatList, StyleSheet, Text, View, Image, ActivityIndicator } from "react-native";
 import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Egg from '../../assets/Egg.png'
@@ -49,15 +49,26 @@ export default function Nest () {
   const [eggs, setEggs] = useState([])
   const nav = useNavigation();
   const {profileId} = useContext(UserContext)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  getEggs(profileId.username, profileId.partner_username)
-  .then((eggData: any) => {
-    console.log(eggData, 'RECEIVED DATA')
-    setEggs(eggData)
-console.log(eggs, 'state')
-  })
-}, [profileId.username])
+    getEggs(profileId.username, profileId.partner_username)
+      .then((eggData: any) => {
+        console.log(eggData, 'RECEIVED DATA')
+        setEggs(eggData)
+        console.log(eggs, 'state')
+        setLoading(false);
+      })
+    }, [profileId.username])
+
+  /* Loading State */
+	if (loading) {
+		return (
+		  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+			  <ActivityIndicator size="large" color="#D8A7B1" />
+		  </View>
+		);
+	}
 
   return (
     <SafeAreaView style={styles.container}>

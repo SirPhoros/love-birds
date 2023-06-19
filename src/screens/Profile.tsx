@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, Alert, TextInput, StyleSheet } from 'react-native'
+import { View, Alert, TextInput, StyleSheet, ScrollView } from 'react-native'
 import { Text, Button, Image } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 import { UserContext } from '../../Context/UserContext'
@@ -164,6 +164,7 @@ export default function Profile() {
 
 	return (
 		<>
+		  <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 			<View
 				style={{
 					position: 'absolute',
@@ -190,16 +191,18 @@ export default function Profile() {
 							'https://img.rawpixel.com/private/static/images/website/2022-05/ns8230-image.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=b3961e17298745c0868eeef46211c3d0',
 					}}
 				/>
-				<Button
-					title="UploadImage"
-					onPress={() => {
-						handleImageUpdate()
-						updateProfilePicture(file)
-						Alert.alert('Profile updated')
-					}}
-					buttonStyle={{ backgroundColor: '#FAE8E0' }}
-					titleStyle={{ color: '#EF7C8E' }}
-				/>
+				<View style={styles.uploadImgButtonContainer}>
+					<Button
+						title="Upload Avatar"
+						onPress={() => {
+							handleImageUpdate()
+							updateProfilePicture(file)
+              Alert.alert('Profile updated')
+						}}
+						buttonStyle={{ backgroundColor: '#FAE8E0' }}
+						titleStyle={{ color: '#EF7C8E' }}
+					/>
+				</View>
 
 				<View className="py-2">
 					{profileId.in_relationship === false ? (
@@ -225,20 +228,23 @@ export default function Profile() {
 						</>
 					) : null}
 				</View>
-				<Text className="pt-12 pb-2">Username: {profileId.username}</Text>
-				<Text className="py-2">Email: {profileId.email}</Text>
-				<View>
-					{profileId.in_relationship === true ? (
+				<View style={{ marginBottom: 35 }}>
+					<Text className="pt-12 pb-2">Username: {profileId.username}</Text>
+					<Text className="py-2">Email: {profileId.email}</Text>
+					<View>
+						{profileId.in_relationship === true ? (
 						<Button
 							title="Relationship Wrapped"
 							onPress={() => nav.navigate('Relationship' as never)}
-						></Button>
-					) : null}
-				</View>
-				<View>
-					<SignOutButton />
-				</View>
+						/>
+						) : null}
+					</View>
+					<View>
+						<SignOutButton />
+					</View>
+					</View>
 			</View>
+		  </ScrollView>
 		</>
 	)
 }
@@ -276,4 +282,16 @@ const styles = StyleSheet.create({
 		borderColor: 'brown',
 		overflow: 'hidden',
 	},
+	uploadImgButtonContainer: {
+		alignSelf: 'center',
+		width: '40%',
+		height: 45,
+		backgroundColor: '#f2daa4',
+		borderRadius: 50,
+		marginBottom: 1,
+		marginTop: 1,
+		borderWidth: 2,
+		borderColor: 'brown',
+		overflow: 'hidden',
+	}
 })
