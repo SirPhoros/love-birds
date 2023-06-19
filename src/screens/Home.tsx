@@ -3,7 +3,7 @@ import { Button, Text, View, Image, StyleSheet } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { UserContext } from '../../Context/UserContext'
 import { checkUser, getUserData } from '../../utils'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { TouchableOpacity } from 'react-native'
 import Egg from '../../assets/Egg.png'
 import Nest from '../../assets/Nest.png'
 
