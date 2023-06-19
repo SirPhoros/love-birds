@@ -17,7 +17,9 @@ export default function MyEgg() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:'#F0CCB0' }}>
         <Text>MyEgg</Text>
-        <Text>Content Goes in here</Text>
+        <Text>Congratulations!!</Text>
+        <Text>Your partner sent you a {prop.contentType}:</Text>
+        <Text>{prop.contentMsg}</Text>
         <View style={styles.buttonContainer}>
           <Button
             title="Back to Nest"
