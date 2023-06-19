@@ -25,7 +25,7 @@ export default function LogIn() {
 					<TextInput
 						placeholder="Enter email..."
 						onChangeText={(newText) => {
-							emailLogin = newText
+							emailLogin = newText.toLocaleLowerCase().replace(/\s+/g, '')
 						}}
 						style={styles.textContainer}
 					/>

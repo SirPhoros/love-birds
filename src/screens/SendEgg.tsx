@@ -47,10 +47,7 @@ const SendEgg: React.FC = () => {
 
 				ImagePicker.launchImageLibraryAsync(options)
 					.then((result) => {
-						console.log('result in SendEgg: ', result)
-
 						if (!result.canceled) {
-							console.log(result.assets[0].uri, 'in SendEgg')
 							setFile(result.assets[0].uri)
 						}
 					})
@@ -70,7 +67,6 @@ const SendEgg: React.FC = () => {
 						style={styles.textInput}
 						placeholder="Enter your message"
 						onChangeText={(newText) => {
-							console.log(newText)
 							messageText = newText
 						}}
 					/>
@@ -80,10 +76,7 @@ const SendEgg: React.FC = () => {
 						title="Send"
 						onPress={() => {
 							Alert.alert('Message Sent!')
-
 							setMessage(messageText)
-							console.log('message state:', message)
-							console.log('messageText:', messageText)
 							uploadText(messageText, { partner_username, username }) //to fix once we can pass the stuff from database
 						}}
 						buttonStyle={{ backgroundColor: '#FAE8E0' }}
@@ -121,12 +114,8 @@ const SendEgg: React.FC = () => {
 						onPress={() => {
 							Alert.alert('Image Sent!')
 							setMessage(messageText)
-							console.log('File in SendEgg', file)
-							uploadMediaFromGallery(file, { partner_username, username })
-							console.log('message state:', message)
-							console.log('messageText:', messageText)
+							uploadMediaFromGallery(file, { partner_username, username }, messageText)
 						}}
-						//   onPress={handleSendMessage} //to fix once we can pass the stuff from database
 						buttonStyle={{ backgroundColor: '#FAE8E0' }}
 						titleStyle={{ color: '#EF7C8E' }}
 					/>

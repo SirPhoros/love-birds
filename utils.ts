@@ -245,7 +245,11 @@ export function checkUser() {
 }
 
 //we need to send the file along with the metadata to this file
-export async function uploadMediaFromGallery(uri: string, metadata: any) {
+export async function uploadMediaFromGallery(
+	uri: string,
+	metadata: any,
+	caption: string | undefined
+) {
 	const { partner_username, username } = metadata
 	//BlobFroUri transforms the URL we retrieve from the phone to Binary Data
 	//Ready to be uploaded into Firebase db.
@@ -276,6 +280,7 @@ export async function uploadMediaFromGallery(uri: string, metadata: any) {
 						addDoc(collection(db, 'eggs'), {
 							fileURL: fileUrl,
 							recipient: partner_username,
+							caption: caption || '',
 							sender: username,
 							timestamp: serverTimestamp(),
 							isLocked: true,
@@ -343,7 +348,7 @@ export async function updateProfilePicture(uri: string) {
 			xhr.onload = function () {
 				resolve(xhr.response as Blob)
 			}
-			xhr.onerror = function (e) {
+			xhr.onerror = function () {
 				reject(new TypeError('Network request failed'))
 			}
 			xhr.responseType = 'blob'
@@ -356,7 +361,7 @@ export async function updateProfilePicture(uri: string) {
 
 	const imageBlob: Blob = await getBlobFroUri(uri)
 	if (imageBlob) {
-		const fileRef = ref(storage, 'images/' + Date.now())
+		const fileRef = ref(storage, 'profilePictures/' + Date.now())
 		uploadBytes(fileRef, imageBlob)
 			.then(() => {
 				getDownloadURL(fileRef)

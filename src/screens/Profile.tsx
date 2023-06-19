@@ -61,7 +61,9 @@ export default function Profile() {
 
 				ImagePicker.launchImageLibraryAsync(options)
 					.then((result) => {
+						console.log('result in Profile: ', result)
 						if (!result.canceled) {
+							console.log('uri: ', result.assets[0].uri)
 							setFile(result.assets[0].uri)
 						}
 					})
@@ -193,9 +195,9 @@ export default function Profile() {
 					<Button
 						title="Upload Avatar"
 						onPress={() => {
-							Alert.alert('Profile updated')
 							handleImageUpdate()
 							updateProfilePicture(file)
+              Alert.alert('Profile updated')
 						}}
 						buttonStyle={{ backgroundColor: '#FAE8E0' }}
 						titleStyle={{ color: '#EF7C8E' }}
