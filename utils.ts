@@ -304,7 +304,7 @@ export async function uploadMediaFromGallery(
 export function uploadText(text: string, metadata: any) {
 	const { partner_username, username } = metadata
 	addDoc(collection(db, 'eggs'), {
-		contentType: 'message',
+		typeEgg: 'message',
 		contentMsg: text,
 		recipient: partner_username,
 		sender: username,
@@ -318,11 +318,7 @@ export function uploadText(text: string, metadata: any) {
 
 //fetch Eggs for "Eggs Page"
 export function getEggs(username: string, partner_username: string) {
-	const recipientQuery = query(
-		eggsRef,
-		where('recipient', '==', username),
-		
-	)
+	const recipientQuery = query(eggsRef, where('recipient', '==', username))
 	// 	const recipientQuery = query(
 	// 	eggsRef,
 	// 	where('recipient', '==', username),
