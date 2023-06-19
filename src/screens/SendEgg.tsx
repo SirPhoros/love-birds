@@ -99,7 +99,9 @@ const SendEgg: React.FC = () => {
 			<>
 				<View style={styles.buttonContainerUploadImg}>
 					<Button
-						title="Select Image"
+						title=" ⇧ Upload Image ⇧"
+            buttonStyle={{ backgroundColor: '#FAE8E0' }}
+            titleStyle={{ color: 'blue' }}
 						onPress={handleFileSelection}
 					/>
 				</View>
@@ -149,10 +151,9 @@ const SendEgg: React.FC = () => {
 
 	return (
 		<View style={styles.container}>
-			<Text>Select Message Type:</Text>
 			<View style={styles.buttonContainer}>
 				<SelectDropdown
-					buttonStyle={{ backgroundColor: '#D8A7B1' }}
+					buttonStyle={{ backgroundColor: '#D8A7B1'}}
 					data={messages}
 					onSelect={(selectedItem, index) => {
 						setMessageForm(selectedItem)
@@ -164,9 +165,10 @@ const SendEgg: React.FC = () => {
 					rowTextForSelection={(item, index) => {
 						return item
 					}}
+          dropdownStyle={{ borderRadius: 20, backgroundColor: '#FAE8E0' }}
 				/>
 			</View>
-			<Text>Select Game for Partner:</Text>
+        <Text>Choose a game</Text>
 			<View style={styles.buttonContainer}>
 				<SelectDropdown
 					buttonStyle={{ backgroundColor: '#D8A7B1' }}
@@ -180,6 +182,7 @@ const SendEgg: React.FC = () => {
 					rowTextForSelection={(item, index) => {
 						return item
 					}}
+          dropdownStyle={{ borderRadius: 20, backgroundColor: '#FAE8E0' }}
 				/>
 			</View>
 			<View>{messageForm.length > 0 ? <Upload /> : null}</View>
@@ -192,6 +195,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
+    backgroundColor:'#F0CCB0',
+    marginTop: 0,
 	},
 	textContainer: {
 		width: 300,
@@ -215,21 +220,28 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		borderWidth: 2,
 		borderColor: 'brown',
-		overflow: 'hidden',
-	},
-	loadingContainer: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	buttonContainerUploadImg: {
-		width: '70%',
-		alignSelf: 'center',
-		marginBottom: 10,
-		borderColor: 'brown',
-		backgroundColor: '#f2daa4',
+		overflow: 'hidden', 
+    alignItems: 'center',
+    
+	  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonContainerUploadImg: {
+    alignSelf: 'center', 
+    textAlign: 'center',
+		width: '50%',
 		borderRadius: 50,
-	},
-})
+		marginBottom: 20,
+		marginTop: 10,
+		borderWidth: 2,
+		borderColor: 'brown',
+		overflow: 'hidden', 
+    alignItems: 'center',
+  }
+});
+
 
 export default SendEgg

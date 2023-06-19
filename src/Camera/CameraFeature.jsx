@@ -66,32 +66,22 @@ const CameraFeature = ({ onClose }) => {
           <View>
             {photo ? (
               <>
+              <View style={styles.buttonContainer}>
                   <Button
                     title="Share"
                     onPress={sharePic}
                     buttonStyle={{ backgroundColor: '#FAE8E0' }}
                     titleStyle={{ color: '#EF7C8E' }}
                   />
-                {/* {hasMediaLibraryPermission && (
-                    <Button
-                      title="Save"
-                      onPress={savePhoto}
-                      buttonStyle={{ backgroundColor: '#FAE8E0' }}
-                      titleStyle={{ color: '#EF7C8E' }}
-                    />
-                )} */}
+              </View>
+              <View style={styles.buttonContainer}>
                   <Button
                     title="Discard"
                     onPress={() => setPhoto(undefined)}
                     buttonStyle={{ backgroundColor: '#FAE8E0' }}
                     titleStyle={{ color: '#EF7C8E' }}
                   />
-                  {/* <Button
-                    title="Go Back"
-                    onPress={onClose}
-                    buttonStyle={{ backgroundColor: '#FAE8E0' }}
-                    titleStyle={{ color: '#EF7C8E' }}
-                  /> */}
+              </View>
               </>
             ) : (
               <>
@@ -158,13 +148,14 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     borderRadius: 10,
     overflow: 'hidden',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   previewContainer: {
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
     marginBottom: 20,
+    marginTop: -120,
   },
   preview: {
     width: '320%',
@@ -175,15 +166,16 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    width: '40%',
-    marginBottom: 10,
-    backgroundColor: '#FAE8E0',
-	borderRadius: 50,
-    borderWidth: 2,
-    borderColor: 'brown',
-  },
+		alignSelf: 'center', 
+		width: '150%',
+		backgroundColor: '#f2daa4',
+		borderRadius: 50,
+		marginBottom: 0,
+    marginTop: 1,
+		borderWidth: 2,
+		borderColor: 'brown',
+		overflow: 'hidden', 
+	},
 });
 
 export default CameraFeature;
