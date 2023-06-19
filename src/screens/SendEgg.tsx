@@ -7,6 +7,7 @@ import { useContext } from 'react'
 import { uploadMediaFromGallery, uploadText } from '../../utils'
 import CameraFeature from '../Camera/CameraFeature'
 import * as ImagePicker from 'expo-image-picker'
+import { useRoute } from '@react-navigation/native'
 
 const SendEgg: React.FC = () => {
 	const [message, setMessage] = useState('')
@@ -29,6 +30,7 @@ const SendEgg: React.FC = () => {
 	console.log('selectedGame:', selectedGame)
 	console.log('selectedMessageForm:', messageForm)
 	let messageText: string
+  
 
 	const handleFileSelection = () => {
 		ImagePicker.requestMediaLibraryPermissionsAsync()

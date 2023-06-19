@@ -7,6 +7,7 @@ import { TouchableOpacity } from "react-native";
 import { getEggs } from "../../utils";
 import { UserContext } from "../../Context/UserContext";
 import { useContext } from "react";
+import { useRoute } from "@react-navigation/native";
 
 
 // const eggArray = [
@@ -65,7 +66,7 @@ console.log(eggs, 'state')
        keyExtractor={(item) => item.timestamp.seconds}
         data={eggs}
         renderItem={({ item }) => 
-        <TouchableOpacity onPress ={() => {item.isLocked ? nav.navigate('Snake Game') : nav.navigate('My Egg')}}>
+        <TouchableOpacity onPress ={() => {item.isLocked ? nav.navigate('Snake Game') : nav.navigate('My Egg', { item })}}>
         <View style={styles.itemContainer}>
          <Image source={item.image} style={styles.image}/>
           <Text style={styles.item}>{item.timestamp.seconds}</Text>
