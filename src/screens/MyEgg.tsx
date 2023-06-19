@@ -10,16 +10,16 @@ export default function MyEgg() {
   const { profileId, setProfileId } = useContext(UserContext)
 
   const route = useRoute()
-  const prop = route.params?.item
-  console.log("prop:", prop)
+  const item = route.params?.item
+  
 
 
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:'#F0CCB0' }}>
         <Text>MyEgg</Text>
         <Text>Congratulations!!</Text>
-        <Text>Your partner sent you a {prop.contentType}:</Text>
-        <Text>{prop.contentMsg}</Text>
+        <Text>Your partner sent you a {item.typeEgg}:</Text>
+        {/* <Text>{item.contentMsg}</Text> */}
         <View style={styles.buttonContainer}>
           <Button
             title="Back to Nest"

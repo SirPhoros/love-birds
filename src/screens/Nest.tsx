@@ -83,7 +83,7 @@ export default function Nest () {
        keyExtractor={(item) => item.timestamp.seconds}
         data={eggs}
         renderItem={({ item }) => 
-        <TouchableOpacity onPress ={() => {item.isLocked ? nav.navigate('Snake Game') : nav.navigate('My Egg', { item })}}>
+        <TouchableOpacity onPress ={() => {item.isLocked ? nav.navigate('Snake Game', {item}) : nav.navigate('My Egg', { item })}}>
         <View style={styles.itemContainer}>
          <Image source={Egg} style={styles.image}/>
           <Text style={styles.item}>{moment(item.timestamp.seconds * 1000).format('Do MMMM YYYY, h:mm a')}</Text>
