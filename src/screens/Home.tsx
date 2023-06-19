@@ -33,7 +33,7 @@ function Home() {
   
 	return (
 
-		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor:'#F0CCB0' }}>
+		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor:'#0fb5fe' }}>
 			<TouchableOpacity onPress ={() => nav.navigate('Nest' as never)}>
 				<Image source={Nest} style={styles.image}/>
 			</TouchableOpacity>
@@ -42,10 +42,6 @@ function Home() {
 				<Image source={Egg} style={styles.image}/>
 			</TouchableOpacity>
 			<Text>Send Egg</Text>
-			<Button
-				title="Go to Welcome Page"
-				onPress={() => nav.navigate('Welcome' as never)}
-			/>
 		</View>
 	)
 }
