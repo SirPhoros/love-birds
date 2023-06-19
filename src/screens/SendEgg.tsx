@@ -47,10 +47,7 @@ const SendEgg: React.FC = () => {
 
 				ImagePicker.launchImageLibraryAsync(options)
 					.then((result) => {
-						console.log('result in SendEgg: ', result)
-
 						if (!result.canceled) {
-							console.log(result.assets[0].uri, 'in SendEgg')
 							setFile(result.assets[0].uri)
 						}
 					})
