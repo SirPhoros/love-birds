@@ -79,6 +79,24 @@ export default function LogIn() {
 						buttonStyle={{ backgroundColor: '#FAE8E0' }}
 						titleStyle={{ color: '#EF7C8E' }}
 					/>
+					<Button
+						title="User"
+						onPress={() => {
+							logIn('user@example.com', '123456')
+							console.log('email: ', email, 'password: ', password)
+						}}
+						buttonStyle={{ backgroundColor: '#FAE8E0' }}
+						titleStyle={{ color: '#EF7C8E' }}
+					/>
+					<Button
+						title="Example"
+						onPress={() => {
+							logIn('example@example.com', '123456')
+							console.log('email: ', email, 'password: ', password)
+						}}
+						buttonStyle={{ backgroundColor: '#FAE8E0' }}
+						titleStyle={{ color: '#EF7C8E' }}
+					/>
 				</View>
 				<Text style={styles.forgotPasswordLink}>Forgot your password?</Text>
 			</View>
