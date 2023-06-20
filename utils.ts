@@ -23,6 +23,7 @@ import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 	signOut,
+	UserCredential,
 } from 'firebase/auth'
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
@@ -145,7 +146,10 @@ export function getUserData(): Promise<any> {
 
 //Log-in/Log-out functions
 
-export function logIn(email: string, password: string): Promise<void> {
+export function logIn(
+	email: string,
+	password: string
+): Promise<UserCredential> {
 	return signInWithEmailAndPassword(auth, email, password)
 }
 
