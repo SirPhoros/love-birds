@@ -24,6 +24,7 @@ export default function LogIn() {
 				<View style={{ alignItems: 'center', marginBottom: 20 }}>
 					{loginErr ? (
 						<Text>
+							{/* //CHANGE THIS TO MAKE IT LOOK LIKE AN ERROR MESSAGE */}
 							Wrong email/password. Please try again.
 							<View></View>
 						</Text>

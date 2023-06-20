@@ -10,6 +10,8 @@ export default function Register() {
 
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [registerErr, setRegisterErr] = useState(false)
+	const [registerStatus, setRegisterStatus] = useState(false)
 
 	let newEmail: string = ''
 	let newPassword: string = ''
@@ -18,6 +20,13 @@ export default function Register() {
 		return (
 			<>
 				<View style={{ alignItems: 'center' }}>
+					{registerErr ? (
+						//CHANGE THIS TO MAKE IT LOOK LIKE AN ERROR MESSAGE
+						<Text style={styles.textContainer}>
+							The email/password does not meet the criteria
+							<View></View>
+						</Text>
+					) : null}
 					<Text>Email:</Text>
 				</View>
 				<TextInput
@@ -45,7 +54,14 @@ export default function Register() {
 							setEmail(newEmail)
 							setPassword(newPassword)
 							handleSignUpWithEmail(newEmail, newPassword)
-							Alert.alert('Registered Successfuly!')
+								.then(() => {
+									setRegisterStatus(true)
+									setRegisterErr(false)
+									Alert.alert('Registered Successfuly!')
+								})
+								.catch((error) => {
+									setRegisterErr(true)
+								})
 						}}
 						buttonStyle={{ backgroundColor: '#FAE8E0' }}
 						titleStyle={{ color: '#EF7C8E' }}
@@ -55,14 +71,11 @@ export default function Register() {
 		)
 	}
 
-
-
 	function Register() {
 		return (
 			<>
 				<Text className="text-2xl py-12 text-center">Register Here</Text>
 				<EmailRegister />
-				{/* <GoogleRegister /> */}
 			</>
 		)
 	}
@@ -99,13 +112,7 @@ export default function Register() {
 				backgroundColor: '#F0CCB0',
 			}}
 		>
-			<View>
-				{email.length > 1 && password.length > 0 ? (
-					<WelcomeMessage />
-				) : (
-					<Register />
-				)}
-			</View>
+			<View>{registerStatus ? <WelcomeMessage /> : <Register />}</View>
 		</View>
 	)
 }
