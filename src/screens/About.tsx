@@ -14,6 +14,8 @@ interface TeamMember {
   linkedinUrl: string;
 }
 
+
+
 const teamMembers: TeamMember[] = [
     {
       name: 'Alessandro Frondini',
