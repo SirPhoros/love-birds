@@ -84,7 +84,7 @@ function App() {
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="LogIn" component={LogIn} />
-        <Stack.Screen name="Home" component={HomeNav} options={{headerShown: false}}/>
+        <Stack.Screen name="Home Page" component={HomeNav} options={{headerShown: false}}/>
         <Stack.Screen name="Send Egg" component={SendEgg}/>
 		      <Stack.Screen name="Nest" component={Nest} />
 		      <Stack.Screen name="Game" component={Game} />

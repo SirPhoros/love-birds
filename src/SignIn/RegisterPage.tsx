@@ -55,23 +55,7 @@ export default function Register() {
 		)
 	}
 
-	// Google auth does not yet work!! Yet!!!!
 
-	// function GoogleRegister () {
-	//     return (
-	//         <>
-	//             <Text>Or</Text>
-	//             <Button
-	//                 title="Register with Google"
-	//                 onPress={() => {
-	//                     handleGoogle()
-	//                 // Alert.alert('Registered Successfuly!')
-	//                 // nav.navigate('Home' as never)
-	//                 }}
-	//                 />
-	//         </>
-	//     )
-	// }
 
 	function Register() {
 		return (
@@ -94,7 +78,7 @@ export default function Register() {
 					<Button
 						title="Head to the App"
 						onPress={() => {
-							nav.navigate('Home' as never)
+							nav.navigate('Home Page' as never)
 						}}
 					/>
 				</View>
