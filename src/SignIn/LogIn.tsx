@@ -84,7 +84,7 @@ export default function LogIn() {
 						onPress={() => {
 							setEmail('user@example.com')
 							setPassword('123456')
-							logIn(emailLogin, passwordLogin)
+							logIn('user@example.com', '123456')
 							console.log('email: ', email, 'password: ', password)
 						}}
 						buttonStyle={{ backgroundColor: '#FAE8E0' }}
@@ -95,7 +95,7 @@ export default function LogIn() {
 						onPress={() => {
 							setEmail('example@example.com')
 							setPassword('123456')
-							logIn(emailLogin, passwordLogin)
+							logIn('example@example.com', '123456')
 							console.log('email: ', email, 'password: ', password)
 						}}
 						buttonStyle={{ backgroundColor: '#FAE8E0' }}
