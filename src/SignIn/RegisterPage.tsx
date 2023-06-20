@@ -3,7 +3,7 @@ import { View, TextInput, Alert, StyleSheet } from 'react-native'
 import { Text, Button, Image } from 'react-native-elements'
 
 import { useNavigation } from '@react-navigation/native'
-import { handleGoogle, handleSignUpWithEmail } from '../../utils'
+import { handleSignUpWithEmail } from '../../utils'
 
 export default function Register() {
 	const nav = useNavigation()

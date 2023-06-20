@@ -38,7 +38,7 @@ const SendEgg: React.FC = () => {
 					return
 				}
 
-				const options = {
+				const options: {} = {
 					mediaTypes: ImagePicker.MediaTypeOptions.Images,
 					allowsEditing: true,
 					aspect: [4, 3],
