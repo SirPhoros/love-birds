@@ -20,9 +20,7 @@ import {
 import {
 	getAuth,
 	onAuthStateChanged,
-	signInWithPopup,
 	createUserWithEmailAndPassword,
-	GoogleAuthProvider,
 	signInWithEmailAndPassword,
 	signOut,
 } from 'firebase/auth'
@@ -180,13 +178,13 @@ const testUsername = {
 // console.log(testUsername.partner_username)
 
 export function updatePartner(newPartner: string): Promise<any> {
-	return updateDoc(doc(db, 'users', auth.currentUser.uid), {
+	return updateDoc(doc(db, 'users', auth.currentUser!.uid), {
 		partner_username: newPartner,
 	})
 }
 
 export function removePartner(): Promise<any> {
-	return updateDoc(doc(db, 'users', auth.currentUser.uid), {
+	return updateDoc(doc(db, 'users', auth.currentUser!.uid), {
 		partner_username: '',
 		in_relationship: false,
 	})
@@ -265,12 +263,12 @@ export async function uploadMediaFromGallery(
 
 	const imageBlob: Blob = await getBlobFroUri(uri)
 	if (imageBlob) {
-		const fileRef = ref(storage, 'images/' + Date.now())
+		const fileRef = ref(storage, `images/${partner_username}/` + Date.now())
 		uploadBytes(fileRef, imageBlob)
 			.then(() => {
 				getDownloadURL(fileRef)
 					.then((fileUrl) => {
-						addDoc(collection(db, 'eggs'), {
+						addDoc(collection(db, `eggs`), {
 							fileURL: fileUrl,
 							recipient: partner_username,
 							caption: caption || '',
@@ -314,13 +312,12 @@ export function getEggs(
 	username: string,
 	partner_username: string
 ): Promise<any[]> {
-	const recipientQuery = query(eggsRef, where('recipient', '==', username))
-	// 	const recipientQuery = query(
-	// 	eggsRef,
-	// 	where('recipient', '==', username),
-	// 	where('sender', '==', partner_username),
-	// 	orderBy('timestamp', 'desc')
-	// )
+	const recipientQuery = query(
+		eggsRef,
+		where('recipient', '==', username),
+		where('sender', '==', partner_username),
+		orderBy('timestamp', 'desc')
+	)
 	return getDocs(recipientQuery).then((querySnapshot) => {
 		let eggArray: any[] = []
 		querySnapshot.forEach((document) => {
@@ -358,7 +355,7 @@ export async function updateProfilePicture(uri: string): Promise<void> {
 			.then(() => {
 				getDownloadURL(fileRef)
 					.then((fileUrl) => {
-						updateDoc(doc(db, 'users', auth.currentUser.uid), {
+						updateDoc(doc(db, 'users', auth.currentUser!.uid), {
 							avatarIMG: fileUrl,
 						})
 					})
