@@ -185,7 +185,7 @@ export default function Profile() {
 					bottom: 0,
 					justifyContent: 'center',
 					alignItems: 'center',
-					backgroundColor: '#F0CCB0',
+					backgroundColor: '#0fb5fe',
 				}}
 			>
 				<Text className="text-2xl py-12">Your Profile</Text>

@@ -10,7 +10,7 @@ export default function Welcome() {
   const nav = useNavigation()
 
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:'#F0CCB0' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:'#0fb5fe' }}>
           {/* <Text>Welcome Page Goes Here</Text> */}
         <View style={styles.imageContainer}>
           <Image
@@ -33,11 +33,6 @@ export default function Welcome() {
             buttonStyle={{ backgroundColor: '#FAE8E0' }}
             titleStyle={{ color: '#EF7C8E' }}
             />
-        </View>
-        <View style={styles.welcomePageTxt}>
-          <Text>
-            Presented by The Dev Wears Java
-          </Text>
         </View>
         <View style={styles.footer}>
           <Text style={styles.footerText}>©The Dev Wears Java</Text>
@@ -67,19 +62,15 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor:'#F0CCB0',
+    backgroundColor:'#0fb5fe',
     paddingVertical: 35,
     paddingHorizontal: 20,
   },
   footerText: {
     textAlign: 'center',
-    color: '#888',
-    fontSize: 12,
-    backgroundColor:'#F0CCB0'
-  },
-  welcomePageTxt: {
-    marginBottom: 20,
-    marginTop: 60,
+    color: '#FAE8E0',
+    fontSize: 20,
+    backgroundColor:'#0fb5fe'
   },
 })
 

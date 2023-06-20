@@ -110,7 +110,7 @@ export default function LogIn() {
 				bottom: 0,
 				justifyContent: 'center',
 				alignItems: 'center',
-				backgroundColor:'#F0CCB0',
+				backgroundColor:'#0fb5fe',
 			}}
 		>
 			<View>

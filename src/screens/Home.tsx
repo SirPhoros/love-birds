@@ -33,7 +33,7 @@ function Home() {
   
 	return (
 
-		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor:'#F0CCB0' }}>
+		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor:'#0fb5fe' }}>
 			<TouchableOpacity onPress ={() => nav.navigate('Nest' as never)}>
 				<Image source={Nest} style={styles.image}/>
 			</TouchableOpacity>

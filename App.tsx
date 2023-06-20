@@ -27,15 +27,16 @@ function HomeNav() {
   return (
    <Tab.Navigator
           screenOptions={({ route }) => ({
+
             headerStyle: {
-              backgroundColor: '#BA2953', //header bar colour
+              backgroundColor: '#f21fa9', //header bar colour
             },
             headerTintColor: '#FAE8E0', //header bar text colour
             headerTitleStyle: {
               fontWeight: 'bold',
             },
             tabBarStyle: {
-              backgroundColor: '#BA2953', //nav bar bg colour
+              backgroundColor: '#f21fa9', //nav bar bg colour
             },
             tabBarActiveTintColor: '#12ED9B', //nav bar active icon colour
             tabBarInactiveTintColor: '#fff', //nav bar inactive icons colour
@@ -72,12 +73,13 @@ function App() {
     <NavigationContainer>
        <Stack.Navigator
       screenOptions={{ headerStyle: {
-        backgroundColor: '#BA2953'
+        backgroundColor: '#f21fa9'
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
         fontWeight: 'bold',
-      }
+      },
+
       }}>
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="Register" component={Register} />
