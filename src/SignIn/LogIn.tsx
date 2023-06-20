@@ -199,7 +199,6 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		overflow: 'hidden',
 	},
-
 	imageContainer: {
 		marginBottom: 80,
 		marginTop: 10,
