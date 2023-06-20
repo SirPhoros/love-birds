@@ -3,13 +3,10 @@ import { View, TextInput, StyleSheet } from 'react-native'
 import { Text, Button, Image } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 import { logIn } from '../../utils'
-import LoveBirdsLogo from '../../assets/Lovebirds-Logo.gif';
+import LoveBirdsLogo from '../../assets/Lovebirds-Logo.gif'
 
 let emailLogin: string = ''
 let passwordLogin: string = ''
-
-const emailHolder = 'user@example.com'
-const passwordHolder = '123456'
 
 export default function LogIn() {
 	const [email, setEmail] = useState('')
@@ -19,7 +16,7 @@ export default function LogIn() {
 	/* --- Email Input --- */
 	function EmailInput() {
 		return (
-		<>
+			<>
 				<View style={{ alignItems: 'center', marginBottom: 20 }}>
 					<TextInput
 						placeholder="Enter email..."
@@ -39,7 +36,7 @@ export default function LogIn() {
 						style={styles.textContainer}
 					/>
 				</View>
-		</>
+			</>
 		)
 	}
 
@@ -68,21 +65,16 @@ export default function LogIn() {
 
 	function LoginPage() {
 		return (
-			<View> 
+			<View>
 				<EmailInput />
 				<View style={styles.buttonContainer}>
 					<Button
 						title="Login"
 						onPress={() => {
-							// setEmail(emailLogin)
-							// setPassword(passwordLogin)
-							// logIn(emailLogin, passwordLogin)
-							
-							//Set Dummy Login for the sake of testing in an easier way. Uncomment above and delete once finished. 
-							setEmail(emailHolder)
-							setPassword(passwordHolder)
+							setEmail(emailLogin)
+							setPassword(passwordLogin)
+							logIn(emailLogin, passwordLogin)
 							console.log('email: ', email, 'password: ', password)
-							logIn(emailHolder, passwordHolder)
 						}}
 						buttonStyle={{ backgroundColor: '#FAE8E0' }}
 						titleStyle={{ color: '#EF7C8E' }}
@@ -90,14 +82,10 @@ export default function LogIn() {
 				</View>
 				<Text style={styles.forgotPasswordLink}>Forgot your password?</Text>
 			</View>
-			
 		)
 	}
 
-
-
 	return (
-	
 		<View
 			style={{
 				position: 'absolute',
@@ -107,27 +95,39 @@ export default function LogIn() {
 				bottom: 0,
 				justifyContent: 'center',
 				alignItems: 'center',
-				backgroundColor:'#0fb5fe',
+				backgroundColor: '#0fb5fe',
 			}}
 		>
-					   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:'#0fb5fe' }}>
-        <View style={styles.imageContainer}>
-          <Image
-            source={LoveBirdsLogo}
-            style={{ resizeMode: 'contain', height: 175, width: 300, borderRadius: 40 }}
-          />
-        </View>
-			<View>
-				{email.length > 1 && password.length >= 6 ? (
-					<LoginMessage />
-				) : (
-					<LoginPage />
-				)}
+			<View
+				style={{
+					flex: 1,
+					justifyContent: 'center',
+					alignItems: 'center',
+					backgroundColor: '#0fb5fe',
+				}}
+			>
+				<View style={styles.imageContainer}>
+					<Image
+						source={LoveBirdsLogo}
+						style={{
+							resizeMode: 'contain',
+							height: 175,
+							width: 300,
+							borderRadius: 40,
+						}}
+					/>
+				</View>
+				<View>
+					{email.length > 1 && password.length >= 6 ? (
+						<LoginMessage />
+					) : (
+						<LoginPage />
+					)}
+				</View>
 			</View>
-		</View>
-		  <View style={styles.footer}>
-          <Text style={styles.footerText}>©The Dev Wears Java</Text>
-        </View>
+			<View style={styles.footer}>
+				<Text style={styles.footerText}>©The Dev Wears Java</Text>
+			</View>
 		</View>
 	)
 }
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
 		marginBottom: 3,
 		height: 50,
 		textAlign: 'center',
-		backgroundColor: '#fff'
+		backgroundColor: '#fff',
 	},
 	buttonContainer: {
 		alignSelf: 'center',
@@ -161,27 +161,26 @@ const styles = StyleSheet.create({
 		fontSize: 17,
 		textDecorationLine: 'underline',
 		textAlign: 'center',
-		overflow: 'hidden', 
+		overflow: 'hidden',
 	},
-	
-  imageContainer: {
-    marginBottom: 80,
-    marginTop: 10,
-  },
-    footer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor:'#0fb5fe',
-    paddingVertical: 35,
-    paddingHorizontal: 20,
-  },
-  footerText: {
-    textAlign: 'center',
-    color: '#FAE8E0',
-    fontSize: 20,
-    backgroundColor:'#0fb5fe'
-  },
 
+	imageContainer: {
+		marginBottom: 80,
+		marginTop: 10,
+	},
+	footer: {
+		position: 'absolute',
+		bottom: 0,
+		left: 0,
+		right: 0,
+		backgroundColor: '#0fb5fe',
+		paddingVertical: 35,
+		paddingHorizontal: 20,
+	},
+	footerText: {
+		textAlign: 'center',
+		color: '#FAE8E0',
+		fontSize: 20,
+		backgroundColor: '#0fb5fe',
+	},
 })
