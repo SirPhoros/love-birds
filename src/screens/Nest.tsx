@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, FlatList, StyleSheet, Text, View, Image, ActivityIndicator } from "react-native";
+import { SafeAreaView, SectionList, StyleSheet, Text, View, Image, ActivityIndicator } from "react-native";
 import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Egg from '../../assets/Egg.png'
@@ -15,30 +15,6 @@ import moment from 'moment'
 
 import { useRoute } from "@react-navigation/native";
 
-
-
-// const eggArray = [
-//   {
-//     image: Egg,
-//     date: '04-06-2023',
-//     isLocked: false
-//   },
-//    {
-//     image: Egg,
-//     date: '05-06-2023',
-//     isLocked: false
-//   },
-//    {
-//     image: Egg,
-//     date: '06-06-2023',
-//     isLocked: true
-//   },
-//   {
-//     image: Egg,
-//     date: '07-06-2023',
-//     isLocked: true
-//   }
-// ]
 
   const myItemSeparator = () => {
     return <View style={{ height: 1, backgroundColor: "grey", marginHorizontal:5}} />;
@@ -62,9 +38,7 @@ export default function Nest () {
   useEffect(() => {
     getEggs(profileId.username, profileId.partner_username)
       .then((eggData: any) => {
-        console.log(eggData, 'RECEIVED DATA')
         setEggs(eggData)
-        console.log(eggs, 'state')
         setLoading(false);
       })
     }, [profileId.username])
@@ -78,25 +52,42 @@ export default function Nest () {
 		);
 	}
 
+    // Group eggs by date
+  const groupedEggs = eggs.reduce((result, item) => {
+    const date = moment(item.timestamp.seconds * 1000).format('Do MMMM YYYY');
+    if (!result[date]) {
+      result[date] = [];
+    }
+    result[date].push(item);
+    return result;
+  }, {});
+
+    const sections = Object.keys(groupedEggs).map((date) => ({
+    title: date,
+    data: groupedEggs[date],
+  }));
+
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList 
+      <SectionList 
+      sections={sections}
        keyExtractor={(item) => item.timestamp.seconds}
         data={eggs}
         renderItem={({ item }) => 
         <TouchableOpacity onPress ={() => {item.isLocked ? nav.navigate('Snake Game', {item}) : nav.navigate('My Egg', { item })}}>
         <View style={styles.itemContainer}>
          <Image source={Egg} style={styles.image}/>
-          <Text style={styles.item}>{moment(item.timestamp.seconds * 1000).format('Do MMMM YYYY, h:mm a')}</Text>
+          <Text style={styles.item}>{moment(item.timestamp.seconds * 1000).format('h:mm a')}</Text>
           <Image style={styles.image} source={item.isLocked ? Padlock : Heart2}/>
-          <Text style={styles.item}>{item.isLocked ? '🔒' : '🔓'}</Text>
         </View>
         </TouchableOpacity>
-
        }
+         renderSectionHeader={({ section: { title } }) => (
+          <Text style={styles.sectionHeader}>{title}</Text>
+        )}
         ItemSeparatorComponent={myItemSeparator}
         ListEmptyComponent={myListEmpty}
-        contentContainerStyle={styles.flatListContent}
+        contentContainerStyle={styles.sectionListContent}
       />
     </SafeAreaView>
   );
@@ -126,7 +117,14 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
   },
-  flatListContent: {
+   sectionHeader: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    backgroundColor: '#0fb5fe',
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+  },
+  sectionListContent: {
     paddingBottom: 10,
   }
 });

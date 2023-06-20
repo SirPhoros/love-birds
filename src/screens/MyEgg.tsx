@@ -93,6 +93,7 @@ text: {
     borderRadius: 20, // Adjust the border radius to control the shape of the bubble
     marginTop: -10, // Add some margin to separate the bubble from the image
     alignSelf: 'flex-start', 
+    marginBottom: 200
   },
   messageText: {
     fontSize: 16,

@@ -67,7 +67,7 @@ const SendEgg: React.FC = () => {
 				<View style={styles.textContainer}>
 					<TextInput
 						style={styles.textInput}
-						placeholder="Enter your message"
+						placeholder="Enter your message..."
 						onChangeText={(newText) => {
 							messageText = newText
 						}}
