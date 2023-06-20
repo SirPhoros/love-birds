@@ -9,6 +9,9 @@ import CameraFeature from '../Camera/CameraFeature'
 import * as ImagePicker from 'expo-image-picker'
 import { useRoute } from '@react-navigation/native'
 
+import Quiz from '../games/Quiz/Quiz'
+import { ScrollView } from 'react-native'
+
 const SendEgg: React.FC = () => {
 	const [message, setMessage] = useState('')
 	const games: string[] = [
@@ -96,7 +99,7 @@ const SendEgg: React.FC = () => {
 			<>
 				<View style={styles.buttonContainerUploadImg}>
 					<Button
-						title=" ⇧ Upload Image ⇧"
+						title="⇧ Upload Image ⇧"
             buttonStyle={{ backgroundColor: '#FAE8E0' }}
             titleStyle={{ color: 'blue' }}
 						onPress={handleFileSelection}
@@ -143,6 +146,8 @@ const SendEgg: React.FC = () => {
 	}
 
 	return (
+    <ScrollView contentContainerStyle={styles.contentContainer}>
+
 		<View style={styles.container}>
 			<View style={styles.buttonContainer}>
 				<SelectDropdown
@@ -180,6 +185,12 @@ const SendEgg: React.FC = () => {
 			</View>
 			<View>{messageForm.length > 0 ? <Upload /> : null}</View>
 		</View>
+      <View>
+        {selectedGame === 'Quiz' && (
+          <Quiz /> //Quiz Game
+        )}
+      </View>
+    </ScrollView>
 	)
 }
 
@@ -234,8 +245,14 @@ const styles = StyleSheet.create({
 		borderColor: 'brown',
 		overflow: 'hidden', 
     alignItems: 'center',
+  },
+  contentContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    paddingBottom: 0,
   }
 });
+
 
 
 export default SendEgg
