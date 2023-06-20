@@ -221,12 +221,8 @@ export function checkRelationship(partner: string): Promise<any> {
 		})
 		.then(() => {
 			if (!oneSide) {
-				// Handle the case when no partner is found
 				throw Error('Not partner found')
 			}
-		})
-		.catch((error: any) => {
-			console.error('Error getting documents:', error)
 		})
 }
 
