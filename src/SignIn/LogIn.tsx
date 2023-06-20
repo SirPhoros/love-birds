@@ -103,6 +103,7 @@ export default function LogIn() {
 							setEmail('user@example.com')
 							setPassword('123456')
 							logIn('user@example.com', '123456')
+							setLoginStatus(true)
 							console.log('email: ', email, 'password: ', password)
 						}}
 						buttonStyle={{ backgroundColor: '#FAE8E0' }}
@@ -114,6 +115,7 @@ export default function LogIn() {
 							setEmail('example@example.com')
 							setPassword('123456')
 							logIn('example@example.com', '123456')
+							setLoginStatus(true)
 							console.log('email: ', email, 'password: ', password)
 						}}
 						buttonStyle={{ backgroundColor: '#FAE8E0' }}
