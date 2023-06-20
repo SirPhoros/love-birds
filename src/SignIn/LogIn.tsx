@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { View, TextInput, StyleSheet } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, TextInput, StyleSheet, Alert } from 'react-native'
 import { Text, Button, Image } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 import { logIn } from '../../utils'
@@ -12,12 +12,22 @@ export default function LogIn() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const nav = useNavigation()
+	const [loginErr, setLoginErr] = useState(false)
+	const [loginStatus, setLoginStatus] = useState(false)
+
+	useEffect(() => {}, [loginErr])
 
 	/* --- Email Input --- */
 	function EmailInput() {
 		return (
 			<>
 				<View style={{ alignItems: 'center', marginBottom: 20 }}>
+					{loginErr ? (
+						<Text>
+							Wrong email/password. Please try again.
+							<View></View>
+						</Text>
+					) : null}
 					<TextInput
 						placeholder="Enter email..."
 						onChangeText={(newText) => {
@@ -74,7 +84,15 @@ export default function LogIn() {
 							setEmail(emailLogin)
 							setPassword(passwordLogin)
 							logIn(emailLogin, passwordLogin)
-							console.log('email: ', email, 'password: ', password)
+								.then(() => {
+									setLoginStatus(true)
+									setLoginErr(false)
+								})
+								.catch((error) => {
+									if (error) {
+										setLoginErr(true)
+									}
+								})
 						}}
 						buttonStyle={{ backgroundColor: '#FAE8E0' }}
 						titleStyle={{ color: '#EF7C8E' }}
@@ -102,7 +120,6 @@ export default function LogIn() {
 						titleStyle={{ color: '#EF7C8E' }}
 					/>
 				</View>
-				<Text style={styles.forgotPasswordLink}>Forgot your password?</Text>
 			</View>
 		)
 	}
@@ -139,13 +156,7 @@ export default function LogIn() {
 						}}
 					/>
 				</View>
-				<View>
-					{email.length > 1 && password.length >= 6 ? (
-						<LoginMessage />
-					) : (
-						<LoginPage />
-					)}
-				</View>
+				<View>{loginStatus ? <LoginMessage /> : <LoginPage />}</View>
 			</View>
 			<View style={styles.footer}>
 				<Text style={styles.footerText}>©The Dev Wears Java</Text>

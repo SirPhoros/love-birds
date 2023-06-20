@@ -145,14 +145,8 @@ export function getUserData(): Promise<any> {
 
 //Log-in/Log-out functions
 
-export function logIn(email: string, password: string): void {
-	signInWithEmailAndPassword(auth, email, password)
-		.then((cred) => {
-			console.log('User logged in', cred.user)
-		})
-		.catch((error) => {
-			console.log('Error logging in:', error)
-		})
+export function logIn(email: string, password: string): Promise<void> {
+	return signInWithEmailAndPassword(auth, email, password)
 }
 
 export function logOut(): void {
