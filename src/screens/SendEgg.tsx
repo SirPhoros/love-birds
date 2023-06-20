@@ -16,12 +16,7 @@ const SendEgg: React.FC = () => {
 	const [message, setMessage] = useState('')
 	const games: string[] = [
 		'Snake',
-		'Quiz',
-		'Guess the Song',
-		'Eat Pizza',
-		'Go to Paris',
-		'Football',
-		'Kill a Man',
+		'Quiz'
 	]
 	const messages: string[] = ['Message', 'Image', 'Send a Snap']
 	const [selectedGame, setSelectedGame] = useState('')
