@@ -59,7 +59,7 @@ interface newInfo {
 	password: string
 }
 //Template for NewUser
-interface NewUser {
+interface User {
 	email: string
 	username: string
 	avatarIMG: string
@@ -78,7 +78,7 @@ onAuthStateChanged(auth, (user) => {
 	console.log('user status changed: ', user)
 })
 
-export function handleSignUpWithEmail(email: string, password: string) {
+export function handleSignUpWithEmail(email: string, password: string): void {
 	createUserWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
 			// User sign-in successful
@@ -91,7 +91,7 @@ export function handleSignUpWithEmail(email: string, password: string) {
 		})
 }
 //Attach data to the user in Firestore
-function attachUserDataToUser(user: any) {
+function attachUserDataToUser(user: any): void {
 	const uid = user.uid // Assuming you have access to the signed-in user's UID
 	const userData = {
 		email: user.email,
@@ -112,30 +112,21 @@ function attachUserDataToUser(user: any) {
 			console.error('Error attaching user data:', error)
 		})
 }
-export function handleGoogle() {
-	const provider = new GoogleAuthProvider()
-	signInWithPopup(auth, provider)
-		.then((userCredential) => {
-			// User sign-in successful
-			const user = userCredential.user
-			// Proceed with attaching data to the user
-			attachUserDataToUser(user)
-		})
-		.catch((error) => {
-			// Handle Errors here.
-			const errorCode = error.code
-			const errorMessage = error.message
-			// The email of the user's account used.
-			const email = error.customData.email
-			// The AuthCredential type that was used.
-			const credential = GoogleAuthProvider.credentialFromError(error)
-			// ...
-		})
+
+//Check User's connection
+export function checkConnection(): boolean {
+	return !!auth.currentUser
 }
 
 //Get Main User's Data
-export function getUserData(): any {
-	const userId: string = auth.currentUser.uid
+export function getUserData(): Promise<any> {
+	const user = auth.currentUser
+
+	if (!user) {
+		return Promise.reject(new Error('User is not authenticated'))
+	}
+
+	const userId = user.uid
 	const documentRef = doc(db, `users/${userId}`)
 
 	return getDoc(documentRef)
@@ -145,17 +136,18 @@ export function getUserData(): any {
 				const documentData = docSnapshot.data()
 				return documentData
 			} else {
-				throw Error('There is no username')
+				throw new Error('There is no username')
 			}
 		})
 		.catch((error) => {
 			console.error('Error getting document:', error)
+			throw error
 		})
 }
 
 //Log-in/Log-out functions
 
-export function logIn(email: string, password: string) {
+export function logIn(email: string, password: string): void {
 	signInWithEmailAndPassword(auth, email, password)
 		.then((cred) => {
 			console.log('User logged in', cred.user)
@@ -165,7 +157,7 @@ export function logIn(email: string, password: string) {
 		})
 }
 
-export function logOut() {
+export function logOut(): void {
 	signOut(auth)
 		.then(() => {
 			console.log('user signed out')
@@ -187,20 +179,20 @@ const testUsername = {
 }
 // console.log(testUsername.partner_username)
 
-export function updatePartner(newPartner: string): any {
+export function updatePartner(newPartner: string): Promise<any> {
 	return updateDoc(doc(db, 'users', auth.currentUser.uid), {
 		partner_username: newPartner,
 	})
 }
 
-export function removePartner() {
+export function removePartner(): Promise<any> {
 	return updateDoc(doc(db, 'users', auth.currentUser.uid), {
 		partner_username: '',
 		in_relationship: false,
 	})
 }
 
-export function checkRelationship(partner: string): any {
+export function checkRelationship(partner: string): Promise<any> {
 	const isPartnerQuery = query(usersRef, where('username', '==', partner))
 	let oneSide = false
 	return getDocs(isPartnerQuery)
@@ -250,7 +242,7 @@ export async function uploadMediaFromGallery(
 	uri: string,
 	metadata: any,
 	caption: string | undefined
-) {
+): Promise<void> {
 	const { partner_username, username } = metadata
 	//BlobFroUri transforms the URL we retrieve from the phone to Binary Data
 	//Ready to be uploaded into Firebase db.
@@ -302,7 +294,7 @@ export async function uploadMediaFromGallery(
 }
 
 //Send messages as an Egg:
-export function uploadText(text: string, metadata: any) {
+export function uploadText(text: string, metadata: any): void {
 	const { partner_username, username } = metadata
 	addDoc(collection(db, 'eggs'), {
 		typeEgg: 'message',
@@ -318,7 +310,10 @@ export function uploadText(text: string, metadata: any) {
 }
 
 //fetch Eggs for "Eggs Page"
-export function getEggs(username: string, partner_username: string) {
+export function getEggs(
+	username: string,
+	partner_username: string
+): Promise<any[]> {
 	const recipientQuery = query(eggsRef, where('recipient', '==', username))
 	// 	const recipientQuery = query(
 	// 	eggsRef,
@@ -336,7 +331,7 @@ export function getEggs(username: string, partner_username: string) {
 }
 
 //upload Image for your profile picture
-export async function updateProfilePicture(uri: string) {
+export async function updateProfilePicture(uri: string): Promise<void> {
 	//BlobFroUri transforms the URL we retrieve from the phone to Binary Data
 	//Ready to be uploaded into Firebase db.
 	const getBlobFroUri = async (uri: string): Promise<Blob> => {
@@ -381,7 +376,7 @@ export async function updateProfilePicture(uri: string) {
 }
 
 //Update isLocked to false when passed the game:
-export function updateLock({ timestamp }: any): any {
+export function updateLock({ timestamp }: any): Promise<void> {
 	const LockQuery = query(eggsRef, where('timestamp', '==', timestamp))
 	return getDocs(LockQuery).then((querySnapshot) => {
 		querySnapshot.forEach((document) => {
