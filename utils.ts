@@ -23,6 +23,7 @@ import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 	signOut,
+	UserCredential,
 } from 'firebase/auth'
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
@@ -76,17 +77,18 @@ onAuthStateChanged(auth, (user) => {
 	console.log('user status changed: ', user)
 })
 
-export function handleSignUpWithEmail(email: string, password: string): void {
-	createUserWithEmailAndPassword(auth, email, password)
-		.then((userCredential) => {
+export function handleSignUpWithEmail(
+	email: string,
+	password: string
+): Promise<void> {
+	return createUserWithEmailAndPassword(auth, email, password).then(
+		(userCredential) => {
 			// User sign-in successful
 			const user = userCredential.user
 			// Proceed with attaching data to the user
 			attachUserDataToUser(user)
-		})
-		.catch((error) => {
-			console.error('Error creating user:', error)
-		})
+		}
+	)
 }
 //Attach data to the user in Firestore
 function attachUserDataToUser(user: any): void {
@@ -145,14 +147,11 @@ export function getUserData(): Promise<any> {
 
 //Log-in/Log-out functions
 
-export function logIn(email: string, password: string): void {
-	signInWithEmailAndPassword(auth, email, password)
-		.then((cred) => {
-			console.log('User logged in', cred.user)
-		})
-		.catch((error) => {
-			console.log('Error logging in:', error)
-		})
+export function logIn(
+	email: string,
+	password: string
+): Promise<UserCredential> {
+	return signInWithEmailAndPassword(auth, email, password)
 }
 
 export function logOut(): void {
@@ -222,12 +221,8 @@ export function checkRelationship(partner: string): Promise<any> {
 		})
 		.then(() => {
 			if (!oneSide) {
-				// Handle the case when no partner is found
 				throw Error('Not partner found')
 			}
-		})
-		.catch((error: any) => {
-			console.error('Error getting documents:', error)
 		})
 }
 

@@ -49,12 +49,6 @@ const CameraFeature = ({ onClose }) => {
 	}
 
 	if (photo) {
-		let sharePic = () => {
-			shareAsync(photo.uri).then(() => {
-				setPhoto(undefined)
-			})
-		}
-
 		let savePhoto = () => {
 			MediaLibrary.saveToLibraryAsync(photo.uri).then(() => {
 				setPhoto(undefined)
@@ -68,7 +62,6 @@ const CameraFeature = ({ onClose }) => {
 		}
 
 		return (
-
 			<View style={styles.container}>
 				{photo ? (
 					<View style={styles.previewContainer}>
@@ -89,40 +82,32 @@ const CameraFeature = ({ onClose }) => {
 				<View>
 					{photo ? (
 						<>
-						  <View style={styles.buttonGroupContainer}>
-							<View style={styles.buttonContainer2}>
-								<Button
-									title="Share"
-									onPress={sharePic}
-									buttonStyle={{ backgroundColor: '#FAE8E0' }}
-									titleStyle={{ color: '#EF7C8E' }}
-								/>
+							<View style={styles.buttonGroupContainer}>
+								<View style={styles.buttonContainer2}>
+									<Button
+										title="Save"
+										onPress={savePhoto}
+										buttonStyle={{ backgroundColor: '#FAE8E0' }}
+										titleStyle={{ color: '#EF7C8E' }}
+									/>
+								</View>
+								<View style={styles.buttonContainer2}>
+									<Button
+										title="Upload"
+										onPress={uploadPhoto}
+										buttonStyle={{ backgroundColor: '#FAE8E0' }}
+										titleStyle={{ color: '#EF7C8E' }}
+									/>
+								</View>
+								<View style={styles.buttonContainer2}>
+									<Button
+										title="Discard"
+										onPress={() => setPhoto(undefined)}
+										buttonStyle={{ backgroundColor: '#FAE8E0' }}
+										titleStyle={{ color: '#EF7C8E' }}
+									/>
+								</View>
 							</View>
-							<View style={styles.buttonContainer2}>
-								<Button
-									title="Save"
-									onPress={savePhoto}
-									buttonStyle={{ backgroundColor: '#FAE8E0' }}
-									titleStyle={{ color: '#EF7C8E' }}
-								/>
-							</View>
-							<View style={styles.buttonContainer2}>
-								<Button
-									title="Upload"
-									onPress={uploadPhoto}
-									buttonStyle={{ backgroundColor: '#FAE8E0' }}
-									titleStyle={{ color: '#EF7C8E' }}
-								/>
-							</View>
-							<View style={styles.buttonContainer2}>
-								<Button
-									title="Discard"
-									onPress={() => setPhoto(undefined)}
-									buttonStyle={{ backgroundColor: '#FAE8E0' }}
-									titleStyle={{ color: '#EF7C8E' }}
-								/>
-							</View>
-						  </View>
 						</>
 					) : (
 						<>
