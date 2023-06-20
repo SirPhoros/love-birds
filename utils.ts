@@ -77,17 +77,18 @@ onAuthStateChanged(auth, (user) => {
 	console.log('user status changed: ', user)
 })
 
-export function handleSignUpWithEmail(email: string, password: string): void {
-	createUserWithEmailAndPassword(auth, email, password)
-		.then((userCredential) => {
+export function handleSignUpWithEmail(
+	email: string,
+	password: string
+): Promise<void> {
+	return createUserWithEmailAndPassword(auth, email, password).then(
+		(userCredential) => {
 			// User sign-in successful
 			const user = userCredential.user
 			// Proceed with attaching data to the user
 			attachUserDataToUser(user)
-		})
-		.catch((error) => {
-			console.error('Error creating user:', error)
-		})
+		}
+	)
 }
 //Attach data to the user in Firestore
 function attachUserDataToUser(user: any): void {
