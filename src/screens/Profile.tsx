@@ -31,7 +31,7 @@ export default function Profile() {
 	/* Loading State */
 	if (loading) {
 		return (
-		  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+		  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#0fb5fe' }}>
 			<ActivityIndicator size="large" color="#D8A7B1" />
 		  </View>
 		);
