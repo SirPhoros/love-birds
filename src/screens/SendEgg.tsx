@@ -149,6 +149,9 @@ const SendEgg: React.FC = () => {
 	return (
 		<ScrollView contentContainerStyle={styles.contentContainer}>
 			<View style={styles.container}>
+			<View >
+				<Text> hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello </Text>
+			</View>
 				<View style={styles.buttonContainer}>
 					<SelectDropdown
 						buttonStyle={{ backgroundColor: '#D8A7B1' }}

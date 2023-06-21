@@ -74,7 +74,7 @@ export default function Register() {
 	function Register() {
 		return (
 			<>
-				<Text className="text-2xl py-12 text-center">Register Here</Text>
+				<Text className="font-bold text-white text-3xl py-7">Register Here:</Text>
 				<EmailRegister />
 			</>
 		)
@@ -84,15 +84,17 @@ export default function Register() {
 		return (
 			<>
 				<View>
-					<Text>Thanks for signing up!</Text>
-					<Text>
-						You can change any of your details within the profile page
+					<Text className="font-bold text-white text-2xl py-7 self-center">Thank you for signing up!</Text>
+					<Text className="font-bold text-white text-xl py-7 text-center">
+						You can update your details within the profile page
 					</Text>
 					<Button
 						title="Head to the App"
 						onPress={() => {
 							nav.navigate('Home Page' as never)
 						}}
+						buttonStyle={{ backgroundColor: '#FAE8E0', borderRadius: 50, borderWidth: 2, borderColor: 'brown' }}
+				    	titleStyle={{ color: '#EF7C8E' }}
 					/>
 				</View>
 			</>
