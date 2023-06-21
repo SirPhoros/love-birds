@@ -294,14 +294,14 @@ const SendEgg: React.FC = () => {
 
 	return (
 		<ScrollView contentContainerStyle={styles.contentContainer}>
-			<View className="pt-8 self-center bg-[#0fb5fe] w-full flex items-center justify-center">
-				<Text className="font-bold text-white text-lg text-center">
-					Is time to play! Choose the content of the egg you'll be sending and
+			<View className="pt-8 self-center bg-[#0fb5fe] w-full flex items-center justify-center px-5">
+				<Text className="font-bold text-white text-lg text-center py-20">
+					Choose the content of the egg you'll be sending and
 					surprise your partner with a minigame to hatch it!
 				</Text>
 			</View>
-			<View style={styles.container}>
-				<Text>Choose a game</Text>
+			<View style={styles.container} className='pb-40'>
+				<Text className='text-white text-base'>Choose a game</Text>
 				<View style={styles.buttonContainer}>
 					<SelectDropdown
 						buttonStyle={{ backgroundColor: '#D8A7B1' }}
@@ -326,7 +326,7 @@ const SendEgg: React.FC = () => {
 						<Quiz /> // Quiz Game
 					)}
 				</View>
-				<Text>What do you want to send?</Text>
+				<Text className='text-white text-base'>What do you want to send?</Text>
 				<View style={styles.buttonContainer}>
 					<SelectDropdown
 						buttonStyle={{ backgroundColor: '#D8A7B1' }}
