@@ -1,5 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, Alert, TextInput, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'
+import {
+	View,
+	Alert,
+	TextInput,
+	StyleSheet,
+	ScrollView,
+	ActivityIndicator,
+} from 'react-native'
 import { Text, Button, Image } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 import { UserContext } from '../../Context/UserContext'
@@ -15,29 +22,38 @@ import {
 	updateProfilePicture,
 } from '../../utils'
 
-
 export default function Profile() {
 	const nav = useNavigation()
 	const { profileId, setProfileId } = useContext(UserContext)
 	const [file, setFile] = useState('')
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		checkRelationship(profileId.partner_username)
 		getUserData().then((userData: any) => {
 			setProfileId(userData)
-			setLoading(false);
+			setLoading(false)
 		})
 	}, [])
 
 	/* Loading State */
 	if (loading) {
 		return (
-		  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#0fb5fe' }}>
-			<ActivityIndicator size="large" color="#D8A7B1" />
-		  </View>
-		);
-	  }
+			<View
+				style={{
+					flex: 1,
+					justifyContent: 'center',
+					alignItems: 'center',
+					backgroundColor: '#0fb5fe',
+				}}
+			>
+				<ActivityIndicator
+					size="large"
+					color="#D8A7B1"
+				/>
+			</View>
+		)
+	}
 
 	let newPartner: string = ''
 
@@ -60,7 +76,7 @@ export default function Profile() {
 						if (!result.canceled) {
 							setFile(result.assets[0].uri)
 						}
-						 Alert.alert('Profile updated')
+						Alert.alert('Profile updated')
 					})
 					.catch((error) => {
 						Alert.alert('Image Not Found', error)
@@ -133,7 +149,12 @@ export default function Profile() {
 							in_relationship: false,
 						})
 					}}
-					buttonStyle={{ backgroundColor: '#f21fa9', padding: 10, margin: 20, borderRadius:50 }}
+					buttonStyle={{
+						backgroundColor: '#f21fa9',
+						padding: 10,
+						margin: 20,
+						borderRadius: 50,
+					}}
 				/>
 			</>
 		)
@@ -159,75 +180,90 @@ export default function Profile() {
 
 	return (
 		<>
-		  <ScrollView contentContainerStyle={styles.contentContainer}>
-			<View
-				style={{
-					position: 'absolute',
-					top: 0,
-					left: 0,
-					right: 0,
-					bottom: 0,
-					justifyContent: 'flex-start',
-					alignItems: 'center',
-					backgroundColor: '#0fb5fe',
-				}}
-			>
-				<View style={styles.userContainer}>
-					<Text className="font-bold text-white text-2xl self-center" style={styles.userText}>Username: {profileId.username}</Text>
-					<Text className="py-2 self-center" style={styles.userText}>Email: {profileId.email}</Text>
-				</View>
-				<Image
+			<ScrollView contentContainerStyle={styles.contentContainer}>
+				<View
 					style={{
-						resizeMode: 'contain',
-						height: 200,
-						width: 200,
-						borderRadius: 100,
-						marginBottom: 30
+						position: 'absolute',
+						top: 0,
+						left: 0,
+						right: 0,
+						bottom: 0,
+						justifyContent: 'flex-start',
+						alignItems: 'center',
+						backgroundColor: '#0fb5fe',
 					}}
-					source={LoveBirds}
-				/>
-				<View style={styles.uploadImgButtonContainer}>
-					<Button
-						title="Upload Avatar"
-						onPress={() => {
-							handleImageUpdate()
-							updateProfilePicture(file)
+				>
+					<View style={styles.userContainer}>
+						<Text
+							className="font-bold text-white text-2xl self-center"
+							style={styles.userText}
+						>
+							Username: {profileId.username}
+						</Text>
+						<Text
+							className="py-2 self-center"
+							style={styles.userText}
+						>
+							Email: {profileId.email}
+						</Text>
+					</View>
+					<Image
+						style={{
+							resizeMode: 'contain',
+							height: 200,
+							width: 200,
+							borderRadius: 100,
+							marginBottom: 30,
 						}}
-						buttonStyle={{ backgroundColor: '#FAE8E0' }}
-						titleStyle={{ color: '#EF7C8E' }}
+						source={LoveBirds}
 					/>
-				</View>
-				<View className="py-2">
-					{profileId.in_relationship === false ? (
-						<Text style={styles.text}>Add a relationship to get started!</Text>
-					) : (
-						<Text style={styles.text}>{'In Relationship With: ' + profileId.partner_username}</Text>
-					)}
-				</View>
-				<View>
-					{profileId.in_relationship === false ? (
-						<RelationshipTextInput />
-					) : (
-						<EditRelationship />
-					)}
-				</View>
-				<View>
-					{profileId.partner_username.length > 0 || profileId.in_relationship === true? null: (
-						<>
-							{/* <Text className="pt-12 pb-2" style={styles.text}>
+					<View style={styles.uploadImgButtonContainer}>
+						<Button
+							title="Upload Avatar"
+							onPress={() => {
+								handleImageUpdate()
+								updateProfilePicture(file)
+							}}
+							buttonStyle={{ backgroundColor: '#FAE8E0' }}
+							titleStyle={{ color: '#EF7C8E' }}
+						/>
+					</View>
+					<View className="py-2">
+						{profileId.in_relationship === false ? (
+							<Text style={styles.text}>
+								Add a relationship to get started!
+							</Text>
+						) : (
+							<Text style={styles.text}>
+								{'In Relationship With: ' + profileId.partner_username}
+							</Text>
+						)}
+					</View>
+					<View>
+						{profileId.in_relationship === false ? (
+							<RelationshipTextInput />
+						) : (
+							<EditRelationship />
+						)}
+					</View>
+					<View>
+						{profileId.partner_username.length === 0 ||
+						profileId.in_relationship === true ? null : (
+							<>
+								{/* <Text className="pt-12 pb-2" style={styles.text}>
 								Trying to partner with: {profileId.partner_username}
 							</Text> */}
-							<SyncRelationship />
-						</>
-					)}
-				</View>
-				<View>
+								<SyncRelationship />
+							</>
+						)}
+					</View>
 					<View>
-						<SignOutButton />
+						<View>
+							<SignOutButton />
+						</View>
 					</View>
 				</View>
-			</View>
-		  </ScrollView>
+			</ScrollView>
 		</>
 	)
 }
@@ -270,16 +306,16 @@ const styles = StyleSheet.create({
 	text: {
 		color: '#FAE8E0',
 		fontSize: 20,
-		fontWeight: 'bold'
+		fontWeight: 'bold',
 	},
 	userContainer: {
 		padding: 10,
-		marginTop: 30
+		marginTop: 30,
 	},
 	userText: {
 		color: '#FAE8E0',
 		fontSize: 20,
-		fontWeight: 'bold'
+		fontWeight: 'bold',
 	},
 	syncButtonContainer: {
 		alignSelf: 'center',
@@ -305,6 +341,6 @@ const styles = StyleSheet.create({
 		overflow: 'hidden',
 	},
 	contentContainer: {
-		paddingVertical: 350
-	  }
+		paddingVertical: 350,
+	},
 })
