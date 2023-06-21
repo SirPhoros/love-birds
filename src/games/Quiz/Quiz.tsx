@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Alert } from 'react-native';
+import { View, Text, TextInput, Alert, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 import SelectDropdown from 'react-native-select-dropdown';
 
@@ -19,10 +19,10 @@ const Quiz: React.FC = () => {
   return (
     <>
         <View className="bg-blue-400 py-8 px-4">
-            <Text className="text-white text-lg mb-4">Insert Questions and answers here! (Don't make them too easy or too difficult for your partner!)</Text>
+            <Text className="text-white text-lg mb-4">Insert questions and answers here!    (Don't make them too easy or too difficult for your partner!)</Text>
             <View className="mb-4">
                 <TextInput
-                    className="border border-gray-300 bg-white rounded px-4 py-2"
+                    className="border border-gray-300 bg-white rounded-full px-4 py-2"
                     placeholder="Enter your question"
                     onChangeText={(newText) => {
                         questionText = newText
@@ -32,7 +32,7 @@ const Quiz: React.FC = () => {
             </View>
             <View className="mb-4">
                 <TextInput
-                    className="border border-gray-300 bg-white rounded px-4 py-2"
+                    className="border border-gray-300 bg-white rounded-full px-4 py-2"
                     placeholder="Enter your first choice"
                     onChangeText={(newText) => {
                         answerOne = newText
@@ -42,7 +42,7 @@ const Quiz: React.FC = () => {
             </View>
             <View className="mb-4">
                 <TextInput
-                    className="border border-gray-300 bg-white rounded px-4 py-2"
+                    className="border border-gray-300 bg-white rounded-full px-4 py-2"
                     placeholder="Enter your second choice"
                     onChangeText={(newText) => {
                         answerTwo = newText
@@ -52,7 +52,7 @@ const Quiz: React.FC = () => {
             </View>
             <View className="mb-4">
                 <TextInput
-                    className="border border-gray-300 bg-white rounded px-4 py-2"
+                    className="border border-gray-300 bg-white rounded-full px-4 py-2"
                     placeholder="Enter your third choice"
                     onChangeText={(newText) => {
                         answerThree = newText
@@ -60,10 +60,10 @@ const Quiz: React.FC = () => {
                     }}
                 />
             </View>
-            <View className="mb-4">
+            <View className="items-center justify-center bg-blue-400 px-4">
                 <Text className="text-white text-lg mb-4">Which answer is correct?</Text>
                 <SelectDropdown
-                    buttonStyle={{ backgroundColor: '#D8A7B1'}}
+                    buttonStyle={{ backgroundColor: '#D8A7B1', borderWidth: 2, borderRadius: 50, borderColor: 'brown', marginBottom: 10 }}
                     data={['Answer 1', 'Answer 2', 'Answer 3']}
                     onSelect={(selectedItem, index) => {
                         answerIndex=selectedItem
@@ -74,18 +74,20 @@ const Quiz: React.FC = () => {
                     rowTextForSelection={(item, index) => {
                         return item
                     }}
-                    dropdownStyle={{ borderRadius: 20, backgroundColor: '#FAE8E0' }}
+                    dropdownStyle={{ backgroundColor: '#FAE8E0' }}
                 />
             </View>
-            <View className=''>
+            <View>
                 <Button
                     title="Add Question"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    className="hover:bg-blue-700 text-white font-bold py-2 px-4"
                     onPress={() => {
                     Alert.alert(
                     `Question: ${questionText}, Answers: ${answerOne}, ${answerTwo}, ${answerThree}. Correct Answer is number ${answerIndex}`
                     )
                     }}
+                    buttonStyle={{ backgroundColor: '#FAE8E0', borderRadius: 50, borderWidth: 2, borderColor: 'brown' }}
+				    titleStyle={{ color: '#EF7C8E' }}
                 />
             </View>
         </View>
