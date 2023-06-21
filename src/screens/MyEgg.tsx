@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useRoute } from '@react-navigation/native'
 
 function ImageContent({ item }: any) {
-	
+	const nav = useNavigation()	
   
 	return (
 		<>
@@ -18,13 +18,24 @@ function ImageContent({ item }: any) {
 				}}
 				style={styles.image}
 			/>
+			{item.caption.length > 0 ? (
 			<View style={styles.captionContainer}>
 				<Text style={styles.captionText}>
-					{item.caption.length > 0 ? (
 						<Text>{item.caption}</Text>
-					) : null}
+					
 				</Text>
+				</View>
+				) : null}
+			<View style={styles.buttonContainer}>
+		<Button
+			title="Back to nest"
+			onPress={() => {
+				nav.navigate('Nest' as never)
+			}}
+			/>
 			</View>
+			
+			
 		</>
 	)
 }
