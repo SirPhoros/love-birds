@@ -20,17 +20,24 @@ const SendEgg: React.FC = () => {
 	const [file, setFile] = useState('')
 	const { profileId } = useContext(UserContext)
 	const { username, partner_username } = profileId
-	const [showCamera, setShowCamera] = useState(false) //added x camera feat
+	const [showCamera, setShowCamera] = useState(false) //added x camera feature
+	const [showQuiz, setShowQuiz] = useState(false)
+	const [showMessage, setShowMessage] = useState(true)
+	const [gameUpdated, setGameUpdate] = useState(false)
+	const [showButton, setShowButton] = useState(false)
+	const [imageUpload, setImageUpload] = useState(false)
+
 	let messageText: string
+	let mediaText: string
 
 	const game = {
 		gameName: selectedGame,
 		gameContent: gameContent,
 	}
 
-	const Quiz: React.FC = () => {
-		const [quiz, setQuiz] = useState()
+	console.log('This is game content:', gameContent)
 
+	const Quiz: React.FC = () => {
 		let questionText: string
 		let answerOne: string
 		let answerTwo: string
@@ -114,9 +121,7 @@ const SendEgg: React.FC = () => {
 							title="Add Question"
 							className="hover:bg-blue-700 text-white font-bold py-2 px-4"
 							onPress={() => {
-								Alert.alert(
-									`Question: ${questionText}, Answers: ${answerOne}, ${answerTwo}, ${answerThree}. Correct Answer is number ${answerIndex}`
-								)
+								Alert.alert(`Quiz ready to be sent...`)
 								setGameContent({
 									question: questionText,
 									answerOne: answerOne,
@@ -124,6 +129,8 @@ const SendEgg: React.FC = () => {
 									answerThree: answerThree,
 									solution: answerIndex,
 								})
+								setShowQuiz(false)
+								setGameUpdate(true)
 							}}
 							buttonStyle={{
 								backgroundColor: '#FAE8E0',
@@ -158,6 +165,8 @@ const SendEgg: React.FC = () => {
 					.then((result) => {
 						if (!result.canceled) {
 							setFile(result.assets[0].uri)
+							setShowMessage(false)
+							setImageUpload(true)
 						}
 					})
 					.catch((error) => {
@@ -181,20 +190,43 @@ const SendEgg: React.FC = () => {
 						}}
 					/>
 				</View>
-				<View style={styles.buttonContainer}>
-					<Button
-						title="Send"
-						onPress={() => {
-							Alert.alert('Message Sent!')
-							setMessage(messageText)
-							console.log('console log the game: ', game)
-							uploadText(messageText, { partner_username, username }, game) //to fix once we can pass the stuff from database
-						}}
-						buttonStyle={{ backgroundColor: '#FAE8E0' }}
-						titleStyle={{ color: '#EF7C8E' }}
-					/>
-				</View>
+				<Button
+					title="Add Message"
+					className="hover:bg-blue-700 text-white font-bold py-2 px-4"
+					onPress={() => {
+						Alert.alert(`Message ready to be sent...`)
+						setMessage(messageText)
+						setShowButton(true)
+						setShowMessage(false)
+					}}
+					buttonStyle={{
+						backgroundColor: '#FAE8E0',
+						borderRadius: 50,
+						borderWidth: 2,
+						borderColor: 'brown',
+					}}
+					titleStyle={{ color: '#EF7C8E' }}
+				/>
 			</>
+		)
+	}
+
+	function SendTextInfo() {
+		return (
+			<View style={styles.buttonContainer}>
+				<Button
+					title="Send"
+					onPress={() => {
+						Alert.alert('Message Sent!')
+						setMessage(messageText)
+						console.log('console log the game: ', game)
+						uploadText(messageText, { partner_username, username }, game) //to fix once we can pass the stuff from database
+					}}
+					buttonStyle={{ backgroundColor: '#FAE8E0' }}
+					titleStyle={{ color: '#EF7C8E' }}
+					disabled={!gameUpdated}
+				/>
+			</View>
 		)
 	}
 
@@ -215,26 +247,28 @@ const SendEgg: React.FC = () => {
 						placeholder="Add a caption? (Optional)"
 						onChangeText={(newText) => {
 							console.log(newText)
-							messageText = newText
+							mediaText = newText
 						}}
 					/>
 				</View>
 				<View style={styles.buttonContainer}>
-					<Button
-						title="Send"
-						onPress={() => {
-							Alert.alert('Image Sent!')
-							setMessage(messageText)
-							uploadMediaFromGallery(
-								file,
-								{ partner_username, username },
-								game,
-								messageText
-							)
-						}}
-						buttonStyle={{ backgroundColor: '#FAE8E0' }}
-						titleStyle={{ color: '#EF7C8E' }}
-					/>
+					{imageUpload && (
+						<Button
+							title="Send"
+							onPress={() => {
+								Alert.alert('Image Sent!')
+								setMessage(mediaText)
+								uploadMediaFromGallery(
+									file,
+									{ partner_username, username },
+									game,
+									mediaText
+								)
+							}}
+							buttonStyle={{ backgroundColor: '#FAE8E0' }}
+							titleStyle={{ color: '#EF7C8E' }}
+						/>
+					)}
 				</View>
 			</>
 		)
@@ -244,7 +278,7 @@ const SendEgg: React.FC = () => {
 		return (
 			<>
 				{messageForm === 'Message' ? (
-					<MessageInput />
+					showMessage && <MessageInput />
 				) : messageForm === 'Image' ? (
 					<UploadImage />
 				) : (
@@ -256,17 +290,23 @@ const SendEgg: React.FC = () => {
 
 	return (
 		<ScrollView contentContainerStyle={styles.contentContainer}>
-			<View className='py-5 self-center '>
-				<Text className='font-bold text-white text-lg'>Is time to play! Choose the content of the egg you'll be sending and surprise your partner with a minigame to hatch it!</Text>
+			<View className="py-5 self-center ">
+				<Text className="font-bold text-white text-lg">
+					Is time to play! Choose the content of the egg you'll be sending and
+					surprise your partner with a minigame to hatch it!
+				</Text>
 			</View>
 			<View style={styles.container}>
+				<Text>Choose a game</Text>
 				<View style={styles.buttonContainer}>
 					<SelectDropdown
 						buttonStyle={{ backgroundColor: '#D8A7B1' }}
-						data={messages}
+						data={games}
 						onSelect={(selectedItem, index) => {
-							setMessageForm(selectedItem)
-							setShowCamera(selectedItem === 'Send a Snap')
+							setSelectedGame(selectedItem)
+							game.gameName = selectedItem
+							if (selectedItem === 'Quiz') setShowQuiz(true)
+							if (selectedItem === 'Snake') setGameUpdate(true)
 						}}
 						buttonTextAfterSelection={(selectedItem, index) => {
 							return selectedItem
@@ -277,14 +317,22 @@ const SendEgg: React.FC = () => {
 						dropdownStyle={{ borderRadius: 20, backgroundColor: '#FAE8E0' }}
 					/>
 				</View>
-				<Text>Choose a game</Text>
+				<View>
+					{selectedGame === 'Quiz' && showQuiz && (
+						<Quiz /> // Quiz Game
+					)}
+				</View>
+				<Text>What do you want to send?</Text>
 				<View style={styles.buttonContainer}>
 					<SelectDropdown
 						buttonStyle={{ backgroundColor: '#D8A7B1' }}
-						data={games}
+						data={messages}
 						onSelect={(selectedItem, index) => {
-							setSelectedGame(selectedItem)
-							game.gameName = selectedItem
+							setMessageForm(selectedItem)
+							setShowCamera(selectedItem === 'Send a Snap')
+							setShowMessage(true)
+							setShowButton(false)
+							setImageUpload(false)
 						}}
 						buttonTextAfterSelection={(selectedItem, index) => {
 							return selectedItem
@@ -296,11 +344,7 @@ const SendEgg: React.FC = () => {
 					/>
 				</View>
 				<View>{messageForm.length > 0 ? <Upload /> : null}</View>
-			</View>
-			<View>
-				{selectedGame === 'Quiz' && (
-					<Quiz /> //Quiz Game
-				)}
+				<View>{gameUpdated && showButton && <SendTextInfo />}</View>
 			</View>
 		</ScrollView>
 	)
