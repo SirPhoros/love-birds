@@ -70,13 +70,13 @@ export default function Nest () {
   return (
     <SafeAreaView style={styles.container}>
       <SectionList 
-      sections={sections}
-       keyExtractor={(item) => item.timestamp.seconds}
+        sections={sections}
+        keyExtractor={(item) => item.timestamp.seconds}
         data={eggs}
         renderItem={({ item }) => 
         <TouchableOpacity onPress ={() => {item.isLocked ? nav.navigate('Snake Game', {item}) : nav.navigate('My Egg', { item })}}>
         <View style={styles.itemContainer}>
-         <Image source={Egg} style={styles.image}/>
+          <Image source={Egg} style={styles.image}/>
           <Text style={styles.item}>{moment(item.timestamp.seconds * 1000).format('h:mm a')}</Text>
           <Image style={styles.image} source={item.isLocked ? Padlock : Heart2}/>
         </View>
