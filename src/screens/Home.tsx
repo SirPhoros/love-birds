@@ -47,28 +47,32 @@ function Home() {
 	}
 
 	return (
-		<View
-			style={{
-				flex: 1,
-				alignItems: 'center',
-				justifyContent: 'center',
-				backgroundColor: '#0fb5fe',
-			}}
-		>
+		
+		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#0fb5fe' }}>
+			<View className='py-5 self-center'>
+				<Text className='font-bold text-white text-3xl'>Tweet!</Text>
+			</View>
+			<View className='py-4 self-center'>
+				<Text className='font-bold text-white'>Exchange gifts and hatch eggs with your loved one!</Text>
+			</View>
 			<TouchableOpacity onPress={() => nav.navigate('Nest' as never)}>
 				<Image
 					source={Nest}
 					style={styles.image}
 				/>
+				<View className='self-center'>
+					<Text className='font-bold text-white'>Lovers' Nest</Text>
+				</View>
 			</TouchableOpacity>
-			<Text>My Nest</Text>
 			<TouchableOpacity onPress={() => nav.navigate('Send Egg' as never)}>
 				<Image
 					source={Egg}
 					style={styles.image}
 				/>
 			</TouchableOpacity>
-			<Text>Send Egg</Text>
+			<View className='py-5 self-center'>
+				<Text className='font-bold text-white'>Send an egg for your partner to hatch!</Text>
+			</View>
 		</View>
 	)
 }

@@ -14,6 +14,7 @@ import {
 	updateProfilePicture,
 } from '../../utils'
 
+
 export default function Profile() {
 	const nav = useNavigation()
 	const { profileId, setProfileId } = useContext(UserContext)
