@@ -89,7 +89,6 @@ const SendEgg: React.FC = () => {
 		)
 	}
 
-	
 	function UploadImage() {
 		return (
 			<>
@@ -148,45 +147,48 @@ const SendEgg: React.FC = () => {
 
 	return (
 		<ScrollView contentContainerStyle={styles.contentContainer}>
-		<View style={styles.container}>
-			<View className='bg-[#0fb5fe] pb-10 pt-10 pr-5 pl-5'>
-				<Text>TeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXt</Text>
-			</View>
-		<Text>1. Choose the content:</Text>
-			<View style={styles.buttonContainer}>
-				<SelectDropdown
-					buttonStyle={{ backgroundColor: '#D8A7B1'}}
-					data={messages}
-					onSelect={(selectedItem, index) => {
-						setMessageForm(selectedItem)
-						setShowCamera(selectedItem === 'Send a Snap')
-					}}
-					buttonTextAfterSelection={(selectedItem, index) => {
-						return selectedItem
-					}}
-					rowTextForSelection={(item, index) => {
-						return item
-					}}
-          dropdownStyle={{ borderRadius: 20, backgroundColor: '#FAE8E0' }}
-				/>
-			</View>
-        <Text>2. Choose a game:</Text>
-			<View style={styles.buttonContainer}>
-				<SelectDropdown
-					buttonStyle={{ backgroundColor: '#D8A7B1' }}
-					data={games}
-					onSelect={(selectedItem, index) => {
-						setSelectedGame(selectedItem)
-            game.gameName = selectedIte
-					}}
-					buttonTextAfterSelection={(selectedItem, index) => {
-						return selectedItem
-					}}
-					rowTextForSelection={(item, index) => {
-						return item
-					}}
-          dropdownStyle={{ borderRadius: 20, backgroundColor: '#FAE8E0' }}
-				/>
+			<View style={styles.container}>
+				<View className="bg-[#0fb5fe] pb-10 pt-10 pr-5 pl-5">
+					<Text>
+						TeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXtTeStTeXt
+					</Text>
+				</View>
+				<Text>1. Choose the content:</Text>
+				<View style={styles.buttonContainer}>
+					<SelectDropdown
+						buttonStyle={{ backgroundColor: '#D8A7B1' }}
+						data={messages}
+						onSelect={(selectedItem, index) => {
+							setMessageForm(selectedItem)
+							setShowCamera(selectedItem === 'Send a Snap')
+						}}
+						buttonTextAfterSelection={(selectedItem, index) => {
+							return selectedItem
+						}}
+						rowTextForSelection={(item, index) => {
+							return item
+						}}
+						dropdownStyle={{ borderRadius: 20, backgroundColor: '#FAE8E0' }}
+					/>
+				</View>
+				<Text>2. Choose a game:</Text>
+				<View style={styles.buttonContainer}>
+					<SelectDropdown
+						buttonStyle={{ backgroundColor: '#D8A7B1' }}
+						data={games}
+						onSelect={(selectedItem, index) => {
+							setSelectedGame(selectedItem)
+							game.gameName = selectedItem
+						}}
+						buttonTextAfterSelection={(selectedItem, index) => {
+							return selectedItem
+						}}
+						rowTextForSelection={(item, index) => {
+							return item
+						}}
+						dropdownStyle={{ borderRadius: 20, backgroundColor: '#FAE8E0' }}
+					/>
+				</View>
 			</View>
 		</ScrollView>
 	)
