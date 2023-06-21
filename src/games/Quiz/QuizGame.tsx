@@ -48,7 +48,7 @@ const QuizGame: React.FC = () => {
         <View className="flex flex-col items-center justify-center h-screen py-8 px-4 bg-[#0fb5fe]">
             <Text className="text-white text-xl mb-4 text-center px-4">Your Partner sent you a Question! Answer it to hatch your egg!</Text>
             <View className="mb-4">
-                <Text className='mb-4 text-xl text-center text-white underline'>Question: {item.game.gameContent.question}</Text>
+                <Text className='mb-4 text-2xl text-center text-[#561573] font-bold'>Question: {item.game.gameContent.question}</Text>
             </View>
             <View className="mb-4">
                <Button 
