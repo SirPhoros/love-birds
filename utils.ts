@@ -27,6 +27,46 @@ import {
 } from 'firebase/auth'
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
+//Interfaces
+interface FirebaseConfig {
+	apiKey: string
+	authDomain: string
+	projectId: string
+	storageBucket: string
+	messagingSenderId: string
+	appId: string
+}
+
+interface NewUser {
+	email: string
+	username: string
+	avatarIMG: string
+	googleAuth: boolean
+	partner_username: string
+	in_relationship: boolean
+}
+
+interface Timestamp {
+	timestamp: {
+		nanoseconds: number
+		seconds: number
+	}
+}
+
+interface Egg {
+	caption: string
+	fileURL: string
+	game: {
+		gameContent: any
+		gameName: string
+	}
+	isLocked: boolean
+	recipient: string
+	sender: string
+	timestamp: Timestamp
+	typeEgg: string
+}
+
 // Your web app's Firebase configuration
 const firebaseConfig: {
 	apiKey: string
@@ -164,18 +204,6 @@ export function logOut(): void {
 		})
 }
 
-//Verify that there's a relationship and it is mutual
-// This should be the username in context
-const testUsername = {
-	avatarIMG: '',
-	email: 'example@example.com',
-	googleAuth: false,
-	in_relationship: false,
-	partner_username: 'user',
-	username: 'example',
-}
-// console.log(testUsername.partner_username)
-
 export function updatePartner(newPartner: string): Promise<any> {
 	return updateDoc(doc(db, 'users', auth.currentUser!.uid), {
 		partner_username: newPartner,
@@ -233,11 +261,11 @@ export function checkUser() {
 //we need to send the file along with the metadata to this file
 export async function uploadMediaFromGallery(
 	uri: string,
-	metadata: any,
+	userData: NewUser,
 	metadataGame: any,
 	caption: string | undefined
 ): Promise<void> {
-	const { partner_username, username } = metadata
+	const { partner_username, username } = userData
 	//BlobFroUri transforms the URL we retrieve from the phone to Binary Data
 	//Ready to be uploaded into Firebase db.
 	const getBlobFroUri = async (uri: string): Promise<Blob> => {
@@ -312,7 +340,7 @@ export function uploadText(
 export function getEggs(
 	username: string,
 	partner_username: string
-): Promise<any[]> {
+): Promise<Egg[]> {
 	const recipientQuery = query(
 		eggsRef,
 		where('recipient', '==', username),
@@ -374,7 +402,7 @@ export async function updateProfilePicture(uri: string): Promise<void> {
 }
 
 //Update isLocked to false when passed the game:
-export function updateLock({ timestamp }: any): Promise<void> {
+export function updateLock({ timestamp }: Timestamp): Promise<void> {
 	const LockQuery = query(eggsRef, where('timestamp', '==', timestamp))
 	return getDocs(LockQuery).then((querySnapshot) => {
 		querySnapshot.forEach((document) => {
