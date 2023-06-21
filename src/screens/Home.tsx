@@ -12,6 +12,7 @@ function Home() {
 	const nav = useNavigation()
 	const { profileId, setProfileId } = useContext(UserContext)
 	const [loading, setLoading] = useState(true)
+	const { in_relationship } = profileId
 
 	//Research about useEffect and why it is not reRendering
 	useEffect(() => {
@@ -37,7 +38,14 @@ function Home() {
 	/* Loading State */
 	if (loading) {
 		return (
-			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#0fb5fe' }}>
+			<View
+				style={{
+					flex: 1,
+					justifyContent: 'center',
+					alignItems: 'center',
+					backgroundColor: '#0fb5fe',
+				}}
+			>
 				<ActivityIndicator
 					size="large"
 					color="#D8A7B1"
@@ -47,31 +55,56 @@ function Home() {
 	}
 
 	return (
-		
-		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#0fb5fe' }}>
-			<View className='py-5 self-center'>
-				<Text className='font-bold text-white text-3xl'>Chirp! 🦜 Chirp!</Text>
+		<View
+			style={{
+				flex: 1,
+				alignItems: 'center',
+				justifyContent: 'center',
+				backgroundColor: '#0fb5fe',
+			}}
+		>
+			<View className="py-5 self-center">
+				<Text className="font-bold text-white text-3xl">Chirp! 🦜 Chirp!</Text>
 			</View>
-			<View className='py-5 self-center'>
-				<Text className='font-bold text-white text-xl text-center'>Exchange gifts and hatch eggs with your loved one!</Text>
+			<View className="py-5 self-center">
+				<Text className="font-bold text-white text-xl text-center">
+					Exchange gifts and hatch eggs with your loved one!
+				</Text>
 			</View>
 			<TouchableOpacity onPress={() => nav.navigate('Nest' as never)}>
 				<Image
 					source={Nest}
 					style={styles.image}
 				/>
-				<View className='self-center'>
-					<Text className='font-bold text-white'>Lovers' Nest</Text>
+				<View className="self-center">
+					<Text className="font-bold text-white">Lovers' Nest</Text>
 				</View>
 			</TouchableOpacity>
-			<TouchableOpacity onPress={() => nav.navigate('Send Egg' as never)}>
+			<TouchableOpacity
+				onPress={() => {
+					if (in_relationship) {
+						nav.navigate('Send Egg' as never)
+					} else {
+						Alert.alert('Careful', `You haven't established a relationship!`, [
+							{
+								text: 'Go to Profile',
+								onPress: () => {
+									nav.navigate('Profile' as never)
+								},
+							},
+						])
+					}
+				}}
+			>
 				<Image
 					source={Egg}
 					style={styles.image}
 				/>
 			</TouchableOpacity>
-			<View className='py-5 self-center'>
-				<Text className='font-bold text-white'>Send an egg for your partner to hatch!</Text>
+			<View className="py-5 self-center">
+				<Text className="font-bold text-white">
+					Send an egg for your partner to hatch!
+				</Text>
 			</View>
 		</View>
 	)
