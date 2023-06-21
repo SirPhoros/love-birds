@@ -66,7 +66,7 @@ function Home() {
 			<View className="py-5 self-center">
 				<Text className="font-bold text-white text-3xl">Chirp! 🦜 Chirp!</Text>
 			</View>
-			<View className="py-5 self-center">
+			<View className="py-5 px-10 self-center">
 				<Text className="font-bold text-white text-xl text-center">
 					Exchange gifts and hatch eggs with your loved one!
 				</Text>
