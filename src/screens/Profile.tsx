@@ -81,7 +81,7 @@ export default function Profile() {
 					}}
 					style={styles.textContainer}
 				></TextInput>
-				<View style={styles.buttonContainer}>
+				<View style={styles.relationshipButton}>
 					<Button
 						title="Add Relationship"
 						onPress={() => {
@@ -233,9 +233,20 @@ export default function Profile() {
 }
 
 const styles = StyleSheet.create({
+	relationshipButton: {
+		alignSelf: 'center',
+		width: 300,
+		backgroundColor: '#f2daa4',
+		borderRadius: 100,
+		marginBottom: 10,
+		marginTop: 10,
+		borderWidth: 3,
+		borderColor: 'brown',
+		overflow: 'hidden',
+	},
 	buttonContainer: {
 		position: 'absolute',
-		bottom: -90,
+		bottom: -80,
 		alignSelf: 'center',
 		width: 160,
 		backgroundColor: '#f2daa4',
