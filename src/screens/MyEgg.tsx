@@ -23,7 +23,7 @@ function ImageContent({ item }: any) {
 			<View style={styles.captionContainer}>
 				<Text style={styles.captionText}>
 					{item.caption.length > 0 ? (
-						<Text>CAPTION: {item.caption}</Text>
+						<Text>{item.caption}</Text>
 					) : null}
 				</Text>
 			</View>
@@ -38,7 +38,7 @@ function TextContent({ item }: any) {
 	return (
 		<>
 			<Text style={styles.text}>
-				{item.sender} sent you an {item.typeEgg}!
+				{item.sender} sent you this {item.typeEgg}!
 			</Text>
 
 			<View style={styles.messageContainer}>

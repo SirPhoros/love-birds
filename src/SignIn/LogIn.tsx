@@ -4,6 +4,7 @@ import { Text, Button, Image } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 import { logIn } from '../../utils'
 import LoveBirdsLogo from '../../assets/Lovebirds-Logo.gif'
+import Baloon from '../../assets/hot-air-baloon.gif'
 
 let emailLogin: string = ''
 let passwordLogin: string = ''
@@ -55,10 +56,10 @@ export default function LogIn() {
 		return (
 			<>
 				<View style={{ alignItems: 'center', marginBottom: 50 }}>
-					<Text>Welcome back! </Text>
+					<Text className="text-white text-3xl mb-4">Welcome back!</Text>
 				</View>
 				<View style={{ alignItems: 'center', marginBottom: 50 }}>
-					<Text>We've missed you 😍</Text>
+					<Text className="text-white text-lg mb-4">We've missed you</Text>
 				</View>
 				<View style={styles.buttonContainer}>
 					<Button

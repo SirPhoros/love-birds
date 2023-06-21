@@ -256,8 +256,8 @@ const SendEgg: React.FC = () => {
 
 	return (
 		<ScrollView contentContainerStyle={styles.contentContainer}>
-			<View className='py-5 self-center '>
-				<Text className='font-bold text-white text-lg'>Is time to play! Choose the content of the egg you'll be sending and surprise your partner with a minigame to hatch it!</Text>
+			<View className="pt-8 self-center bg-[#0fb5fe] w-full flex items-center justify-center">
+				<Text className='font-bold text-white text-lg text-center'>Is time to play! Choose the content of the egg you'll be sending and surprise your partner with a minigame to hatch it!</Text>
 			</View>
 			<View style={styles.container}>
 				<View style={styles.buttonContainer}>
