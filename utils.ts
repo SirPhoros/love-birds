@@ -305,6 +305,7 @@ export function uploadText(
 	metadataGame: Game
 ): void {
 	const { partner_username, username } = metadata
+	console.log(text, "text", metadata, "metadata", metadataGame, "metadataGame")
 	addDoc(collection(db, 'eggs'), {
 		typeEgg: 'message',
 		contentMsg: text,
