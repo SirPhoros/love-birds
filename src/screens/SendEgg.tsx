@@ -282,7 +282,7 @@ const SendEgg: React.FC = () => {
 				) : messageForm === 'Image' ? (
 					<UploadImage />
 				) : (
-					showCamera && <CameraFeature game={game} onClose={() => setShowCamera(false)} />
+					showCamera && <CameraFeature onClose={() => setShowCamera(false)} />
 				)}
 			</>
 		)
