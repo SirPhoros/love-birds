@@ -14,21 +14,21 @@ import { ScrollView } from 'react-native'
 
 const SendEgg: React.FC = () => {
 	const [message, setMessage] = useState('')
-	const games: string[] = [
-		'Snake',
-		'Quiz'
-	]
+	const games: string[] = ['Snake', 'Quiz']
 	const messages: string[] = ['Message', 'Image', 'Send a Snap']
 	const [selectedGame, setSelectedGame] = useState('')
+	const [gameContent, setGameContent] = useState({})
 	const [messageForm, setMessageForm] = useState('')
 	const [file, setFile] = useState('')
 	const { profileId } = useContext(UserContext)
 	const { username, partner_username } = profileId
 	const [showCamera, setShowCamera] = useState(false) //added x camera feat
-	console.log('selectedGame:', selectedGame)
-	console.log('selectedMessageForm:', messageForm)
 	let messageText: string
-  
+
+	const game = {
+		gameName: selectedGame,
+		gameContent: gameContent,
+	}
 
 	const handleFileSelection = () => {
 		ImagePicker.requestMediaLibraryPermissionsAsync()
@@ -60,7 +60,6 @@ const SendEgg: React.FC = () => {
 			})
 	}
 
-  
 	function MessageInput() {
 		return (
 			<>
@@ -79,7 +78,8 @@ const SendEgg: React.FC = () => {
 						onPress={() => {
 							Alert.alert('Message Sent!')
 							setMessage(messageText)
-							uploadText(messageText, { partner_username, username }) //to fix once we can pass the stuff from database
+							console.log('console log the game: ', game)
+							uploadText(messageText, { partner_username, username }, game) //to fix once we can pass the stuff from database
 						}}
 						buttonStyle={{ backgroundColor: '#FAE8E0' }}
 						titleStyle={{ color: '#EF7C8E' }}
@@ -89,14 +89,15 @@ const SendEgg: React.FC = () => {
 		)
 	}
 
+	
 	function UploadImage() {
 		return (
 			<>
 				<View style={styles.buttonContainerUploadImg}>
 					<Button
 						title="⇧ Upload Image ⇧"
-            buttonStyle={{ backgroundColor: '#FAE8E0' }}
-            titleStyle={{ color: 'blue' }}
+						buttonStyle={{ backgroundColor: '#FAE8E0' }}
+						titleStyle={{ color: 'blue' }}
 						onPress={handleFileSelection}
 					/>
 				</View>
@@ -116,7 +117,12 @@ const SendEgg: React.FC = () => {
 						onPress={() => {
 							Alert.alert('Image Sent!')
 							setMessage(messageText)
-							uploadMediaFromGallery(file, { partner_username, username }, messageText)
+							uploadMediaFromGallery(
+								file,
+								{ partner_username, username },
+								game,
+								messageText
+							)
 						}}
 						buttonStyle={{ backgroundColor: '#FAE8E0' }}
 						titleStyle={{ color: '#EF7C8E' }}
@@ -171,6 +177,7 @@ const SendEgg: React.FC = () => {
 					data={games}
 					onSelect={(selectedItem, index) => {
 						setSelectedGame(selectedItem)
+            game.gameName = selectedIte
 					}}
 					buttonTextAfterSelection={(selectedItem, index) => {
 						return selectedItem
@@ -181,14 +188,7 @@ const SendEgg: React.FC = () => {
           dropdownStyle={{ borderRadius: 20, backgroundColor: '#FAE8E0' }}
 				/>
 			</View>
-			<View>{messageForm.length > 0 ? <Upload /> : null}</View>
-		</View>
-      <View>
-        {selectedGame === 'Quiz' && (
-          <Quiz /> //Quiz Game
-        )}
-      </View>
-    </ScrollView>
+		</ScrollView>
 	)
 }
 
@@ -197,8 +197,9 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-    	backgroundColor:'#0fb5fe',
-    	marginTop: 0,
+
+		backgroundColor: '#0fb5fe',
+		marginTop: 0,
 	},
 	textContainer: {
 		width: 300,
@@ -208,7 +209,7 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		height: 100,
 		textAlign: 'center',
-    backgroundColor: '#FEE8F7'
+		backgroundColor: '#FEE8F7',
 	},
 	textInput: {
 		height: 40,
@@ -223,34 +224,31 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		borderWidth: 2,
 		borderColor: 'brown',
-		overflow: 'hidden', 
-    alignItems: 'center',
-    
-	  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buttonContainerUploadImg: {
-    alignSelf: 'center', 
-    textAlign: 'center',
+		overflow: 'hidden',
+		alignItems: 'center',
+	},
+	loadingContainer: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	buttonContainerUploadImg: {
+		alignSelf: 'center',
+		textAlign: 'center',
 		width: '50%',
 		borderRadius: 50,
 		marginBottom: 20,
 		marginTop: 10,
 		borderWidth: 2,
 		borderColor: 'brown',
-		overflow: 'hidden', 
-    alignItems: 'center',
-  },
-  contentContainer: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    paddingBottom: 0,
-  }
-});
-
-
+		overflow: 'hidden',
+		alignItems: 'center',
+	},
+	contentContainer: {
+		flexGrow: 1,
+		justifyContent: 'center',
+		paddingBottom: 0,
+	},
+})
 
 export default SendEgg

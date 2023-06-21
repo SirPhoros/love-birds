@@ -234,6 +234,7 @@ export function checkUser() {
 export async function uploadMediaFromGallery(
 	uri: string,
 	metadata: any,
+	metadataGame: any,
 	caption: string | undefined
 ): Promise<void> {
 	const { partner_username, username } = metadata
@@ -271,6 +272,7 @@ export async function uploadMediaFromGallery(
 							timestamp: serverTimestamp(),
 							isLocked: true,
 							typeEgg: 'image',
+							game: metadataGame,
 						})
 					})
 					.catch((error) => {
@@ -287,7 +289,11 @@ export async function uploadMediaFromGallery(
 }
 
 //Send messages as an Egg:
-export function uploadText(text: string, metadata: any): void {
+export function uploadText(
+	text: string,
+	metadata: any,
+	metadataGame: any
+): void {
 	const { partner_username, username } = metadata
 	addDoc(collection(db, 'eggs'), {
 		typeEgg: 'message',
@@ -296,7 +302,7 @@ export function uploadText(text: string, metadata: any): void {
 		sender: username,
 		timestamp: serverTimestamp(),
 		isLocked: true,
-		// game: metadataGame
+		game: metadataGame,
 	}).catch((error) => {
 		console.log(error.message)
 	})
