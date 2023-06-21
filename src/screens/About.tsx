@@ -23,7 +23,7 @@ const teamMembers: TeamMember[] = [
       linkedinUrl: 'https://www.linkedin.com/in/alefrondini/',
     },
     {
-      name: 'Cristóbal Gutiérrez Torrubia',
+      name: 'Cristóbal G.Torrubia',
       image: Cris,
       linkedinUrl: 'https://www.linkedin.com/in/cgtorrubia/',
     },

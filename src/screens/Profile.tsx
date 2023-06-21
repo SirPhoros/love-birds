@@ -214,9 +214,9 @@ export default function Profile() {
 				<View>
 					{profileId.partner_username.length > 0 || profileId.in_relationship === true? null: (
 						<>
-							<Text className="pt-12 pb-2" style={styles.text}>
+							{/* <Text className="pt-12 pb-2" style={styles.text}>
 								Trying to partner with: {profileId.partner_username}
-							</Text>
+							</Text> */}
 							<SyncRelationship />
 						</>
 					)}

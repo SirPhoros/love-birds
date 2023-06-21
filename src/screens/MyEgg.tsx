@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
-// import { useNavigation } from '@react-navigation/native'
+import { View, Text, StyleSheet, Image, ScrollView, Button } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 // import { UserContext } from '../../Context/UserContext'
 import { useRoute } from '@react-navigation/native'
 
@@ -32,8 +32,7 @@ function ImageContent({ item }: any) {
 }
 
 function TextContent({ item }: any) {
-	console.log('text content item:', item)
-	console.log('text content:', item.typeEgg)
+	const nav = useNavigation()
 
 	return (
 		<>
@@ -44,11 +43,20 @@ function TextContent({ item }: any) {
 			<View style={styles.messageContainer}>
 				<Text style={styles.messageText}>{item.contentMsg}</Text>
 			</View>
+			<View style={styles.buttonContainer}>
+		<Button
+			title="Back to nest"
+			onPress={() => {
+				nav.navigate('Nest' as never)
+			}}
+			/>
+			</View>
 		</>
 	)
 }
 
 export default function MyEgg() {
+
 	// const nav = useNavigation()
 	// const { profileId, setProfileId } = useContext(UserContext)
 	const route = useRoute()
@@ -76,7 +84,7 @@ export default function MyEgg() {
 
 	return (
 		<ScrollView>
-			<View style={styles.container}>
+			<View style={styles.container} >
 				<View>
 					{item.typeEgg === 'message' ? (
 						<TextContent item={item} />
@@ -95,6 +103,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		backgroundColor: '#0fb5fe',
 		padding: 20,
+		paddingBottom: 400
 	},
 	text: {
 		fontSize: 20,
@@ -129,5 +138,18 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		color: '#FFFFFF',
 		textAlign: 'left',
+	},
+	buttonContainer: {
+		position: 'absolute',
+		bottom: -90,
+		alignSelf: 'center',
+		width: 160,
+		backgroundColor: '#f2daa4',
+		borderRadius: 50,
+		marginBottom: 10,
+		marginTop: 10,
+		borderWidth: 3,
+		borderColor: 'brown',
+		overflow: 'hidden',
 	},
 })
