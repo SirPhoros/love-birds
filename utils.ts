@@ -14,7 +14,6 @@ import {
 	where,
 	serverTimestamp,
 	orderBy,
-	QuerySnapshot,
 } from 'firebase/firestore'
 //Firebase Auth
 import {
@@ -24,19 +23,12 @@ import {
 	signInWithEmailAndPassword,
 	signOut,
 	UserCredential,
+	User as FirebaseAuthUser,
+	UserMetadata,
 } from 'firebase/auth'
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 //Interfaces
-interface FirebaseConfig {
-	apiKey: string
-	authDomain: string
-	projectId: string
-	storageBucket: string
-	messagingSenderId: string
-	appId: string
-}
-
 interface NewUser {
 	email: string
 	username: string
@@ -53,29 +45,36 @@ interface Timestamp {
 	}
 }
 
-interface Egg {
-	caption: string
-	fileURL: string
-	game: {
-		gameContent: any
-		gameName: string
-	}
+interface Game {
+	gameContent: any
+	gameName: string
+}
+
+interface MessageEgg {
+	contentMsg: string
+	game: Game
 	isLocked: boolean
 	recipient: string
 	sender: string
 	timestamp: Timestamp
-	typeEgg: string
+	typeEgg: 'message'
 }
 
+interface FileEgg {
+	caption: string
+	fileURL: string
+	game: Game
+	isLocked: boolean
+	recipient: string
+	sender: string
+	timestamp: Timestamp
+	typeEgg: 'image'
+}
+
+type Egg = MessageEgg | FileEgg
+
 // Your web app's Firebase configuration
-const firebaseConfig: {
-	apiKey: string
-	authDomain: string
-	projectId: string
-	storageBucket: string
-	messagingSenderId: string
-	appId: string
-} = {
+const firebaseConfig = {
 	apiKey: 'AIzaSyBnlb5QLZkR3xp2KBb8wQwheNHb2WgE14s',
 	authDomain: 'love-birds-a5bd6.firebaseapp.com',
 	projectId: 'love-birds-a5bd6',
@@ -92,28 +91,12 @@ const storage = getStorage(app)
 const db = getFirestore(app)
 const auth = getAuth(app)
 
-//Sign Users
-interface newInfo {
-	email: string
-	password: string
-}
-//Template for NewUser
-interface User {
-	email: string
-	username: string
-	avatarIMG: string
-	googleAuth: boolean
-	partner_username: string
-	in_relationship: boolean
-}
-
 //Collections/Tables
-
 const usersRef = collection(db, 'users')
 const eggsRef = collection(db, 'eggs')
 
-//Subscribe to changes
-onAuthStateChanged(auth, (user) => {
+// Subscribe to changes
+onAuthStateChanged(auth, (user: FirebaseAuthUser | null) => {
 	console.log('user status changed: ', user)
 })
 
@@ -122,20 +105,20 @@ export function handleSignUpWithEmail(
 	password: string
 ): Promise<void> {
 	return createUserWithEmailAndPassword(auth, email, password).then(
-		(userCredential) => {
-			// User sign-in successful
+		(userCredential: UserCredential) => {
 			const user = userCredential.user
-			// Proceed with attaching data to the user
-			attachUserDataToUser(user)
+			if (user) {
+				attachUserDataToUser(user)
+			}
 		}
 	)
 }
 //Attach data to the user in Firestore
-function attachUserDataToUser(user: any): void {
-	const uid = user.uid // Assuming you have access to the signed-in user's UID
-	const userData = {
-		email: user.email,
-		username: user.email.split('@')[0],
+function attachUserDataToUser(user: FirebaseAuthUser): Promise<void> {
+	const uid = user.uid
+	const userData: NewUser = {
+		email: user.email || '',
+		username: user.email?.split('@')[0] || '',
 		avatarIMG: '',
 		googleAuth: user.emailVerified,
 		partner_username: '',
@@ -144,7 +127,7 @@ function attachUserDataToUser(user: any): void {
 	}
 	const usersCollection = doc(db, 'users', uid)
 
-	setDoc(usersCollection, userData)
+	return setDoc(usersCollection, userData)
 		.then(() => {
 			console.log('User data attached successfully!')
 		})
@@ -159,7 +142,7 @@ export function checkConnection(): boolean {
 }
 
 //Get Main User's Data
-export function getUserData(): Promise<any> {
+export function getUserData(): Promise<UserMetadata> {
 	const user = auth.currentUser
 
 	if (!user) {
@@ -170,9 +153,8 @@ export function getUserData(): Promise<any> {
 	const documentRef = doc(db, `users/${userId}`)
 
 	return getDoc(documentRef)
-		.then((docSnapshot: any) => {
+		.then((docSnapshot) => {
 			if (docSnapshot.exists()) {
-				// Document exists
 				const documentData = docSnapshot.data()
 				return documentData
 			} else {
@@ -239,7 +221,7 @@ export function checkRelationship(partner: string): Promise<any> {
 						querySnapshot.forEach((document) => {
 							updateDoc(doc(db, 'users', document.id), {
 								in_relationship: true,
-							}).then(() => console.log(testUsername))
+							})
 						})
 					})
 					.catch((error) => {
@@ -262,7 +244,7 @@ export function checkUser() {
 export async function uploadMediaFromGallery(
 	uri: string,
 	userData: NewUser,
-	metadataGame: any,
+	metadataGame: Game,
 	caption: string | undefined
 ): Promise<void> {
 	const { partner_username, username } = userData
@@ -320,7 +302,7 @@ export async function uploadMediaFromGallery(
 export function uploadText(
 	text: string,
 	metadata: any,
-	metadataGame: any
+	metadataGame: Game
 ): void {
 	const { partner_username, username } = metadata
 	addDoc(collection(db, 'eggs'), {
@@ -348,9 +330,16 @@ export function getEggs(
 		orderBy('timestamp', 'desc')
 	)
 	return getDocs(recipientQuery).then((querySnapshot) => {
-		let eggArray: any[] = []
+		let eggArray: Egg[] = []
 		querySnapshot.forEach((document) => {
-			eggArray.push(document.data())
+			const data = document.data()
+			if (data.typeEgg === 'message') {
+				const messageEgg = data as MessageEgg
+				eggArray.push(messageEgg)
+			} else {
+				const fileEgg = data as FileEgg
+				eggArray.push(fileEgg)
+			}
 		})
 		return eggArray
 	})
