@@ -3,7 +3,7 @@ import "react-native-gesture-handler"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { Text, View } from "react-native"
 import { useRoute } from '@react-navigation/native';
-import Quiz from "../Quiz/Quiz"
+import QuizGame from "../Quiz/QuizGame"
 
 
     function Snake () {
@@ -22,7 +22,7 @@ import Quiz from "../Quiz/Quiz"
         )
     }
 
-    function QuizGame () {
+    function QuizLink () {
 
         const route = useRoute()
         const item = route.params?.item
@@ -32,7 +32,7 @@ import Quiz from "../Quiz/Quiz"
         return (
             <>
                 <GestureHandlerRootView style={{flex: 1}}>
-                <Quiz />
+                <QuizGame item={item}/>
                 </GestureHandlerRootView>
             </>
         )
@@ -49,7 +49,7 @@ const SnakeGame = () => {
 
     return (
     <>
-    {item.game.gameName === 'Snake' ? <Snake /> : <QuizGame />}
+    {item.game.gameName === 'Snake' ? <Snake /> : <QuizLink />}
     
     </>
 )
