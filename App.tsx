@@ -13,7 +13,6 @@ import Register from './src/SignIn/RegisterPage';
 import LogIn from './src/SignIn/LogIn';
 import Nest from './src/screens/Nest';
 import MyEgg from './src/screens/MyEgg';
-import Relationship from './src/screens/Relationship';
 import Snake from './src/games/Snake/components/Snake';
 import { Icon } from 'react-native-elements';
 import SnakeGame from './src/games/Snake/SnakeGame';
@@ -88,7 +87,6 @@ function App() {
 		      <Stack.Screen name="Nest" component={Nest} />
            <Stack.Screen name="Snake Game" component={SnakeGame} />
 		      <Stack.Screen name="My Egg" component={MyEgg} />
-       <Stack.Screen name="Relationship" component={Relationship} />
     </Stack.Navigator>
     </NavigationContainer>
     </UserContextProvider>

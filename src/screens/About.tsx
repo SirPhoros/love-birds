@@ -73,7 +73,7 @@ Linking.openURL(url)
                 <Image source={Heel} style={styles.rightHeel} />
                 </View>
             <Text style={styles.description}>
-             Love Birds is where distance bends to devotion. Experience a mesmerizing connection between long-distance lovers as each day unravels the magic hidden within a daily egg. {'\n'}{'\n'}Messages, images, and tokens of affection from your beloved await, nourishing your bond and kindling an eternal flame. Unlock the treasures within by conquering challenging games that test your spirit and ingenuity.{'\n'}{'\n'}Love Birds: Keeping the flame alive, one captivating surprise at a time.
+             Love Birds is where distance bends to devotion. Experience a mesmerizing connection between long-distance lovers as each day unravels the magic with surprises sent by your partner. {'\n'}{'\n'}Messages, images, and tokens of affection from your beloved await, nourishing your bond and kindling an eternal flame. Unlock the treasures within by conquering challenging games that test your spirit and knowledge.{'\n'}{'\n'}Love Birds: Keeping the flame alive, one captivating surprise at a time.
             </Text>
             <Text style={styles.meetTeam}>Meet Our Team</Text>
           </>
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   alignSelf: 'center',
   },
   description: {
-    fontSize: 16,
+    fontSize: 17,
     textAlign: 'justify',
     marginBottom: 24,
     width: '100%',
