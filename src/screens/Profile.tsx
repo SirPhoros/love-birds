@@ -133,7 +133,7 @@ export default function Profile() {
 							in_relationship: false,
 						})
 					}}
-					buttonStyle={{ backgroundColor: '#f21fa9', padding: 10, margin: 20 }}
+					buttonStyle={{ backgroundColor: '#f21fa9', padding: 10, margin: 20, borderRadius:50 }}
 				/>
 			</>
 		)
@@ -173,8 +173,8 @@ export default function Profile() {
 				}}
 			>
 				<View style={styles.userContainer}>
-					<Text className="pb-1" style={styles.userText}>Username: {profileId.username}</Text>
-					<Text className="py-2" style={styles.userText}>Email: {profileId.email}</Text>
+					<Text className="font-bold text-white text-2xl self-center" style={styles.userText}>Username: {profileId.username}</Text>
+					<Text className="py-2 self-center" style={styles.userText}>Email: {profileId.email}</Text>
 				</View>
 				<Image
 					style={{
@@ -225,7 +225,7 @@ export default function Profile() {
 					<View>
 						<SignOutButton />
 					</View>
-					</View>
+				</View>
 			</View>
 		  </ScrollView>
 		</>

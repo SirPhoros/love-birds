@@ -256,10 +256,10 @@ const SendEgg: React.FC = () => {
 
 	return (
 		<ScrollView contentContainerStyle={styles.contentContainer}>
-			<View style={styles.container}>
-			<View >
-				<Text> hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello </Text>
+			<View className='py-5 self-center '>
+				<Text className='font-bold text-white text-lg'>Is time to play! Choose the content of the egg you'll be sending and surprise your partner with a minigame to hatch it!</Text>
 			</View>
+			<View style={styles.container}>
 				<View style={styles.buttonContainer}>
 					<SelectDropdown
 						buttonStyle={{ backgroundColor: '#D8A7B1' }}

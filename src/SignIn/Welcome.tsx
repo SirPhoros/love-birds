@@ -16,7 +16,6 @@ export default function Welcome() {
 				backgroundColor: '#0fb5fe',
 			}}
 		>
-			{/* <Text>Welcome Page Goes Here</Text> */}
 			<View style={styles.imageContainer}>
 				<Image
 					source={LoveBirdsLogo}
