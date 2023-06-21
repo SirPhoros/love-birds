@@ -11,8 +11,6 @@ import QuizGame from "../Quiz/QuizGame"
         const route = useRoute()
         const item = route.params?.item
 
-        console.log('gameName', item.game.gameName)
-
         return (
             <>
                 <GestureHandlerRootView style={{flex: 1}}>

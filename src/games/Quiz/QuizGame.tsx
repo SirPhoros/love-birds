@@ -3,17 +3,13 @@ import { View, Text, TextInput, Alert, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 import SelectDropdown from 'react-native-select-dropdown';
 import { useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import { updateLock } from '../../../utils';
 
 
 const QuizGame: React.FC = () => {
-  
-  const [quiz, setQuiz] =useState()
-  
-  let questionText: string;
-  let answerOne: string;
-  let answerTwo: string;
-  let answerThree: string;
-  let answerIndex: number;
+
+  const nav = useNavigation();
 
   const [answered, setAnswered] = useState(false)
   const [answer, setAnswer] = useState('')
@@ -21,14 +17,30 @@ const QuizGame: React.FC = () => {
   const route = useRoute()
   const item = route.params?.item
 
-  console.log('gameName', item)
-  console.log('answered:', answered)
-  console.log('answer:', answer)
+  const answerOne:string = item.game.gameContent.answerOne
+  const answerTwo:string = item.game.gameContent.answerTwo
+  const answerThree:string = item.game.gameContent.answerThree
+  const answerIndex:string = item.game.gameContent.solution
+  const answerNumber:number = +answerIndex.substring(7) - 1
+  const answerArray:string[] = [answerOne, answerTwo, answerThree]
 
   
 
   function handlePress () {
     
+    if(answer === answerArray[answerNumber]){
+        Alert.alert('Congratulations!', 'You got the right answer!', [
+            {
+                text: 'Hatch your egg',
+                onPress: () => {
+                    nav.navigate('My Egg' as never, { item })
+                    updateLock(item)
+                },
+            },
+        ])
+    } else {
+        Alert.alert('Incorrect!', 'Better try again! How well do you really know your partner?')
+    }
   }
   
   return (
@@ -60,8 +72,9 @@ const QuizGame: React.FC = () => {
                     }}/>
             </View>
             <View className="items-center justify-center bg-blue-400 px-4">
-                <Text>{answered === false ? null : <Text className="text-white text-lg mb-4">You have selected: {answer}. Last change to change your mind, or confirm when you are sure! Good luck!</Text>}</Text>
+                <Text>{answered === false ? null : <Text className="text-white text-lg mb-4">You have selected: {answer}.</Text>}</Text>
                 <View>{answered === false ? null : <Button title={'Confirm'} onPress={handlePress}/>}</View>
+                <Text>{answered === false ? null : <Text className="text-white text-lg mb-4">Confirm...? Or change your mind first!</Text>}</Text>
             </View>
 
         </View>
