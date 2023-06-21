@@ -15,86 +15,55 @@ const QuizGame: React.FC = () => {
   let answerThree: string;
   let answerIndex: number;
 
+  const [answered, setAnswered] = useState(false)
+  const [answer, setAnswer] = useState('')
+
   const route = useRoute()
   const item = route.params?.item
 
   console.log('gameName', item)
+  console.log('answered:', answered)
+  console.log('answer:', answer)
+
+  
+
+  function handlePress () {
+    
+  }
   
   return (
     <>
         <View className="bg-blue-400 py-8 px-4">
-            <Text className="text-white text-lg mb-4">Here's the Quiz!</Text>
-            <Text>{item.game.gameName}</Text>
+            <Text className="text-white text-lg mb-4">Your Partner sent you a Question! Answer it to hatch your egg!</Text>
             <View className="mb-4">
-                <TextInput
-                    className="border border-gray-300 bg-white rounded-full px-4 py-2"
-                    placeholder="Enter your question"
-                    onChangeText={(newText) => {
-                        questionText = newText
-            console.log('question:', questionText)
-                    }}
-                />
+                <Text>Question: {item.game.gameContent.question}</Text>
             </View>
             <View className="mb-4">
-                <TextInput
-                    className="border border-gray-300 bg-white rounded-full px-4 py-2"
-                    placeholder="Enter your first choice"
-                    onChangeText={(newText) => {
-                        answerOne = newText
-            console.log('1:', answerOne)
-                    }}
-                />
+               <Button title={`Option 1: ${item.game.gameContent.answerOne}`} 
+               onPress={() => {
+                setAnswered(true)
+                setAnswer(item.game.gameContent.answerOne)
+                }}/>
             </View>
             <View className="mb-4">
-                <TextInput
-                    className="border border-gray-300 bg-white rounded-full px-4 py-2"
-                    placeholder="Enter your second choice"
-                    onChangeText={(newText) => {
-                        answerTwo = newText
-            console.log('2:', answerTwo)
-                    }}
-                />
+                <Button title={`Option 2: ${item.game.gameContent.answerTwo}`} 
+                onPress={() => {
+                    setAnswered(true)
+                    setAnswer(item.game.gameContent.answerTwo)
+                    }}/>
             </View>
             <View className="mb-4">
-                <TextInput
-                    className="border border-gray-300 bg-white rounded-full px-4 py-2"
-                    placeholder="Enter your third choice"
-                    onChangeText={(newText) => {
-                        answerThree = newText
-            console.log('3:', answerThree)
-                    }}
-                />
+                <Button title={`Option 3: ${item.game.gameContent.answerThree}`} 
+                onPress={() => {
+                    setAnswered(true)
+                    setAnswer(item.game.gameContent.answerThree)
+                    }}/>
             </View>
             <View className="items-center justify-center bg-blue-400 px-4">
-                <Text className="text-white text-lg mb-4">Which answer is correct?</Text>
-                <SelectDropdown
-                    buttonStyle={{ backgroundColor: '#D8A7B1', borderWidth: 2, borderRadius: 50, borderColor: 'brown', marginBottom: 10 }}
-                    data={['Answer 1', 'Answer 2', 'Answer 3']}
-                    onSelect={(selectedItem, index) => {
-                        answerIndex=selectedItem
-                    }}
-                    buttonTextAfterSelection={(selectedItem, index) => {
-                        return selectedItem
-                    }}
-                    rowTextForSelection={(item, index) => {
-                        return item
-                    }}
-                    dropdownStyle={{ backgroundColor: '#FAE8E0' }}
-                />
+                <Text>{answered === false ? null : <Text className="text-white text-lg mb-4">You have selected: {answer}. Last change to change your mind, or confirm when you are sure! Good luck!</Text>}</Text>
+                <View>{answered === false ? null : <Button title={'Confirm'} onPress={handlePress}/>}</View>
             </View>
-            <View>
-                <Button
-                    title="Add Question"
-                    className="hover:bg-blue-700 text-white font-bold py-2 px-4"
-                    onPress={() => {
-                    Alert.alert(
-                    `Question: ${questionText}, Answers: ${answerOne}, ${answerTwo}, ${answerThree}. Correct Answer is number ${answerIndex}`
-                    )
-                    }}
-                    buttonStyle={{ backgroundColor: '#FAE8E0', borderRadius: 50, borderWidth: 2, borderColor: 'brown' }}
-				    titleStyle={{ color: '#EF7C8E' }}
-                />
-            </View>
+
         </View>
     </>
   )
