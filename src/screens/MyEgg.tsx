@@ -5,9 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useRoute } from '@react-navigation/native'
 
 function ImageContent({ item }: any) {
-	// console.log('text content item:', item)
-	// console.log('image content:', item.fileURL)
-	// console.log('item', item)
+	
   
 	return (
 		<>
@@ -57,8 +55,6 @@ function TextContent({ item }: any) {
 
 export default function MyEgg() {
 
-	// const nav = useNavigation()
-	// const { profileId, setProfileId } = useContext(UserContext)
 	const route = useRoute()
 
 	interface RouteParams {
@@ -131,7 +127,7 @@ const styles = StyleSheet.create({
 		padding: 8, // Adjust the padding as needed
 		borderRadius: 20, // Adjust the border radius to control the shape of the bubble
 		marginTop: -10, // Add some margin to separate the bubble from the image
-		alignSelf: 'flex-start',
+		alignSelf: 'center',
 		marginBottom: 200,
 	},
 	messageText: {
