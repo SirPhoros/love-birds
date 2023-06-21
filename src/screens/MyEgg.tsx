@@ -5,6 +5,7 @@ import { UserContext } from "../../Context/UserContext";
 import { useRoute } from "@react-navigation/native";
 
 
+
 function ImageContent ({item}: any) {
 
     console.log('text content item:', item)
