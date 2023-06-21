@@ -210,13 +210,14 @@ const styles = StyleSheet.create({
 		left: 0,
 		right: 0,
 		backgroundColor: '#0fb5fe',
-		paddingVertical: 35,
+		paddingVertical: 10,
 		paddingHorizontal: 20,
+    marginBottom: 20,
 	},
 	footerText: {
 		textAlign: 'center',
 		color: '#FAE8E0',
-		fontSize: 20,
+		fontSize: 15,
 		backgroundColor: '#0fb5fe',
 	},
 })
