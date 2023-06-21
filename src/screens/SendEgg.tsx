@@ -13,7 +13,7 @@ import { ScrollView } from 'react-native'
 const SendEgg: React.FC = () => {
 	const [message, setMessage] = useState('')
 	const games: string[] = ['Snake', 'Quiz']
-	const messages: string[] = ['Message', 'Image', 'Send a Snap']
+	const messages: string[] = ['Message', 'Upload Image', 'Send a Snap']
 	const [selectedGame, setSelectedGame] = useState('')
 	const [gameContent, setGameContent] = useState({})
 	const [messageForm, setMessageForm] = useState('')
@@ -278,7 +278,7 @@ const SendEgg: React.FC = () => {
 			<>
 				{messageForm === 'Message' ? (
 					showMessage && <MessageInput />
-				) : messageForm === 'Image' ? (
+				) : messageForm === 'Upload Image' ? (
 					<UploadImage />
 				) : (
 					showCamera && (
