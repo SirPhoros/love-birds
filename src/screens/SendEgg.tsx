@@ -218,9 +218,8 @@ const SendEgg: React.FC = () => {
 					title="Send"
 					onPress={() => {
 						Alert.alert('Message Sent!')
-						setMessage(messageText)
 						console.log('console log the game: ', game)
-						uploadText(messageText, { partner_username, username }, game) //to fix once we can pass the stuff from database
+						uploadText(message, { partner_username, username }, game) //to fix once we can pass the stuff from database
 					}}
 					buttonStyle={{ backgroundColor: '#FAE8E0' }}
 					titleStyle={{ color: '#EF7C8E' }}
@@ -290,10 +289,11 @@ const SendEgg: React.FC = () => {
 
 	return (
 		<ScrollView contentContainerStyle={styles.contentContainer}>
-
 			<View className="pt-8 self-center bg-[#0fb5fe] w-full flex items-center justify-center">
-				<Text className='font-bold text-white text-lg text-center'>Is time to play! Choose the content of the egg you'll be sending and surprise your partner with a minigame to hatch it!</Text>
-
+				<Text className="font-bold text-white text-lg text-center">
+					Is time to play! Choose the content of the egg you'll be sending and
+					surprise your partner with a minigame to hatch it!
+				</Text>
 			</View>
 			<View style={styles.container}>
 				<Text>Choose a game</Text>
