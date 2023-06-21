@@ -8,7 +8,7 @@ function ImageContent({ item }: any) {
 	// console.log('text content item:', item)
 	// console.log('image content:', item.fileURL)
 	// console.log('item', item)
-
+  
 	return (
 		<>
 			<Text style={styles.text}>

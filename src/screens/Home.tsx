@@ -50,10 +50,10 @@ function Home() {
 		
 		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#0fb5fe' }}>
 			<View className='py-5 self-center'>
-				<Text className='font-bold text-white text-3xl'>Tweet!</Text>
+				<Text className='font-bold text-white text-3xl'>Chirp! 🦜 Chirp!</Text>
 			</View>
 			<View className='py-4 self-center'>
-				<Text className='font-bold text-white'>Exchange gifts and hatch eggs with your loved one!</Text>
+				<Text className='font-bold text-white text-xl text-center'>Exchange gifts and hatch eggs with your loved one!</Text>
 			</View>
 			<TouchableOpacity onPress={() => nav.navigate('Nest' as never)}>
 				<Image
