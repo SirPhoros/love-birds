@@ -7,7 +7,8 @@ import * as MediaLibrary from 'expo-media-library'
 import { uploadMediaFromGallery } from '../../utils'
 import { UserContext } from '../../Context/UserContext'
 
-const CameraFeature = ({ onClose }) => {
+const CameraFeature = ({ game, onClose }) => {
+	console.log(game)
 	let cameraRef = useRef()
 	const [hasCameraPermission, setHasCameraPermission] = useState()
 	const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState()
@@ -57,7 +58,12 @@ const CameraFeature = ({ onClose }) => {
 
 		let uploadPhoto = () => {
 			const caption = 'This is an egg-tastic snapshop!'
-			uploadMediaFromGallery(photo.uri, { partner_username, username }, caption)
+			uploadMediaFromGallery(
+				photo.uri,
+				{ partner_username, username },
+				game,
+				caption
+			)
 			setPhoto(undefined)
 		}
 
