@@ -77,7 +77,7 @@ function Home() {
 					style={styles.image}
 				/>
 				<View className="self-center">
-					<Text className="font-bold text-white text-xl">Lovers' Nest</Text>
+					<Text className="font-bold text-white text-xl">Lovers Nest</Text>
 				</View>
 			</TouchableOpacity>
 			<TouchableOpacity
