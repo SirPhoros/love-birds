@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Alert, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import SelectDropdown from 'react-native-select-dropdown';
 
