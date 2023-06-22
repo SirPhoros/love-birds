@@ -48,7 +48,7 @@ export default function Game(): JSX.Element {
 		if (isGameOver && score < 50) {
 			Alert.alert(
 				'Try again',
-				`Your Score is ${score}. You need to get 100 points to hatch the egg!`,
+				`Your Score is ${score}. You need to get 50 points to hatch the egg!`,
 				[
 					{
 						text: 'replay',
