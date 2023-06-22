@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { View, TextInput, StyleSheet, Alert } from 'react-native'
+import { View, TextInput, StyleSheet} from 'react-native'
 import { Text, Button, Image } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 import { logIn } from '../../utils'
 import LoveBirdsLogo from '../../assets/Lovebirds-Logo.gif'
-import Baloon from '../../assets/hot-air-baloon.gif'
 
 let emailLogin: string = ''
 let passwordLogin: string = ''
@@ -25,7 +24,6 @@ export default function LogIn() {
 				<View style={{ alignItems: 'center', marginBottom: 20 }}>
 					{loginErr ? (
 						<Text>
-							{/* //CHANGE THIS TO MAKE IT LOOK LIKE AN ERROR MESSAGE */}
 							Wrong email/password. Please try again.
 							<View></View>
 						</Text>
@@ -95,30 +93,6 @@ export default function LogIn() {
 										setLoginErr(true)
 									}
 								})
-						}}
-						buttonStyle={{ backgroundColor: '#FAE8E0' }}
-						titleStyle={{ color: '#EF7C8E' }}
-					/>
-					<Button
-						title="User"
-						onPress={() => {
-							setEmail('user@example.com')
-							setPassword('123456')
-							logIn('user@example.com', '123456')
-							setLoginStatus(true)
-							console.log('email: ', email, 'password: ', password)
-						}}
-						buttonStyle={{ backgroundColor: '#FAE8E0' }}
-						titleStyle={{ color: '#EF7C8E' }}
-					/>
-					<Button
-						title="Example"
-						onPress={() => {
-							setEmail('example@example.com')
-							setPassword('123456')
-							logIn('example@example.com', '123456')
-							setLoginStatus(true)
-							console.log('email: ', email, 'password: ', password)
 						}}
 						buttonStyle={{ backgroundColor: '#FAE8E0' }}
 						titleStyle={{ color: '#EF7C8E' }}

@@ -1,7 +1,6 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { View, Text, StyleSheet, Image, ScrollView, Button } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-// import { UserContext } from '../../Context/UserContext'
 import { useRoute } from '@react-navigation/native'
 
 function ImageContent({ item }: any) {

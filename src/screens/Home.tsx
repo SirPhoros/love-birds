@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Text, View, Image, StyleSheet, Alert } from 'react-native'
+import { Text, View, Image, StyleSheet, Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { UserContext } from '../../Context/UserContext'
 import { checkConnection, getUserData } from '../../utils'

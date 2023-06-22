@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Alert, StyleSheet } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
-import SelectDropdown from 'react-native-select-dropdown';
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { updateLock } from '../../../utils';

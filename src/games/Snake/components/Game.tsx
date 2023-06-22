@@ -34,8 +34,7 @@ export default function Game(): JSX.Element {
 	const item = route.params?.item
 
 	useEffect(() => {
-    //For testing purposes, then move it to 100
-		if (isGameOver && score >=20) {
+		if (isGameOver && score >=50) {
 			Alert.alert('Congratulations!', `Your Score is ${score}`, [
 				{
 					text: 'Hatch your egg',
@@ -46,7 +45,7 @@ export default function Game(): JSX.Element {
 				},
 			])
 		}
-		if (isGameOver && score < 20) {
+		if (isGameOver && score < 50) {
 			Alert.alert(
 				'Try again',
 				`Your Score is ${score}. You need to get 100 points to hatch the egg!`,
@@ -70,7 +69,7 @@ export default function Game(): JSX.Element {
 
 	const moveSnake = () => {
 		const snakeHead = snake[0]
-		const newHead = { ...snakeHead } // creating a copy of snakehead
+		const newHead = { ...snakeHead }
 
 		if (checkGameOver(snakeHead, GAME_BOUNDS)) {
 			setIsGameOver((prev) => !prev)
