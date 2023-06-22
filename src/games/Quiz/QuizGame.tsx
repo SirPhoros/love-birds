@@ -51,10 +51,10 @@ const QuizGame: React.FC = () => {
             </View>
             <View className="mb-4">
                <Button 
-                className='w-60'
+                className='w-60 px-80'
                 buttonStyle={{ backgroundColor: '#ffc0cb', borderWidth: 2, borderRadius: 50, borderColor: 'brown', marginBottom: 10 }}
                 titleStyle={{ color: '#000000' }}
-                title={`Option 1: ${item.game.gameContent.answerOne}`} 
+                title={`a: ${item.game.gameContent.answerOne}`} 
                 onPress={() => {
                     setAnswered(true)
                     setAnswer(item.game.gameContent.answerOne)
@@ -67,7 +67,7 @@ const QuizGame: React.FC = () => {
                 className='w-60'
                 buttonStyle={{ backgroundColor: '#ffc0cb', borderWidth: 2, borderRadius: 50, borderColor: 'brown', marginBottom: 10 }}
                 titleStyle={{ color: '#000000' }}
-                title={`Option 2: ${item.game.gameContent.answerTwo}`} 
+                title={`b: ${item.game.gameContent.answerTwo}`} 
                 onPress={() => {
                     setAnswered(true)
                     setAnswer(item.game.gameContent.answerTwo)
@@ -80,7 +80,7 @@ const QuizGame: React.FC = () => {
                 className='w-60'
                 buttonStyle={{ backgroundColor: '#ffc0cb', borderWidth: 2, borderRadius: 50, borderColor: 'brown', marginBottom: 10 }}
                 titleStyle={{ color: '#000000' }}
-                title={`Option 3: ${item.game.gameContent.answerThree}`} 
+                title={`c: ${item.game.gameContent.answerThree}`} 
                 onPress={() => {
                     setAnswered(true)
                     setAnswer(item.game.gameContent.answerThree)
