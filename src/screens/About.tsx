@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View, Image, StyleSheet, TouchableOpacity, Linking, FlatList } from "react-native";
-import Cat from '../../assets/Cat.jpeg'
+import TeamPic from '../../assets/TeamPic.jpeg'
 import Tom from '../../assets/Tom.jpeg'
 import Cris from '../../assets/Cris.jpeg'
 import Ale from '../../assets/Ale.jpeg'
@@ -63,7 +63,7 @@ Linking.openURL(url)
         ListHeaderComponent={
           <>
             <Image
-              source={Cat}
+              source={TeamPic}
               style={styles.teamPicture}
               resizeMode="cover"
               />

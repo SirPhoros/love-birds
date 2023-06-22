@@ -64,10 +64,10 @@ function Home() {
 			}}
 		>
 			<View className="py-5 self-center">
-				<Text className="font-bold text-white text-3xl">Chirp! 🦜 Chirp!</Text>
+			
 			</View>
 			<View className="py-5 px-10 self-center">
-				<Text className="font-bold text-white text-xl text-center">
+				<Text className="font-bold text-white text-2xl text-center">
 					Exchange gifts and hatch eggs with your loved one!
 				</Text>
 			</View>
@@ -77,7 +77,7 @@ function Home() {
 					style={styles.image}
 				/>
 				<View className="self-center">
-					<Text className="font-bold text-white">Lovers' Nest</Text>
+					<Text className="font-bold text-white text-xl">Lovers' Nest</Text>
 				</View>
 			</TouchableOpacity>
 			<TouchableOpacity
@@ -102,8 +102,8 @@ function Home() {
 				/>
 			</TouchableOpacity>
 			<View className="py-5 self-center">
-				<Text className="font-bold text-white">
-					Send an egg for your partner to hatch!
+				<Text className="font-bold text-white text-xl">
+					Send an egg to your partner
 				</Text>
 			</View>
 		</View>
