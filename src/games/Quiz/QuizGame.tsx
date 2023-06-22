@@ -23,7 +23,8 @@ const QuizGame: React.FC = () => {
   const answerNumber:number = +answerIndex.substring(7) - 1
   const answerArray:string[] = [answerOne, answerTwo, answerThree]
 
-  
+  console.log('answer one', answerOne)
+  console.log(item.game.gameContent)
 
   function handlePress () {
     
@@ -51,7 +52,7 @@ const QuizGame: React.FC = () => {
             </View>
             <View className="mb-4">
                <Button 
-                className='w-60 px-80'
+                className='w-60'
                 buttonStyle={{ backgroundColor: '#ffc0cb', borderWidth: 2, borderRadius: 50, borderColor: 'brown', marginBottom: 10 }}
                 titleStyle={{ color: '#000000' }}
                 title={`a: ${item.game.gameContent.answerOne}`} 

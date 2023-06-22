@@ -5,8 +5,10 @@ import { Camera, CameraType } from 'expo-camera'
 import * as MediaLibrary from 'expo-media-library'
 import { uploadMediaFromGallery } from '../../utils'
 import { UserContext } from '../../Context/UserContext'
+import { useNavigation } from '@react-navigation/native'
 
 const CameraFeature = ({ game, onClose }) => {
+	const nav = useNavigation()
 	console.log(game)
 	let cameraRef = useRef()
 	const [hasCameraPermission, setHasCameraPermission] = useState()
@@ -64,6 +66,7 @@ const CameraFeature = ({ game, onClose }) => {
 				caption
 			)
 			setPhoto(undefined)
+			nav.navigate('Home')
 		}
 
 		return (
@@ -98,7 +101,7 @@ const CameraFeature = ({ game, onClose }) => {
 								</View>
 								<View style={styles.buttonContainer2}>
 									<Button
-										title="Upload"
+										title="Send"
 										onPress={uploadPhoto}
 										buttonStyle={{ backgroundColor: '#FAE8E0' }}
 										titleStyle={{ color: '#EF7C8E' }}
