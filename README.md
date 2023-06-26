@@ -7,7 +7,7 @@ _Love Birds_ is a fun and interactive way to bring long-distance relationships t
 This application was the result of the final project phase for the [Northcoders FullStack Bootcamp](https://northcoders.com/our-courses/coding-bootcamp). The project is a React Native app written in _TypeScript_, with _Tailwind_ as a styling tool and _Google Firebase_
 The purpose of the app is to establish an online relationship with your partner (or friend) and be able to send messages and pictures to them in the form of eggs. To view those messages, your connection should play some fun games to ‘hatch’ those eggs.
 
-Written by [Alessandro Frondini](https://github.com/alessandro-001), [Tom O’Neill](https://github.com/Tomoneill98), [Daniel Couperwaithe](https://github.com/DanielCouperthwaite), [Cristóbal G. Torrubia](https://github.com/SirPhoros). Latest version 1.0.0 (22 Jun 2023).
+Written by [Alessandro Frondini](https://github.com/alessandro-001), [Tom O’Neill](https://github.com/Tomoneill98), [Daniel Couperthwaite](https://github.com/DanielCouperthwaite), [Cristóbal G. Torrubia](https://github.com/SirPhoros). Latest version 1.0.0 (22 Jun 2023).
 
 This project has been part of the Northcoders bootcamp, 27th March 2023 - 23rd June 2023
 
@@ -97,7 +97,7 @@ The following links will take you to the creators' Gihub of the project:
 
 `Tom O’Neill:` [Github](https://github.com/Tomoneill98) & [Linkedin](https://www.linkedin.com/in/tomoneill98/)
 
-`Daniel Couperwaithe: `[Github](https://github.com/DanielCouperthwaite) & [Linkedin](https://www.linkedin.com/in/daniel-couperthwaite-209290139/)
+`Daniel Couperthwaite: `[Github](https://github.com/DanielCouperthwaite) & [Linkedin](https://www.linkedin.com/in/daniel-couperthwaite-209290139/)
 
 `Cristóbal G. Torrubia:` [Github](https://github.com/SirPhoros) & [Linkedin](https://www.linkedin.com/in/cgtorrubia/)
 
@@ -109,5 +109,5 @@ Feel free to post bugs [here](https://github.com/SirPhoros/love-birds/issues) or
 
 ___
 
-Copyright (c) 2023 - The Devs wears Prada:
-[Alessandro Frondini](https://www.linkedin.com/in/alefrondini/), [Daniel Couperwaithe](https://www.linkedin.com/in/daniel-couperthwaite-209290139/) , [Tom O'Neill](https://www.linkedin.com/in/tomoneill98/) & [Cristóbal Gutiérrez Torrubia](https://www.linkedin.com/in/cgtorrubia/) as students of _[Northcoders](https://northcoders.com/)_
+Copyright (c) 2023 - The Devs wears Java:
+[Alessandro Frondini](https://www.linkedin.com/in/alefrondini/), [Daniel Couperthwaite](https://www.linkedin.com/in/daniel-couperthwaite-209290139/) , [Tom O'Neill](https://www.linkedin.com/in/tomoneill98/) & [Cristóbal Gutiérrez Torrubia](https://www.linkedin.com/in/cgtorrubia/) as students of _[Northcoders](https://northcoders.com/)_
