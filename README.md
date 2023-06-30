@@ -11,6 +11,8 @@ Written by [Alessandro Frondini](https://github.com/alessandro-001), [Tom O’Ne
 
 This project has been part of the Northcoders bootcamp, 27th March 2023 - 23rd June 2023
 
+> A demo and explanation of the project can be seen on the following page: https://northcoders.com/projects/june-2023/love-birds
+
 ---
 
 ## Set-up guide
